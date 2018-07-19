@@ -1,0 +1,45 @@
+bulletML(vertical,[
+  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
+  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
+  eaction('XWayFan',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  ]),
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  eaction(fan,[
+    wait(30),
+    fire(some(dirAbs($1)),some(spdAbs(1.2+rank)),bulletRef('Dummy',[])),
+    actionRef('XWay',[$2,$3]),
+    repeat(6,[
+      action([
+        wait(30),
+        fire(some(dirSeq($4)),some(spdSeq(0)),bullet(none,none,[])),
+        actionRef('XWay',[$2,$3])
+      ])
+    ])
+  ]),
+  eaction(top1,[actionRef(fan,[220,8,5,- 42.5]),actionRef(fan,[150,8,- 5,42.5])]),
+  eaction(top2,[actionRef(fan,[200,7,2.5,- 22.5]),actionRef(fan,[170,7,- 2.5,22.5])]),
+  eaction(top3,[actionRef(fan,[160,8,5,- 42.5]),actionRef(fan,[210,8,- 5,42.5])]),
+  eaction(top4,[
+    wait(20),
+    repeat(2,[
+      action([
+        repeat(36+rank*20,[
+          action([
+            fire(some(dirAim(rand*360)),some(spdAbs(2)),bullet(none,none,[
+              action([
+                wait(10*rand),
+                actionRef('Stop',[]),
+                wait(60),
+                changeDirection(dirAim(0),1),
+                changeSpeed(spdAbs(2.4),1)
+              ])
+            ])),
+            wait(3)
+          ])
+        ]),
+        wait(60-rank*60)
+      ])
+    ])
+  ])
+]).

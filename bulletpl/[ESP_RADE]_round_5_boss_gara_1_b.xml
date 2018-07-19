@@ -1,0 +1,28 @@
+bulletML(none,[
+  eaction('8way2',[
+    fire(some(dirAbs(180-75)),some(spdAbs(4)),bullet(none,none,[])),
+    repeat(7,[action([fire(some(dirSeq(9)),some(spdSeq(- 0.25)),bullet(none,none,[]))])]),
+    fire(some(dirAbs(180+75)),some(spdAbs(4)),bullet(none,none,[])),
+    repeat(7,[action([fire(some(dirSeq(- 9)),some(spdSeq(- 0.25)),bullet(none,none,[]))])])
+  ]),
+  eaction(downShot,[
+    fire(some(dirAim(- 60+rand*120)),some(spdAbs(4*rand)),bullet(none,none,[
+      action([
+        wait(20),
+        fire(some(dirAbs(180)),some(spdAbs(1.2)),bullet(none,none,[])),
+        vanish
+      ])
+    ]))
+  ]),
+  eaction(gara,[
+    changeDirection(dirAim(10+rand*340),1),
+    changeSpeed(spdAbs(0.3),1),
+    repeat(3+rank*4,[
+      action([
+        repeat(8,[action([actionRef(downShot,[]),wait(3*(3-rank*2)*rand)])]),
+        actionRef('8way2',[])
+      ])
+    ])
+  ]),
+  eaction(top,[repeat(5,[actionRef(gara,[])]),changeSpeed(spdAbs(0),1),wait(30)])
+]).

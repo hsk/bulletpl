@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "../bulletml.dtd">
+<bulletml>
+  <bullet label="bulletmls/[Progear]_round_4_boss_fast_rocket.xml:_:downAccel">
+    <action>
+      <accel>
+        <vertical type="absolute">2.7</vertical>
+        <term>120</term>
+      </accel>
+    </action>
+  </bullet>
+</bulletml>

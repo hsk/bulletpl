@@ -1,0 +1,58 @@
+bulletML(vertical,[
+  ebullet('Red',bullet(none,none,[action([])])),
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
+  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
+  eaction('XWayFan',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  ]),
+  eaction(top1,[
+    fire(some(dirAbs(90)),none,bulletRef(aim2,[])),
+    fire(some(dirAbs(- 90)),none,bulletRef(aim2,[])),
+    fire(none,some(spdAbs(0)),bullet(none,none,[actionRef(fanRoll,[7])])),
+    fire(none,some(spdAbs(0)),bullet(none,none,[actionRef(fanRoll,[- 7])]))
+  ]),
+  eaction(top2,[actionRef('3wayRoll',[13])]),
+  eaction(top3,[actionRef('3wayRoll',[- 13])]),
+  eaction('3wayRoll',[
+    fire(some(dirAbs(180)),none,bulletRef('Dummy',[])),
+    repeat(14,[
+      action([
+        fire(some(dirSeq(- 1.3* $1)),some(spdAbs(1.4+rank*0.8)),bullet(none,none,[])),
+        actionRef('XWay',[3,$1]),
+        wait(10)
+      ])
+    ]),
+    repeat(20,[
+      action([
+        fire(some(dirSeq(1.3* $1)),some(spdAbs(1.4+rank*0.8)),bullet(none,none,[])),
+        actionRef('XWay',[3,- $1]),
+        wait(10)
+      ])
+    ])
+  ]),
+  eaction(fanRoll,[
+    fire(some(dirAbs($1*8)),none,bulletRef('Dummy',[])),
+    repeat(32,[
+      action([
+        fire(some(dirSeq(- $1*2.1)),some(spdAbs(1.2+rank*0.4)),bullet(none,none,[])),
+        actionRef('XWayFan',[4,$1,0.3]),
+        wait(10)
+      ])
+    ]),
+    vanish
+  ]),
+  ebullet(aim2,bullet(none,some(spdAbs(1)),[
+    action([
+      wait(8),
+      actionRef('Stop',[]),
+      repeat(14+rank*12,[
+        action([
+          wait(320 div (14+rank*12)+rand),
+          fire(some(dirAim(0)),some(spdAbs(1.4+rank*0.8)),bulletRef('Red',[]))
+        ])
+      ]),
+      vanish
+    ])
+  ]))
+]).

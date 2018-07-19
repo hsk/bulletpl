@@ -1,0 +1,91 @@
+bulletML(none,[
+  eaction(top,[
+    actionRef(move,[180]),
+    fire(some(dirAbs(rand*360)),some(spdAbs(0)),bullet(none,none,[action([vanish])])),
+    wait(1),
+    repeat(5,[
+      action([
+        fire(some(dirSeq(62)),some(spdAbs(2.4)),bulletRef(speed1,[])),
+        repeat(5,[action([fire(some(dirSeq(60)),some(spdAbs(2.4)),bulletRef(speed1,[]))])]),
+        wait(2),
+        actionRef(wall,[]),
+        fire(some(dirSeq(62)),some(spdAbs(2.4)),bulletRef(speed2,[])),
+        repeat(5,[action([fire(some(dirSeq(60)),some(spdAbs(2.4)),bulletRef(speed2,[]))])]),
+        wait(2),
+        actionRef(wall,[])
+      ])
+    ]),
+    wait(150),
+    repeat(16+rank*16,[
+      action([
+        fire(some(dirAbs(360*rand)),some(spdAbs(0.6+rank*0.6)),bulletRef(curvel,[])),
+        fire(some(dirSeq(0)),some(spdAbs(0.6+rank*0.6)),bulletRef(curver,[])),
+        fire(some(dirSeq(20)),some(spdAbs(0.6+rank*0.6)),bulletRef(curvel,[])),
+        fire(some(dirSeq(0)),some(spdAbs(0.6+rank*0.6)),bulletRef(curver,[])),
+        repeat(6,[
+          action([
+            fire(some(dirSeq(40)),some(spdAbs(0.6+rank*0.6)),bulletRef(curvel,[])),
+            fire(some(dirSeq(0)),some(spdAbs(0.6+rank*0.6)),bulletRef(curver,[])),
+            fire(some(dirSeq(20)),some(spdAbs(0.6+rank*0.6)),bulletRef(curvel,[])),
+            fire(some(dirSeq(0)),some(spdAbs(0.6+rank*0.6)),bulletRef(curver,[]))
+          ])
+        ]),
+        wait(40-rank*20)
+      ])
+    ]),
+    wait(200),
+    actionRef(move,[0])
+  ]),
+  eaction(move,[
+    changeDirection(dirAbs($1),5),
+    wait(6),
+    changeSpeed(spdAbs(1),50),
+    wait(55),
+    changeSpeed(spdAbs(0),50),
+    wait(55)
+  ]),
+  eaction(wall,[
+    repeat(2,[
+      action([
+        fire(some(dirSeq(62)),some(spdAbs(2.4)),bulletRef(speed0,[])),
+        repeat(5,[action([fire(some(dirSeq(60)),some(spdAbs(2.4)),bulletRef(speed0,[]))])]),
+        wait(2)
+      ])
+    ])
+  ]),
+  ebullet(speed0,bullet(none,none,[action([actionRef(stop,[]),wait(960),vanish])])),
+  ebullet(speed1,bullet(none,none,[
+    action([
+      actionRef(stop,[]),
+      repeat(4,[
+        action([actionRef(huri,[60,1]),actionRef(huri,[- 120,2]),actionRef(huri,[60,1])])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(speed2,bullet(none,none,[
+    action([
+      actionRef(stop,[]),
+      repeat(4,[
+        action([actionRef(huri,[- 60,1]),actionRef(huri,[120,2]),actionRef(huri,[- 60,1])])
+      ]),
+      vanish
+    ])
+  ])),
+  eaction(stop,[changeSpeed(spdAbs(0),70),wait(65)]),
+  eaction(huri,[
+    changeDirection(dirRel($1),48* $2),
+    repeat((3+rank*3)* $2,[
+      action([
+        fire(some(dirRel(- 30+rand*30)),some(spdAbs(2+rank)),bullet(none,none,[])),
+        wait(20-rank*10)
+      ])
+    ])
+  ]),
+  ebullet(curvel,bullet(none,none,[
+    action([repeat(9999,[action([changeDirection(dirRel(2+rank*6),10),wait(10)])])])
+  ])),
+  ebullet(curver,bullet(none,none,[
+    action([repeat(9999,[action([changeDirection(dirRel(- 2-rank*6),10),wait(10)])])])
+  ]))
+]).

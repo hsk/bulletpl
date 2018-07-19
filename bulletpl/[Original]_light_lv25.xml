@@ -1,0 +1,41 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(3,[
+      action([
+        fire(some(dirAbs(90+75)),some(spdAbs(0.6)),bulletRef(bit,[1.2,20,- 150])),
+        fire(some(dirAbs(90+ - 75)),some(spdAbs(0.6)),bulletRef(bit,[1.2,20,150])),
+        fire(some(dirAbs(- 90+75)),some(spdAbs(0.6)),bulletRef(bit,[1.2,20,- 150])),
+        fire(some(dirAbs(- 90+ - 75)),some(spdAbs(0.6)),bulletRef(bit,[1.2,20,150])),
+        wait(50)
+      ])
+    ]),
+    repeat(3,[
+      action([
+        fire(some(dirAbs(180+45)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,- 90])),
+        fire(some(dirAbs(180-45)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,90])),
+        wait(30-10*rank),
+        fire(some(dirAim(60)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,- 120])),
+        fire(some(dirAim(- 60)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,120])),
+        wait(30-10*rank),
+        fire(some(dirAbs(180+60)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,- 120])),
+        fire(some(dirAbs(180-60)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,120])),
+        wait(40-20*rank),
+        fire(some(dirAim(45)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,- 90])),
+        fire(some(dirAim(- 45)),some(spdAbs(0.6)),bulletRef(bit,[1.2,50-25*rank,90])),
+        wait(40-20*rank)
+      ])
+    ]),
+    wait(150)
+  ]),
+  ebullet(bit,bullet(none,none,[
+    action([
+      wait($2),
+      changeSpeed(spdAbs(0),1),
+      fire(some(dirRel($3)),some(spdAbs($1*1.05)),bulletRef(bit,[$1*1.05,$2,- $3])),
+      repeat(10,[
+        action([fire(some(dirSeq(0)),some(spdAbs($1*1.05)),bullet(none,none,[])),wait(2)])
+      ]),
+      vanish
+    ])
+  ]))
+]).

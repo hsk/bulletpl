@@ -1,0 +1,22 @@
+bulletML(none,[
+  efire(accelShot,fire(some(dirAbs(90)),some(spdAbs(0)),bullet(none,none,[action([accel(some(spdAbs(3* $1)),none,80)])]))),
+  eaction(top,[
+    repeat(20,[
+      action([
+        fire(some(dirAim(rand*90-45)),some(spdAbs(1)),bullet(none,none,[
+          action([
+            repeat(9999,[
+              action([
+                wait(rand*20+30-rank*20),
+                fireRef(accelShot,[1]),
+                fireRef(accelShot,[- 1])
+              ])
+            ])
+          ])
+        ])),
+        wait(10)
+      ])
+    ]),
+    wait(120)
+  ])
+]).

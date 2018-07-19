@@ -1,0 +1,30 @@
+bulletML(none,[
+  eaction(top,[
+    changeSpeed(spdAbs(2),1),
+    changeDirection(dirAbs(180),1),
+    wait(10),
+    changeSpeed(spdAbs(0),1),
+    fire(some(dirAbs(0)),some(spdAbs(1.5)),bulletRef(blue,[])),
+    repeat(60+rank*60,[
+      action([
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        fireRef(red,[]),
+        wait(20-rank*14),
+        fire(some(dirSeq(- 31.5)),some(spdAbs(1.5)),bulletRef(blue,[]))
+      ])
+    ])
+  ]),
+  efire(red,fire(some(dirSeq(30)),some(spdAbs(1.5)),bulletRef(blue,[]))),
+  ebullet(blue,bullet(none,none,[
+    action([wait(30),fire(some(dirRel(- 110)),some(spdAbs(1.5)),bullet(none,none,[]))])
+  ]))
+]).

@@ -1,0 +1,19 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(5,[
+      action([
+        fire(some(dirAbs(360*rand)),none,bulletRef(add2way,[])),
+        repeat(71,[action([fire(some(dirSeq(5)),none,bulletRef(add2way,[]))])]),
+        wait(30-20*rank)
+      ])
+    ]),
+    wait(100)
+  ]),
+  ebullet(add2way,bullet(none,some(spdAbs(2.4*(0.25+0.75*rank))),[
+    action([
+      wait((24+6*rand)div(2.4*(0.25+0.75*rank))),
+      fire(some(dirRel(17)),some(spdRel(0)),bullet(none,none,[])),
+      fire(some(dirRel(- 17)),some(spdRel(0)),bullet(none,none,[]))
+    ])
+  ]))
+]).

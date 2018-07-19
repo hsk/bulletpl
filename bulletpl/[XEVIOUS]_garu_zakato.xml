@@ -1,0 +1,24 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(10,[
+      action([
+        fire(some(dirAbs(180)),some(spdAbs(3)),bulletRef(gzc,[])),
+        wait(20-rank*10+rand*10)
+      ])
+    ]),
+    wait(60)
+  ]),
+  ebullet(gzc,bullet(none,none,[
+    action([
+      wait(10+rand*10),
+      repeat(16,[action([fire(some(dirSeq(360 div 16)),none,bulletRef(spr,[]))])]),
+      repeat(4,[action([fire(some(dirSeq(90)),none,bulletRef(hrmSpr,[]))])]),
+      vanish
+    ])
+  ])),
+  ebullet(spr,bullet(none,some(spdAbs(2)),[])),
+  ebullet(hrmSpr,bullet(none,some(spdAbs(0)),[
+    action([changeSpeed(spdAbs(2),60)]),
+    action([repeat(9999,[action([changeDirection(dirAim(0),40),wait(1)])])])
+  ]))
+]).

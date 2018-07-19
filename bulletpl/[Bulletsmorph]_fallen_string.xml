@@ -1,0 +1,3 @@
+bulletML(none,[
+  ebullet('bulletmls/[Progear]_round_4_boss_fast_rocket.xml:_:downAccel',bullet(none,none,[action([accel(none,some(spdAbs(2.7)),120)])]))
+]).

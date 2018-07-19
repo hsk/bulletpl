@@ -1,0 +1,30 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(50,[
+      action([
+        fireRef(seed,[1,rand,rand]),
+        wait(15),
+        fireRef(seed,[- 1,rand,rand]),
+        wait(15)
+      ])
+    ])
+  ]),
+  efire(seed,fire(some(dirAbs(90* $1)),some(spdAbs(rand*3)),bullet(none,none,[
+    action([
+      wait(20),
+      repeat(40,[
+        action([fire(some(dirSeq(9)),some(spdAbs(0.5+rank)),bulletRef(roundbase,[$2,$3]))])
+      ]),
+      vanish
+    ])
+  ]))),
+  ebullet(roundbase,bullet(none,none,[
+    action([
+      wait(10),
+      fire(some(dirAbs(90)),some(spdAbs($1)),bulletRef(round,[])),
+      fire(some(dirAbs(270)),some(spdAbs($2)),bulletRef(round,[])),
+      vanish
+    ])
+  ])),
+  ebullet(round,bullet(none,none,[action([accel(none,some(spdAbs(10)),250)])]))
+]).

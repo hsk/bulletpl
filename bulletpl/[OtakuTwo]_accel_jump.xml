@@ -1,0 +1,36 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(5,[
+      action([
+        actionRef(move,[1]),
+        actionRef(move,[- 1]),
+        actionRef(move,[- 1]),
+        actionRef(move,[1])
+      ])
+    ]),
+    changeSpeed(spdAbs(0),1),
+    wait(300)
+  ]),
+  eaction(move,[
+    changeDirection(dirAbs(90* $1),1),
+    changeSpeed(spdAbs(1.6),1),
+    repeat(10,[
+      action([
+        wait(5),
+        repeat(1+rank*rank*rank*rank*3,[
+          action([fire(some(dirAbs(- 30+rand*60)),some(spdAbs(2.5)),bulletRef(bound,[]))])
+        ])
+      ])
+    ])
+  ]),
+  ebullet(bound,bullet(none,none,[
+    action([
+      accel(none,some(spdAbs(10)),200),
+      wait(60+rand*40),
+      repeat(1+rank*rank*rank,[
+        action([fire(some(dirAbs(- 15+rand*30)),some(spdAbs(1.6)),bulletRef(bound,[]))])
+      ]),
+      vanish
+    ])
+  ]))
+]).

@@ -1,0 +1,37 @@
+bulletML(none,[
+  efire(rollOut,fire(some(dirRel(90)),some(spdAbs(0.0001)),bullet(none,none,[
+    action([
+      wait(350),
+      changeSpeed(spdAbs(1),100),
+      changeDirection(dirRel(50-rank*40),100),
+      wait(1000)
+    ])
+  ]))),
+  ebullet(setter,bullet(none,some(spdAbs(3)),[action([repeat(999,[action([wait(5),fireRef(rollOut,[])])])])])),
+  eaction(top1,[
+    fire(some(dirAbs(rand*10)),none,bulletRef(setter,[])),
+    repeat(45 div (2-rank),[action([fire(some(dirSeq(16-rank*8)),none,bulletRef(setter,[])),wait(1)])]),
+    wait(40),
+    repeat(125+rank*125,[
+      action([
+        wait(1.5-rank div 2+rand),
+        fire(some(dirAim(45-rand*90)),some(spdAbs(1.2)),bullet(none,none,[]))
+      ])
+    ])
+  ]),
+  eaction(top2,[
+    wait(80),
+    changeSpeed(spdAbs(0.7),1),
+    changeDirection(dirAim(0),1),
+    wait(1),
+    changeDirection(dirSeq(1.44444),250),
+    wait(250),
+    changeSpeed(spdAbs(0),1),
+    wait(20),
+    changeSpeed(spdAbs(0.7),1),
+    changeDirection(dirSeq(30),12),
+    wait(12),
+    changeSpeed(spdAbs(0),1),
+    wait(200-rank*60)
+  ])
+]).

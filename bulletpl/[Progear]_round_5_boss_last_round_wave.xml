@@ -1,0 +1,15 @@
+bulletML(horizontal,[
+  eaction(top,[
+    repeat(4,[
+      action([
+        repeat(2+rank*1.5,[action([fire(none,none,bulletRef(rfRkt,[])),wait(45)])]),
+        wait(100)
+      ])
+    ])
+  ]),
+  ebullet(rfRkt,bullet(none,none,[
+    action([
+      repeat(9999,[action([wait(2),fire(some(dirSeq(15)),none,bullet(none,none,[]))])])
+    ])
+  ]))
+]).

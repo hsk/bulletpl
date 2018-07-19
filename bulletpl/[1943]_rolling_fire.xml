@@ -1,0 +1,14 @@
+bulletML(vertical,[
+  eaction(top,[fire(none,none,bulletRef(roll,[]))]),
+  ebullet(roll,bullet(none,none,[
+    action([
+      wait(40+rand*20),
+      changeDirection(dirRel(- 90),4),
+      changeSpeed(spdAbs(3),4),
+      wait(4),
+      changeDirection(dirSeq(15),9999),
+      wait(80+rand*40),
+      vanish
+    ])
+  ]))
+]).

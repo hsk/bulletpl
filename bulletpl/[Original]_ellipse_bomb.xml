@@ -1,0 +1,66 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(some(dirAbs(215+20*rand)),some(spdAbs(2.0)),bulletRef(bit,[0.8,1.4*(0.5+0.5*rank),30-20*rank])),
+    wait(40),
+    fire(some(dirAbs(145-20*rand)),some(spdAbs(2.0)),bulletRef(bit,[0.8,1.4*(0.5+0.5*rank),30-20*rank])),
+    wait(40),
+    fire(some(dirAbs(170+20*rand)),some(spdAbs(2.0)),bulletRef(bit,[0.8,1.4*(0.5+0.5*rank),30-20*rank])),
+    wait(600-250*rank)
+  ]),
+  ebullet(bit,bullet(none,none,[
+    action([
+      wait(15),
+      changeSpeed(spdAbs(0),1),
+      wait(15),
+      fire(some(dirAbs(360*rand)),none,bulletRef(ellipse,[$1,$2,$3])),
+      vanish
+    ])
+  ])),
+  ebullet(ellipse,bullet(none,some(spdAbs(0.001)),[
+    action([
+      fire(some(dirRel(5)),some(spdAbs($1)),bulletRef(red,[$2,$3])),
+      repeat(6,[
+        action([fire(some(dirSeq(10)),some(spdSeq(- ($1*0.04))),bulletRef(red,[$2,$3]))])
+      ]),
+      repeat(2,[
+        action([fire(some(dirSeq(10)),some(spdSeq(- ($1*0.01))),bulletRef(red,[$2,$3]))])
+      ]),
+      fire(some(dirSeq(10)),some(spdSeq(0)),bulletRef(red,[$2,$3])),
+      repeat(2,[
+        action([fire(some(dirSeq(10)),some(spdSeq($1*0.01)),bulletRef(red,[$2,$3]))])
+      ]),
+      repeat(6,[
+        action([fire(some(dirSeq(10)),some(spdSeq($1*0.04)),bulletRef(red,[$2,$3]))])
+      ]),
+      fire(some(dirSeq(10)),some(spdSeq(0)),bulletRef(red,[$2,$3])),
+      repeat(6,[
+        action([fire(some(dirSeq(10)),some(spdSeq(- ($1*0.04))),bulletRef(red,[$2,$3]))])
+      ]),
+      repeat(2,[
+        action([fire(some(dirSeq(10)),some(spdSeq(- ($1*0.01))),bulletRef(red,[$2,$3]))])
+      ]),
+      fire(some(dirSeq(10)),some(spdSeq(0)),bulletRef(red,[$2,$3])),
+      repeat(2,[
+        action([fire(some(dirSeq(10)),some(spdSeq($1*0.01)),bulletRef(red,[$2,$3]))])
+      ]),
+      repeat(6,[
+        action([fire(some(dirSeq(10)),some(spdSeq($1*0.04)),bulletRef(red,[$2,$3]))])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(red,bullet(none,none,[
+    action([
+      wait(35),
+      changeSpeed(spdAbs(0.001),1),
+      wait(5),
+      wait($2),
+      fire(some(dirRel(140)),some(spdAbs($1)),bullet(none,none,[])),
+      wait($2),
+      repeat(12,[
+        action([fire(some(dirSeq(7)),some(spdSeq($1*0.03)),bullet(none,none,[])),wait($2)])
+      ]),
+      vanish
+    ])
+  ]))
+]).

@@ -1,0 +1,43 @@
+bulletML(vertical,[
+  eaction(top,[
+    fireRef(side,[120]),
+    fireRef(side,[240]),
+    wait(31),
+    repeat(5+rank*20,[action([fire(none,none,bulletRef(center,[])),wait(30)])]),
+    wait(100)
+  ]),
+  efire(side,fire(some(dirAbs($1)),some(spdAbs(18.6)),bullet(none,none,[
+    action([
+      wait(1),
+      changeSpeed(spdAbs(0.02),2),
+      wait(30),
+      changeDirection(dirAim(0),1),
+      repeat(77+rank*306,[
+        action([
+          wait(2),
+          changeDirection(dirAim(0),30),
+          fireRef('3way',[0]),
+          fireRef('3way',[20]),
+          fireRef('3way',[- 20])
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  efire('3way',fire(some(dirRel($1)),some(spdAbs(4.9)),bullet(none,none,[]))),
+  eaction('2way',[
+    fire(some(dirRel($1)),some(spdAbs(2.3)),bulletRef(dummy,[])),
+    fire(some(dirRel(- $1)),some(spdAbs(2.3)),bulletRef(dummy,[])),
+    wait(5)
+  ]),
+  ebullet(dummy,bullet(none,none,[action([])])),
+  ebullet(center,bullet(none,none,[
+    action([
+      changeSpeed(spdAbs(0.01),1),
+      actionRef('2way',[0]),
+      actionRef('2way',[8-rank*4]),
+      actionRef('2way',[16-rank*8]),
+      vanish
+    ])
+  ]))
+]).

@@ -1,0 +1,47 @@
+bulletML(vertical,[
+  eaction(top,[
+    actionRef(seed,[- 2,0]),
+    actionRef(seed,[25,10]),
+    actionRef(seed,[41,- 10]),
+    actionRef(center,[]),
+    wait(180)
+  ]),
+  eaction(seed,[
+    fire(some(dirAbs(180+ $1)),some(spdAbs($1 div 4-2)),bullet(none,none,[actionRef(shoot,[- 1* $2])])),
+    fire(some(dirAbs(180- $1)),some(spdAbs($1 div 4-2)),bullet(none,none,[actionRef(shoot,[$2])]))
+  ]),
+  eaction(shoot,[
+    wait(9),
+    changeSpeed(spdAbs(0),4),
+    wait(4),
+    repeat(10+rank*30,[
+      action([
+        fireRef(shoot2,[0+rand*30,$1]),
+        fireRef(shoot2,[0-rand*30,$1]),
+        wait(24-rand*12)
+      ])
+    ]),
+    vanish
+  ]),
+  efire(shoot2,fire(some(dirAim($1+ $2)),some(spdAbs(0.6)),bullet(none,none,[]))),
+  eaction(center,[
+    wait(10),
+    repeat(12+rank*20,[action([actionRef(center2,[]),repeat(7-1,[actionRef(center3,[])])])])
+  ]),
+  eaction(center2,[
+    fire(some(dirAim(- 60)),some(spdAbs(0.6)),bullet(none,none,[])),
+    repeat(12,[action([fire(some(dirSeq(10)),some(spdAbs(0.6)),bullet(none,none,[]))])]),
+    wait(4)
+  ]),
+  eaction(center3,[
+    actionRef(wind,[46]),
+    actionRef(wind,[16]),
+    actionRef(wind,[47.5]),
+    actionRef(wind,[15])
+  ]),
+  eaction(wind,[
+    fire(some(dirAbs(180+ $1)),some(spdAbs(2.7)),bullet(none,none,[])),
+    fire(some(dirAbs(180- $1)),some(spdAbs(2.7)),bullet(none,none,[])),
+    wait(1)
+  ])
+]).

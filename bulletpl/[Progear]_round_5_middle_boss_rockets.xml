@@ -1,0 +1,19 @@
+bulletML(horizontal,[
+  eaction(top,[
+    repeat(50,[action([fire(some(dirAbs(270)),none,bulletRef(rocket,[])),wait(10)])]),
+    wait(120)
+  ]),
+  ebullet(rocket,bullet(none,none,[
+    action([
+      repeat(9999,[
+        action([
+          fireRef(udBlt,[90]),
+          wait(20-rank*8),
+          fireRef(udBlt,[- 90]),
+          wait(rand*10+15-rank*8)
+        ])
+      ])
+    ])
+  ])),
+  efire(udBlt,fire(some(dirRel($1-25+rand*50)),none,bullet(none,none,[])))
+]).

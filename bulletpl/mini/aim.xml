@@ -1,0 +1,7 @@
+bulletML(none,[
+  eaction(top,[
+    repeat(1000,[
+      action([fire(none,none,bullet(some(dirAim(0)),some(spdAbs(1)),[])),wait(100)])
+    ])
+  ])
+]).

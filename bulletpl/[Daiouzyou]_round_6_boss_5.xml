@@ -1,0 +1,39 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(2,[
+      action([fire(some(dirAbs(180)),some(spdAbs(4)),bulletRef(seed,[])),wait(500)])
+    ]),
+    wait(200)
+  ]),
+  ebullet(seed,bullet(none,none,[
+    action([
+      wait(9),
+      fire(some(dirRel(0)),none,bulletRef(seed2,[])),
+      fire(some(dirRel(180)),none,bulletRef(seed2,[])),
+      vanish
+    ])
+  ])),
+  ebullet(seed2,bullet(none,some(spdAbs(18)),[action([wait(1),fire(some(dirRel(90)),none,bulletRef(seed3,[])),vanish])])),
+  ebullet(seed3,bullet(none,some(spdAbs(0.8)),[
+    action([changeDirection(dirSeq(1.2),9999)]),
+    action([
+      repeat(62+rank*100,[
+        action([
+          fire(some(dirSeq(40-10)),none,bullet(none,none,[])),
+          fire(some(dirSeq(140)),none,bullet(none,none,[])),
+          fire(some(dirSeq(40)),none,bullet(none,none,[])),
+          fire(some(dirSeq(140)),none,bullet(none,none,[])),
+          wait(8-rank*6)
+        ])
+      ])
+    ]),
+    action([repeat(5,[action([fire(none,none,bulletRef(tw,[])),wait(138)])]),vanish])
+  ])),
+  ebullet(tw,bullet(none,none,[
+    action([
+      fire(none,none,bullet(some(dirAim(- 12)),none,[action([])])),
+      repeat(3.5+rank*5+rand,[action([fire(none,none,bullet(some(dirSeq(4)),none,[action([])]))])]),
+      vanish
+    ])
+  ]))
+]).

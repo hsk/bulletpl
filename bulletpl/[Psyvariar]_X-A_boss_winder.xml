@@ -1,0 +1,22 @@
+bulletML(vertical,[
+  ebullet(winderBullet,bullet(none,some(spdAbs(3)),[])),
+  efire(fireWinder,fire(some(dirSeq($1)),none,bulletRef(winderBullet,[]))),
+  eaction(roundWinder,[
+    fireRef(fireWinder,[$1]),
+    repeat(11,[action([fireRef(fireWinder,[30])])]),
+    wait(5)
+  ]),
+  eaction(winderSequence,[
+    repeat(12,[actionRef(roundWinder,[30])]),
+    repeat(12,[actionRef(roundWinder,[$1])]),
+    repeat(12,[actionRef(roundWinder,[30])])
+  ]),
+  eaction(top1,[
+    fire(some(dirAbs(2)),none,bulletRef(winderBullet,[])),
+    actionRef(winderSequence,[30.9+0.1*rank])
+  ]),
+  eaction(top2,[
+    fire(some(dirAbs(- 2)),none,bulletRef(winderBullet,[])),
+    actionRef(winderSequence,[29.1-0.1*rank])
+  ])
+]).

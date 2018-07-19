@@ -1,0 +1,35 @@
+bulletML(vertical,[
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
+  eaction('XWayFan',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  ]),
+  eaction(spiral,[
+    fire(none,some(spdAbs(0)),bullet(none,none,[
+      action([
+        repeat(30+rank*45,[
+          action([
+            fire(some(dirSeq($1)),some(spdAbs(1+rank*2)),bullet(none,none,[])),
+            actionRef('XWay',[10,36]),
+            wait(6-rank*3)
+          ])
+        ]),
+        vanish
+      ])
+    ])),
+    wait(225)
+  ]),
+  eaction(top1,[actionRef(spiral,[7]),actionRef(spiral,[- 7])]),
+  eaction(fan4,[
+    fire(some(dirAbs(- $1)),none,bulletRef('Dummy',[])),
+    repeat(60+rank*90,[
+      action([
+        fire(some(dirSeq($1)),some(spdAbs(1+rank*2)),bullet(none,none,[])),
+        actionRef('XWay',[4,90]),
+        wait(6-rank*3)
+      ])
+    ])
+  ]),
+  eaction(top2,[actionRef(fan4,[4])]),
+  eaction(top3,[actionRef(fan4,[- 4])])
+]).

@@ -1,0 +1,59 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(none,none,bulletRef(dummy,[0.6+0.6*rank,48-41*rank,8*rank])),
+    wait(400-100*rank)
+  ]),
+  ebullet(dummy,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+    action([
+      changeDirection(dirAbs(180),1),
+      changeSpeed(spdAbs(2),20),
+      repeat(3,[
+        action([
+          fire(some(dirAbs(180+60)),none,bulletRef(bit,[$1,$2,- $3])),
+          wait(10),
+          fire(some(dirAbs(180-60)),none,bulletRef(bit,[$1,$2,$3])),
+          wait(10)
+        ])
+      ]),
+      changeSpeed(spdAbs(0),20),
+      repeat(1,[
+        action([
+          fire(some(dirAbs(180+60)),none,bulletRef(bit,[$1,$2,- $3])),
+          wait(10),
+          fire(some(dirAbs(180-60)),none,bulletRef(bit,[$1,$2,$3])),
+          wait(10)
+        ])
+      ]),
+      changeDirection(dirAbs(0),1),
+      changeSpeed(spdAbs(2),30),
+      repeat(999,[
+        action([
+          fire(some(dirAbs(180+60)),none,bulletRef(bit,[$1,$2,- $3])),
+          wait(10),
+          fire(some(dirAbs(180-60)),none,bulletRef(bit,[$1,$2,$3])),
+          wait(10)
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(bit,bullet(none,none,[
+    action([
+      fire(some(dirAim(0)),none,bulletRef(shotgun,[$1])),
+      wait($2),
+      repeat(200,[action([fire(some(dirSeq($3)),none,bulletRef(shotgun,[$1])),wait($2)])]),
+      vanish
+    ])
+  ])),
+  ebullet(shotgun,bullet(none,some(spdAbs(0.001)),[
+    action([
+      fire(some(dirRel(0)),some(spdAbs($1)),bullet(none,none,[])),
+      fire(some(dirRel(0)),some(spdAbs($1*1.1)),bullet(none,none,[])),
+      fire(some(dirRel(0)),some(spdAbs($1*1.21)),bullet(none,none,[])),
+      fire(some(dirRel(0)),some(spdAbs($1*1.331)),bullet(none,none,[])),
+      fire(some(dirRel(0)),some(spdAbs($1*1.4641)),bullet(none,none,[])),
+      fire(some(dirRel(0)),some(spdAbs($1*1.61051)),bullet(none,none,[])),
+      vanish
+    ])
+  ]))
+]).

@@ -1,0 +1,15 @@
+bulletML(vertical,[
+  eaction(top,[actionRef(seed,[0.31]),actionRef(seed,[0.0]),wait(30)]),
+  eaction(seed,[
+    repeat((rank*rank*50+21)*(2- $1),[
+      action([
+        fireRef(shoot1,[$1]),
+        repeat(10*(1+ $1),[action([fireRef(shoot2,[])])]),
+        wait(1)
+      ])
+    ]),
+    wait(60)
+  ]),
+  efire(shoot1,fire(some(dirSeq(41)),some(spdAbs(1.0- $1)),bullet(none,none,[]))),
+  efire(shoot2,fire(some(dirSeq(- 19)),some(spdSeq(0.1)),bullet(none,none,[])))
+]).

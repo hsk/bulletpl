@@ -1,0 +1,53 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(some(dirAbs(180)),some(spdAbs(3.0)),bulletRef(center,[0])),
+    wait(800-50*rank)
+  ]),
+  ebullet(center,bullet(none,none,[
+    action([
+      wait(15),
+      fire(some(dirAbs(- 10+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
+      fire(some(dirAbs(80+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
+      fire(some(dirAbs(170+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
+      fire(some(dirAbs(260+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
+      vanish
+    ])
+  ])),
+  ebullet(arm,bullet(none,none,[
+    action([
+      wait(25),
+      changeSpeed(spdAbs(0),1),
+      wait(5),
+      fire(none,none,bulletRef(halfwinder,[330,- 8])),
+      fire(none,none,bulletRef(halfwinder,[270,- 5])),
+      fire(none,none,bulletRef(halfwinder,[210,- 2])),
+      fire(none,none,bulletRef(halfwinder,[150,2])),
+      fire(none,none,bulletRef(halfwinder,[90,5])),
+      fire(none,none,bulletRef(halfwinder,[30,8])),
+      vanish
+    ])
+  ])),
+  ebullet(halfwinder,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+    action([
+      fire(none,none,bulletRef(bit,[$1,$2])),
+      fire(none,none,bulletRef(changecolor,[$1,- $2])),
+      vanish
+    ])
+  ])),
+  ebullet(changecolor,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+    action([wait((62-50*rank)div 3),fire(none,none,bulletRef(bit,[$1,$2])),vanish])
+  ])),
+  ebullet(bit,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+    action([
+      fire(some(dirAbs($1)),some(spdAbs(0.7+1.1*rank)),bullet(none,none,[])),
+      wait(62-50*rank),
+      repeat(600 div (62-50*rank),[
+        action([
+          fire(some(dirSeq($2)),some(spdAbs(0.7+1.1*rank)),bullet(none,none,[])),
+          wait(62-50*rank)
+        ])
+      ]),
+      vanish
+    ])
+  ]))
+]).

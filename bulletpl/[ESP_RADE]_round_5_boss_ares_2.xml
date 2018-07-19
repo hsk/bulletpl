@@ -1,0 +1,139 @@
+bulletML(vertical,[
+  efire(blue1,fire(some(dirAbs(240)),some(spdAbs(5)),bullet(none,none,[
+    action([
+      wait(5),
+      changeSpeed(spdAbs(0),1),
+      repeat(11,[
+        action([
+          fire(some(dirAim(0)),some(spdAbs(1.5)),bullet(none,none,[action([])])),
+          repeat(2+rank*6+rand,[
+            action([
+              wait(5),
+              fire(some(dirSeq(0)),some(spdSeq(0)),bullet(none,none,[action([])]))
+            ])
+          ]),
+          wait(50-rank*30)
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  efire(blue2Impl,fire(none,some(spdAbs(0)),bullet(none,none,[
+    action([
+      fire(some(dirAbs($2)),some(spdAbs($3)),bullet(none,none,[action([])])),
+      repeat(40+80*rank,[
+        action([
+          wait(640 div (40+80*rank)+rand),
+          fire(some(dirSeq($1)),some(spdSeq(0)),bullet(none,none,[action([])]))
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  eaction(blue2Delegate,[
+    wait(1),
+    fireRef(blue2Impl,[13.5,20,1.0]),
+    wait(2),
+    fireRef(blue2Impl,[15,25,1.15]),
+    wait(2),
+    fireRef(blue2Impl,[16.5,30,1.3]),
+    wait(2),
+    fireRef(blue2Impl,[18,35,1.45])
+  ]),
+  efire(blue2,fire(some(dirAbs(175)),some(spdAbs(8)),bullet(none,none,[
+    action([wait(5),changeSpeed(spdAbs(0),1),actionRef(blue2Delegate,[rand*360]),vanish])
+  ]))),
+  efire(red1Impl,fire(none,some(spdAbs(0)),bullet(none,none,[
+    action([
+      fire(some(dirAbs($1)),some(spdAbs(1.3)),bullet(none,none,[])),
+      repeat(80+rank*160,[
+        action([
+          wait(640 div (80+rank*160)+rand),
+          fire(some(dirSeq($2)),some(spdSeq(0)),bullet(none,none,[]))
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  efire(red1Delegate,fire(none,none,bullet(none,none,[
+    action([wait(1),fireRef(red1Impl,[$1,- 13.5]),fireRef(red1Impl,[$1,9]),vanish])
+  ]))),
+  efire(red1,fire(some(dirAbs(250)),some(spdAbs(7)),bullet(none,none,[
+    action([wait(5),changeSpeed(spdAbs(0),1),fireRef(red1Delegate,[rand*360]),vanish])
+  ]))),
+  efire(red2,fire(some(dirAbs(180)),some(spdAbs(1)),bullet(none,none,[
+    action([
+      wait(5),
+      changeSpeed(spdAbs(0),1),
+      fire(some(dirAbs(330)),some(spdAbs(1.3)),bullet(none,none,[])),
+      repeat(120+rank*240,[
+        action([
+          wait(640 div (120+rank*240)+rand),
+          fire(some(dirSeq(- 4)),some(spdSeq(0)),bullet(none,none,[]))
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  efire(purple1ColChange,fire(some(dirAbs(290)),some(spdAbs(7)),bullet(none,none,[
+    action([
+      wait(5),
+      changeSpeed(spdAbs(0),1),
+      fire(some(dirAbs(60)),some(spdAbs(1)),bullet(none,none,[])),
+      repeat(9,[action([fire(some(dirSeq(- 5)),some(spdSeq(0)),bullet(none,none,[]))])]),
+      repeat(100+rank*100,[
+        action([
+          wait(640 div (100+rank*100)+rand),
+          fire(some(dirSeq(38)),some(spdAbs(0.7+rank*0.2)),bullet(none,none,[])),
+          repeat(9,[
+            action([
+              fire(some(dirSeq(- 5)),some(spdSeq(0.08+rank*0.04)),bullet(none,none,[]))
+            ])
+          ])
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  efire(purple1,fire(none,none,bullet(none,none,[action([fireRef(purple1ColChange,[]),vanish])]))),
+  efire(purple2Impl,fire(none,some(spdAbs(0)),bullet(none,none,[
+    action([
+      fire(some(dirAbs($1)),some(spdAbs(1)),bullet(none,none,[])),
+      repeat(3,[action([fire(some(dirSeq(9)),some(spdSeq(0.1)),bullet(none,none,[]))])]),
+      repeat(40+rank*70,[
+        action([
+          wait(640 div (40+rank*70)+rand),
+          fire(some(dirSeq(9)),some(spdAbs(0.9)),bullet(none,none,[])),
+          repeat(3,[action([fire(some(dirSeq(10)),some(spdSeq(0.25)),bullet(none,none,[]))])])
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  eaction(purple2Delegate,[wait(1),fireRef(purple2Impl,[$1]),fireRef(purple2Impl,[$1-180])]),
+  efire(purple2,fire(some(dirAbs(85)),some(spdAbs(7)),bullet(none,none,[
+    action([
+      wait(5),
+      changeSpeed(spdAbs(0),1),
+      actionRef(purple2Delegate,[rand*360]),
+      vanish
+    ])
+  ]))),
+  eaction(deadOrAlive,[changeSpeed(spdAbs(10000),1),wait($1)]),
+  efire(firstBullet1,fire(none,none,bullet(none,none,[action([actionRef(deadOrAlive,[$1]),fireRef(blue1,[]),vanish])]))),
+  efire(firstBullet2,fire(none,none,bullet(none,none,[action([actionRef(deadOrAlive,[$1]),fireRef(blue2,[]),vanish])]))),
+  efire(firstBranch,fire(none,none,bullet(none,none,[action([fireRef(firstBullet1,[$1]),fireRef(firstBullet2,[- $1]),vanish])]))),
+  efire(secondBullet1,fire(none,none,bullet(none,none,[action([actionRef(deadOrAlive,[$1]),fireRef(red1,[]),vanish])]))),
+  efire(secondBullet2,fire(none,none,bullet(none,none,[action([actionRef(deadOrAlive,[$1]),fireRef(red2,[]),vanish])]))),
+  efire(secondBranch,fire(none,none,bullet(none,none,[action([fireRef(secondBullet1,[$1]),fireRef(secondBullet2,[- $1]),vanish])]))),
+  efire(thirdBullet1,fire(none,none,bullet(none,none,[action([actionRef(deadOrAlive,[$1]),fireRef(purple1,[]),vanish])]))),
+  efire(thirdBullet2,fire(none,none,bullet(none,none,[action([actionRef(deadOrAlive,[$1]),fireRef(purple2,[]),vanish])]))),
+  efire(thirdBranch,fire(none,none,bullet(none,none,[action([fireRef(thirdBullet1,[$1]),fireRef(thirdBullet2,[- $1]),vanish])]))),
+  eaction(top,[
+    wait(2),
+    fireRef(firstBranch,[rand*100000-50000]),
+    fireRef(secondBranch,[rand*100000-50000]),
+    fireRef(thirdBranch,[rand*100000-50000]),
+    wait(660)
+  ])
+]).

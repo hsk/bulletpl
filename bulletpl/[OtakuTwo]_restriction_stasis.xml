@@ -1,0 +1,50 @@
+bulletML(vertical,[
+  eaction(top,[
+    fireRef(lr,[90,1.5]),
+    fireRef(lr,[- 90,1.5]),
+    actionRef(move,[0,0.9]),
+    wait(950),
+    actionRef(move,[180,0.9])
+  ]),
+  efire(lr,fire(some(dirAbs(0)),some(spdAbs(0)),bullet(none,none,[
+    action([actionRef(move,[$1,$2]),fireRef(tb,[0,0.9]),fireRef(tb,[180,3.0]),vanish])
+  ]))),
+  efire(tb,fire(none,some(spdAbs(0)),bullet(none,none,[
+    action([
+      actionRef(move,[$1,$2]),
+      wait(20),
+      actionRef(wall,[30-rank*20]),
+      actionRef(wall,[- 30+rank*20]),
+      wait(200),
+      repeat(7+rank*8,[
+        action([
+          fire(some(dirAim(15-rand*30)),some(spdAbs(1+rand*0.5)),bullet(none,none,[])),
+          wait(40-rank*20)
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  eaction(move,[
+    changeDirection(dirAbs($1),10),
+    wait(12),
+    changeSpeed(spdAbs($2),50),
+    wait(55),
+    changeSpeed(spdAbs(0),50),
+    wait(55)
+  ]),
+  eaction(wall,[
+    fire(some(dirAim($1)),some(spdAbs(0.35)),bulletRef(stop,[])),
+    repeat(110,[action([fire(some(dirAim($1)),some(spdSeq(0.4)),bulletRef(stop,[]))])])
+  ]),
+  ebullet(stop,bullet(none,none,[
+    action([
+      wait(5),
+      changeSpeed(spdAbs(0),1),
+      wait(750),
+      changeDirection(dirAim(2+rank*2),10),
+      wait(10),
+      repeat(50,[action([changeSpeed(spdRel(0.1),8),wait(8)])])
+    ])
+  ]))
+]).

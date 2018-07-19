@@ -1,0 +1,38 @@
+bulletML(vertical,[
+  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  ebullet(seed,bullet(none,some(spdAbs(4)),[
+    action([
+      wait(10),
+      actionRef('Stop',[]),
+      repeat(20,[
+        action([
+          wait(20),
+          repeat(3,[
+            action([
+              fire(some(dirSeq(116+rand*6-rank*15)),some(spdAbs(1.5)),bullet(none,none,[])),
+              repeat(3.5+rank*5,[action([fire(some(dirSeq(3)),some(spdAbs(1.5)),bullet(none,none,[]))])])
+            ])
+          ])
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  eaction(xway,[
+    fire(some(dirAim(- 7* $1-7)),none,bulletRef('Dummy',[])),
+    repeat($1,[
+      action([
+        fire(some(dirSeq(15)),some(spdAbs(1.3)),bullet(none,none,[action([])])),
+        repeat(4,[
+          action([fire(some(dirSeq(0)),some(spdSeq(0.1)),bullet(none,none,[action([])]))])
+        ])
+      ])
+    ])
+  ]),
+  eaction(top,[
+    fire(some(dirAbs(110)),none,bulletRef(seed,[])),
+    fire(some(dirAbs(- 110)),none,bulletRef(seed,[])),
+    wait(400)
+  ])
+]).

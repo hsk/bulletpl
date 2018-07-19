@@ -1,0 +1,16 @@
+bulletML(none,[
+  eaction(fire,[fire(some(dirRel(0)),some(spdRel(- 0.5)),bullet(none,none,[]))]),
+  efire(src,fire(some(dirAim((30+rank*20)* $1)),some(spdAbs(2)),bullet(none,none,[
+    action([
+      repeat(10,[
+        action([
+          accel(some(spdRel($1*4)),none,20),
+          repeat(10,[action([actionRef(fire,[$1]),wait(2)])]),
+          accel(some(spdRel(- $1*4)),none,20),
+          repeat(10,[action([actionRef(fire,[$1]),wait(2)])])
+        ])
+      ])
+    ])
+  ]))),
+  eaction(top,[repeat(3,[action([fireRef(src,[1]),fireRef(src,[- 1]),wait(80)])]),wait(60)])
+]).

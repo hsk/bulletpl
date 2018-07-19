@@ -1,0 +1,18 @@
+bulletML(vertical,[
+  eaction(top,[repeat(5+rank*10,[action([fireRef(backFire,[])])]),wait(300)]),
+  efire(backFire,fire(some(dirAim(50-rand*100)),some(spdAbs(1.2)),bullet(none,none,[
+    action([
+      repeat(10,[
+        action([
+          changeDirection(dirAim(150-rand*300),30),
+          repeat(5,[
+            action([wait(6),fire(some(dirRel(180)),some(spdAbs(1.2)),bullet(none,none,[]))])
+          ])
+        ])
+      ]),
+      repeat(999,[
+        action([wait(6),fire(some(dirRel(180)),some(spdAbs(1.2)),bullet(none,none,[]))])
+      ])
+    ])
+  ])))
+]).

@@ -1,0 +1,21 @@
+bulletML(horizontal,[
+  eaction(top,[
+    repeat(1000,[
+      action([
+        fire(some(dirSeq(180)),none,bulletRef(changeStraight,[])),
+        fire(some(dirSeq(159)),none,bulletRef(changeStraight,[])),
+        wait(1+(1-rank)*3*rand)
+      ])
+    ]),
+    wait(180)
+  ]),
+  ebullet(changeStraight,bullet(none,some(spdAbs(0.8)),[
+    action([
+      wait(20+rand*100),
+      changeDirection(dirAbs(270),60),
+      changeSpeed(spdAbs(0),40),
+      wait(40),
+      changeSpeed(spdAbs(0.5+rand*0.7),20)
+    ])
+  ]))
+]).

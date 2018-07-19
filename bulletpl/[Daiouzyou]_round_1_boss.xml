@@ -1,0 +1,18 @@
+bulletML(none,[
+  ebullet(seed3,bullet(none,some(spdAbs(0.8)),[
+    action([
+      changeDirection(dirSeq(1.2),9999),
+      repeat(100+200*rank,[action([wait(3-rank*2*rand)])])
+    ]),
+    action([
+      repeat(6,[
+        action([
+          fire(none,none,bullet(some(dirAim(- 8)),none,[])),
+          repeat(4,[action([fire(none,none,bullet(some(dirSeq(4)),none,[action([])]))])]),
+          wait(80)
+        ])
+      ]),
+      vanish
+    ])
+  ]))
+]).

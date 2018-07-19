@@ -1,0 +1,33 @@
+bulletML(none,[
+  eaction('1way',[
+    fire(some(dirAim($2+ $1*rand*2- $1)),some(spdAbs(1)),bullet(none,none,[])),
+    repeat(20,[
+      action([
+        fire(some(dirAim($2+ $1*rand*2- $1)),some(spdSeq(0.1)),bullet(none,none,[]))
+      ])
+    ])
+  ]),
+  eaction('5way',[
+    actionRef('1way',[$1,- 30]),
+    actionRef('1way',[$1,- 15]),
+    actionRef('1way',[$1,0]),
+    actionRef('1way',[$1,15]),
+    actionRef('1way',[$1,30])
+  ]),
+  eaction(idousite5way,[
+    changeDirection(dirAim(rand*360),1),
+    changeSpeed(spdAbs(2),1),
+    wait(30),
+    actionRef('5way',[$1]),
+    changeSpeed(spdAbs(0),1),
+    wait(90-rank*60)
+  ]),
+  eaction(satoru,[
+    actionRef(idousite5way,[1]),
+    actionRef(idousite5way,[2]),
+    actionRef(idousite5way,[3]),
+    actionRef(idousite5way,[4]),
+    actionRef(idousite5way,[5])
+  ]),
+  eaction(top,[actionRef(satoru,[]),wait(30)])
+]).

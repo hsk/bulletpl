@@ -1,0 +1,40 @@
+bulletML(vertical,[
+  eaction(top,[
+    changeDirection(dirAbs(180),1),
+    changeSpeed(spdAbs(1),1),
+    wait(30),
+    changeSpeed(spdAbs(0),1),
+    repeat(rank*17+1,[
+      action([
+        fireRef(seed,[3,rank*18+1]),
+        fireRef(seed,[2,rank*18+1]),
+        fireRef(seed,[1,rank*18+1]),
+        wait(10)
+      ])
+    ]),
+    wait(3*(rank*18*10))
+  ]),
+  efire(seed,fire(some(dirSeq(360 div ($2*3))),some(spdAbs(1.75* $1)),bullet(none,none,[
+    action([
+      wait(10),
+      changeSpeed(spdAbs(0),10),
+      wait(($1-1)*($2*10)+30),
+      actionRef(n_way,[]),
+      vanish
+    ])
+  ]))),
+  eaction(n_way,[
+    fireRef(curve,[2.0,60]),
+    fireRef(curve,[2.0,- 60]),
+    fireRef(curve,[1.64,52.5]),
+    fireRef(curve,[1.64,- 52.5]),
+    fireRef(curve,[1.41,45]),
+    fireRef(curve,[1.41,- 45]),
+    fireRef(curve,[1.16,30]),
+    fireRef(curve,[1.16,- 30]),
+    fireRef(curve,[1.04,15]),
+    fireRef(curve,[1.04,- 15]),
+    fireRef(curve,[1.0,0])
+  ]),
+  efire(curve,fire(some(dirAim($2)),some(spdAbs($1*2.0)),bullet(none,none,[action([wait(5),changeDirection(dirAim(0),5)])])))
+]).

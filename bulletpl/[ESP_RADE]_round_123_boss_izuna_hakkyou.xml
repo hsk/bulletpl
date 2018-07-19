@@ -1,0 +1,52 @@
+bulletML(vertical,[
+  ebullet('Red',bullet(none,none,[action([])])),
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
+  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
+  eaction('XWayFan',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  ]),
+  ebullet(roll,bullet(some(dirAbs(90* $1)),some(spdAbs(3)),[
+    action([
+      wait(10),
+      actionRef('Stop',[]),
+      fire(some(dirRel(0)),some(spdAbs(1.5+rank)),bulletRef('Dummy',[])),
+      repeat(10,[
+        action([
+          wait(8),
+          fire(some(dirSeq(5.3* $1)),some(spdSeq(- 0.3-rank*0.5)),bullet(none,none,[])),
+          actionRef('XWay',[8,45]),
+          repeat(5,[
+            action([
+              wait(8),
+              fire(some(dirSeq(3* $1)),some(spdSeq(0.06+rank*0.1)),bullet(none,none,[])),
+              actionRef('XWay',[8,45])
+            ])
+          ])
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  eaction(top,[
+    fire(none,none,bulletRef(roll,[1])),
+    fire(none,none,bulletRef(roll,[- 1])),
+    fire(some(dirAbs(180)),some(spdAbs(2)),bullet(none,none,[action([wait(10),actionRef('Stop',[]),actionRef(aim,[]),vanish])])),
+    wait(500)
+  ]),
+  eaction(aim,[
+    repeat(10,[
+      action([
+        wait(50),
+        fire(some(dirAim(- 1)),some(spdAbs(1.7)),bulletRef('Red',[])),
+        fire(some(dirSeq(2)),some(spdSeq(0)),bulletRef('Red',[])),
+        repeat(2+rank*6,[
+          action([
+            fire(some(dirSeq(- 2)),some(spdSeq(0.1)),bulletRef('Red',[])),
+            fire(some(dirSeq(2)),some(spdSeq(0)),bulletRef('Red',[]))
+          ])
+        ])
+      ])
+    ])
+  ])
+]).

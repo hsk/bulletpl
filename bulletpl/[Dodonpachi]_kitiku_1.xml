@@ -1,0 +1,51 @@
+bulletML(none,[
+  ebullet(fast,bullet(none,some(spdAbs(10)),[
+    action([
+      wait(6),
+      changeSpeed(spdAbs(0),1),
+      wait(20),
+      repeat(10+rank*18,[
+        action([
+          fire(some(dirSeq(- 11-rand*2)),some(spdAbs(1.5)),bullet(none,none,[])),
+          actionRef(add3,[]),
+          repeat(4,[
+            action([
+              fire(some(dirSeq(0)),some(spdSeq(0.1+rank*0.2)),bullet(none,none,[])),
+              actionRef(add3,[])
+            ])
+          ]),
+          wait(336 div (10+rank*18))
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  eaction(add3,[
+    repeat(3,[action([fire(some(dirSeq(90)),some(spdSeq(0)),bullet(none,none,[]))])])
+  ]),
+  efire(slowColorChange,fire(some(dirAbs(180+45* $1)),some(spdAbs(7)),bullet(none,none,[
+    action([
+      wait(6),
+      changeSpeed(spdAbs(0),1),
+      repeat(50+rank*50,[
+        action([
+          fire(some(dirSeq((8-rank*4)* $1)),some(spdAbs(1.2)),bullet(none,none,[])),
+          actionRef(add3,[]),
+          wait(8-rank*4+rand)
+        ])
+      ]),
+      vanish
+    ])
+  ]))),
+  efire(slow,fire(none,none,bullet(none,none,[action([fireRef(slowColorChange,[$1]),vanish])]))),
+  eaction(top,[
+    fire(some(dirAbs(- 85)),none,bulletRef(fast,[])),
+    wait(1),
+    fire(some(dirAbs(85)),none,bulletRef(fast,[])),
+    wait(1),
+    fireRef(slow,[1]),
+    wait(1),
+    fireRef(slow,[- 1]),
+    wait(430)
+  ])
+]).

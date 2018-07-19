@@ -1,0 +1,54 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(some(dirAbs(0)),some(spdAbs(0)),bulletRef(top,[])),
+    fire(some(dirAbs(0)),none,bulletRef(byakko,[])),
+    actionRef(byakko,[]),
+    repeat(120+rank*rank*rank*120,[
+      action([
+        wait(8-rank*rank*rank*4),
+        fire(some(dirSeq(128+rand*0.5)),none,bulletRef(byakko,[])),
+        actionRef(byakko,[])
+      ])
+    ])
+  ]),
+  eaction(byakko,[repeat(2,[action([fire(some(dirSeq(120)),none,bulletRef(byakko,[]))])])]),
+  ebullet(byakko,bullet(none,some(spdAbs(6)),[
+    action([
+      fireRef(byakkoway,[48.4-rand*0.8]),
+      fireRef(byakkoway,[32.4-rand*0.8]),
+      fireRef(byakkoway,[16.4-rand*0.8]),
+      fireRef(byakkoway,[0.4-rand*0.8]),
+      fireRef(byakkoway,[- 16.4+rand*0.8]),
+      fireRef(byakkoway,[- 32.4+rand*0.8]),
+      fireRef(byakkoway,[- 48.4+rand*0.8]),
+      vanish
+    ])
+  ])),
+  efire(byakkoway,fire(some(dirRel($1)),some(spdAbs(0.8+rank*rank*1)),bullet(none,none,[]))),
+  ebullet(top,bullet(none,none,[
+    action([
+      fire(some(dirAbs(0)),none,bulletRef(backfire,[])),
+      actionRef(backfire,[]),
+      repeat(120+rank*rank*rank*120,[
+        action([
+          wait(8-rank*rank*rank*4),
+          fire(some(dirSeq(112+rand*0.5-rank*rank*rank*rank*rank*9.5)),none,bulletRef(backfire,[])),
+          actionRef(backfire,[])
+        ])
+      ])
+    ])
+  ])),
+  eaction(backfire,[repeat(2,[action([fire(some(dirSeq(120)),none,bulletRef(backfire,[]))])])]),
+  ebullet(backfire,bullet(none,some(spdAbs(10)),[
+    action([
+      wait(4),
+      fireRef(backfire,[100.5]),
+      fireRef(backfire,[110.5]),
+      fireRef(backfire,[120.5]),
+      fireRef(backfire,[130.5]),
+      fireRef(backfire,[140.5]),
+      vanish
+    ])
+  ])),
+  efire(backfire,fire(some(dirRel($1-rand)),some(spdAbs(1+rank*rank)),bullet(none,none,[])))
+]).

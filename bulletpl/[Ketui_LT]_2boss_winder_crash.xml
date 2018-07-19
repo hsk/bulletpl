@@ -1,0 +1,36 @@
+bulletML(none,[
+  eaction(pre,[
+    fire(some(dirAim(- 20)),some(spdAbs(2)),bullet(none,none,[])),
+    repeat(20,[
+      action([
+        fire(some(dirSeq(40)),some(spdAbs(4)),bullet(none,none,[])),
+        fire(some(dirSeq(- 40)),some(spdAbs(4)),bullet(none,none,[])),
+        wait(2)
+      ])
+    ])
+  ]),
+  ebullet(missile,bullet(none,none,[
+    action([
+      repeat(9999,[
+        action([
+          wait(5-rank*2+rand),
+          fire(some(dirAim(0)),some(spdAbs(1.0e-7)),bullet(none,none,[action([wait(60),changeSpeed(spdAbs(3),30)])]))
+        ])
+      ])
+    ])
+  ])),
+  eaction(missiles,[
+    fire(some(dirSeq(- ($1-1)*1.5)),some(spdAbs(4)),bulletRef(missile,[])),
+    repeat($1-1,[action([fire(some(dirSeq(3)),some(spdAbs(4)),bulletRef(missile,[]))])]),
+    fire(some(dirSeq(40-($1-1)*3)),some(spdAbs(4)),bulletRef(missile,[])),
+    repeat($1-1,[action([fire(some(dirSeq(3)),some(spdAbs(4)),bulletRef(missile,[]))])])
+  ]),
+  eaction(top,[
+    actionRef(pre,[]),
+    actionRef(missiles,[3+rank*4]),
+    wait(160),
+    actionRef(pre,[]),
+    actionRef(missiles,[4+rank*6]),
+    wait(160)
+  ])
+]).

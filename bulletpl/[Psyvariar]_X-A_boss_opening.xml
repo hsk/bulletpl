@@ -1,0 +1,11 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(600,[
+      action([
+        fire(some(dirAim(- 45+rand*90)),some(spdAbs((0.3+rand*0.5)*(rank+1))),bullet(none,none,[])),
+        wait(1)
+      ])
+    ]),
+    wait(100)
+  ])
+]).

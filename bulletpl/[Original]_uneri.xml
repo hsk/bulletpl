@@ -1,0 +1,21 @@
+bulletML(none,[
+  eaction(src,[
+    fire(some(dirAim($1)),some(spdAbs(1.5)),bullet(none,none,[])),
+    repeat(450 div (4-rank*2),[
+      action([
+        wait(4.5-rank*3+rand),
+        fire(some(dirSeq(rand*10-5)),some(spdAbs(1.5)),bullet(none,none,[]))
+      ])
+    ]),
+    vanish
+  ]),
+  efire(srcFire,fire(some(dirAbs(90)),some(spdAbs($1)),bullet(none,none,[action([wait(5),changeSpeed(spdAbs(0),1),actionRef(src,[$2])])]))),
+  eaction(top,[
+    fireRef(srcFire,[0,0]),
+    fireRef(srcFire,[4,10]),
+    fireRef(srcFire,[8,20]),
+    fireRef(srcFire,[- 4,- 10]),
+    fireRef(srcFire,[- 8,- 20]),
+    wait(500)
+  ])
+]).

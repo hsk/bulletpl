@@ -1,0 +1,19 @@
+bulletML(none,[
+  eaction(add3,[repeat(3,[action([fire(some(dirSeq(90)),none,bullet(none,none,[]))])])]),
+  efire(slow,fire(some(dirAim((50-rank*20)* $1)),some(spdAbs(2)),bullet(none,none,[
+    action([
+      wait(5),
+      repeat(100,[
+        action([
+          fire(some(dirSeq(4* $1)),none,bullet(none,none,[])),
+          actionRef(add3,[]),
+          wait(4)
+        ])
+      ])
+    ])
+  ]))),
+  eaction(top,[
+    repeat(3,[action([fireRef(slow,[1]),fireRef(slow,[- 1]),wait(80)])]),
+    wait(60)
+  ])
+]).

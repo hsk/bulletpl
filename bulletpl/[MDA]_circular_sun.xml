@@ -1,0 +1,20 @@
+bulletML(vertical,[
+  eaction(top,[
+    changeSpeed(spdAbs(0.75),1),
+    changeDirection(dirAbs(90),1),
+    wait(1),
+    changeDirection(dirSeq(0.7),514),
+    wait(2),
+    repeat(32,[action([actionRef(shoot,[]),wait(16)])]),
+    changeSpeed(spdAbs(0),1),
+    wait(120)
+  ]),
+  eaction(shoot,[
+    repeat(1+63*rank,[
+      action([
+        fire(some(dirSeq(360 div (1+63*rank))),some(spdAbs(1.28+0.08*rand)),bulletRef(curve,[]))
+      ])
+    ])
+  ]),
+  ebullet(curve,bullet(none,none,[action([changeDirection(dirSeq(1.25-1.6*rand),360),wait(360),vanish])]))
+]).

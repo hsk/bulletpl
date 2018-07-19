@@ -1,0 +1,22 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(some(dirAbs(155)),some(spdAbs(3.3)),bulletRef(roll,[1])),
+    fire(some(dirAbs(205)),some(spdAbs(3.3)),bulletRef(roll,[- 1])),
+    fire(some(dirAbs(135)),some(spdAbs(3.2)),bulletRef(roll,[1])),
+    fire(some(dirAbs(225)),some(spdAbs(3.2)),bulletRef(roll,[- 1])),
+    fire(some(dirAbs(135)),some(spdAbs(2)),bulletRef(roll,[1])),
+    fire(some(dirAbs(225)),some(spdAbs(2)),bulletRef(roll,[- 1])),
+    wait(400)
+  ]),
+  ebullet(roll,bullet(none,none,[
+    action([
+      wait(12),
+      changeSpeed(spdAbs(0),1),
+      fire(some(dirAbs(180+90* $1)),none,bullet(none,none,[action([vanish])])),
+      repeat(200,[
+        action([fire(some(dirSeq(9)),some(spdAbs(1+rank)),bullet(none,none,[])),wait(2)])
+      ]),
+      vanish
+    ])
+  ]))
+]).

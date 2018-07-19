@@ -1,0 +1,10 @@
+bulletML(none,[
+  efire(gurutyo,fire(some(dirAbs(90)),some(spdAbs($1*(3+rank*4))),bullet(none,none,[
+    action([
+      changeDirection(dirSeq($1*6),1000),
+      repeat(500,[action([fire(some(dirRel(0)),none,bullet(none,none,[])),wait(1)])]),
+      vanish
+    ])
+  ]))),
+  eaction(top,[fireRef(gurutyo,[1]),fireRef(gurutyo,[- 1]),wait(550)])
+]).

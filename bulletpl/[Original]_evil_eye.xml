@@ -1,0 +1,45 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(some(dirAbs(90)),some(spdAbs(0.02)),bulletRef(cannonbit,[])),
+    fire(some(dirAbs(90)),some(spdAbs(0.06)),bulletRef(cannonbit,[])),
+    fire(some(dirAbs(90)),some(spdAbs(0.1)),bulletRef(cannonbit,[])),
+    fire(some(dirAbs(- 90)),some(spdAbs(0.02)),bulletRef(cannonbit,[])),
+    fire(some(dirAbs(- 90)),some(spdAbs(0.06)),bulletRef(cannonbit,[])),
+    fire(some(dirAbs(- 90)),some(spdAbs(0.1)),bulletRef(cannonbit,[])),
+    wait(120),
+    repeat(5+10*rank,[
+      action([
+        actionRef('5way',[30]),
+        wait(27-20*rank),
+        actionRef('5way',[20]),
+        wait(27-20*rank)
+      ])
+    ]),
+    wait(60)
+  ]),
+  eaction('5way',[
+    fire(some(dirAim($1* - 2)),some(spdAbs(1.3)),bulletRef(bit,[$1*2])),
+    fire(some(dirAim($1* - 1)),some(spdAbs(1.3)),bulletRef(bit,[$1*1])),
+    fire(some(dirAim(0)),some(spdAbs(1.3)),bulletRef(bit,[0])),
+    fire(some(dirAim($1*1)),some(spdAbs(1.3)),bulletRef(bit,[$1* - 1])),
+    fire(some(dirAim($1*2)),some(spdAbs(1.3)),bulletRef(bit,[$1* - 2]))
+  ]),
+  ebullet(bit,bullet(none,none,[
+    action([
+      wait(30),
+      fire(some(dirRel($1-15+30*rand)),some(spdAbs(1.3+1.0*rank)),bullet(none,none,[])),
+      repeat(2+3*rank,[action([fire(some(dirSeq(0)),some(spdSeq(0.1)),bullet(none,none,[]))])]),
+      vanish
+    ])
+  ])),
+  ebullet(cannonbit,bullet(none,none,[
+    action([
+      wait(60),
+      repeat(80,[
+        action([fire(some(dirAbs(180)),some(spdAbs(0.0001+12.0*rand)),bulletRef(weak,[]))])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(weak,bullet(none,none,[action([wait(10),vanish])]))
+]).

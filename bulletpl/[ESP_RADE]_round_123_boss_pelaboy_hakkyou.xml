@@ -1,0 +1,93 @@
+bulletML(vertical,[
+  ebullet('Red',bullet(none,none,[action([])])),
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
+  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
+  eaction('XWayFan',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  ]),
+  ebullet(subBatteryFan,bullet(none,some(spdAbs(4)),[
+    action([
+      wait(10),
+      actionRef('Stop',[]),
+      wait(250),
+      fire(some(dirAim(- 45)),some(spdAbs(1.6)),bullet(none,none,[])),
+      actionRef('XWay',[10+rank*10,90 div (10+rank*10)]),
+      repeat(2,[
+        action([
+          wait(5),
+          fire(some(dirSeq(- 90)),some(spdAbs(1.6)),bullet(none,none,[])),
+          actionRef('XWay',[11+rank*10,90 div (10+rank*10)])
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(aimFan,bullet(none,some(spdAbs(4)),[
+    action([
+      wait(5),
+      fire(some(dirAim(- 4-rank*8)),some(spdAbs(1.6)),bullet(none,none,[])),
+      actionRef('XWay',[5+rank*8,2]),
+      vanish
+    ])
+  ])),
+  ebullet(subBatteryAim,bullet(none,some(spdAbs(1)),[
+    action([
+      wait(10),
+      actionRef('Stop',[]),
+      repeat(4,[
+        action([
+          wait(100+rand*50),
+          fire(some(dirAbs(90)),none,bulletRef(aimFan,[])),
+          fire(some(dirAbs(- 90)),none,bulletRef(aimFan,[]))
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(soldier,bullet(some(dirAbs(90* $1)),some(spdAbs(2)),[
+    action([
+      wait(10),
+      actionRef('Stop',[]),
+      fire(some(dirAbs($2)),some(spdAbs(1.3)),bulletRef('Dummy',[])),
+      repeat(120+rank*200,[
+        action([
+          wait(440 div (120+rank*200)+rand),
+          fire(some(dirSeq(17* $1)),some(spdSeq(0)),bullet(none,none,[]))
+        ])
+      ])
+    ])
+  ])),
+  eaction(top,[
+    fire(none,none,bulletRef(soldier,[1,90])),
+    fire(none,none,bulletRef(soldier,[- 1,- 80])),
+    fire(some(dirAbs(180)),none,bulletRef(subBatteryAim,[])),
+    fire(some(dirAbs(90)),none,bulletRef(subBatteryFan,[])),
+    fire(some(dirAbs(- 90)),none,bulletRef(subBatteryFan,[])),
+    fire(some(dirAbs(180)),some(spdAbs(2)),bullet(none,none,[
+      action([
+        wait(10),
+        fire(none,some(spdAbs(0)),bullet(none,none,[action([actionRef(mainBattery,[]),vanish])])),
+        vanish
+      ])
+    ])),
+    wait(500)
+  ]),
+  eaction(mainBattery,[
+    repeat(15,[
+      action([wait(8),fire(some(dirAim(0)),some(spdAbs(1.6)),bullet(none,none,[]))])
+    ]),
+    wait(195),
+    repeat(4,[
+      action([
+        wait(20),
+        fire(some(dirAbs(88+rand*4)),some(spdAbs(1.6)),bullet(none,none,[])),
+        actionRef('XWay',[12+rank*16,180 div (12+rank*16)]),
+        wait(20),
+        fire(some(dirAbs(93+rand*4)),some(spdAbs(1.6)),bullet(none,none,[])),
+        actionRef('XWay',[11+rank*16,170 div (11+rank*16)])
+      ])
+    ]),
+    wait(40)
+  ])
+]).

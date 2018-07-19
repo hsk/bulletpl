@@ -1,0 +1,20 @@
+bulletML(horizontal,[
+  eaction(top,[
+    repeat(200,[
+      action([
+        fire(some(dirAbs(220+rand*100)),none,bulletRef(backBurst,[])),
+        wait(4-rank*2)
+      ])
+    ]),
+    wait(60)
+  ]),
+  ebullet(backBurst,bullet(none,some(spdAbs(1.2)),[
+    action([
+      changeSpeed(spdAbs(0),80),
+      wait(60+rand*20),
+      repeat(2,[action([fire(some(dirAbs(60+rand*60)),none,bulletRef(downAccel,[]))])]),
+      vanish
+    ])
+  ])),
+  ebullet(downAccel,bullet(none,some(spdAbs(1.8)),[action([accel(some(spdRel(- 7)),none,250)])]))
+]).

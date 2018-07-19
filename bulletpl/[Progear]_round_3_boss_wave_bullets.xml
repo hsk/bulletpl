@@ -1,0 +1,21 @@
+bulletML(horizontal,[
+  eaction(top,[
+    repeat(10,[
+      action([
+        fire(some(dirAbs(310)),none,bulletRef(wave,[- 3])),
+        wait(30),
+        fire(some(dirAbs(230)),none,bulletRef(wave,[3])),
+        wait(30)
+      ])
+    ]),
+    wait(60)
+  ]),
+  ebullet(wave,bullet(none,some(spdAbs(1.5)),[
+    action([
+      fire(some(dirAim(0)),none,bulletRef(nrm,[])),
+      repeat(12+rank*12,[action([fire(some(dirSeq($1)),none,bulletRef(nrm,[])),wait(3)])]),
+      vanish
+    ])
+  ])),
+  ebullet(nrm,bullet(none,some(spdAbs(1)),[]))
+]).

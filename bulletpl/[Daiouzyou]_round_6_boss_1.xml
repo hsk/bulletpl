@@ -1,0 +1,13 @@
+bulletML(vertical,[
+  eaction(top,[repeat(64,[action([wait(2),actionRef(four,[rand*90+135])])])]),
+  eaction(four,[
+    fire(some(dirAbs(90)),some(spdAbs(6)),bulletRef(rb,[$1])),
+    repeat(3,[action([fire(some(dirSeq(60)),some(spdAbs(6)),bulletRef(rb,[$1]))])])
+  ]),
+  ebullet(rb,bullet(none,none,[actionRef(red,[$1+rand*20-10])])),
+  eaction(red,[
+    wait(1),
+    fire(some(dirAbs($1)),some(spdAbs(1.2+rank)),bullet(none,none,[])),
+    vanish
+  ])
+]).

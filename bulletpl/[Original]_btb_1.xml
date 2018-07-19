@@ -1,0 +1,52 @@
+bulletML(vertical,[
+  eaction(top,[
+    repeat(2,[
+      action([
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,0])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)*(3 div 4)])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)*(1 div 2)])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)*(3 div 4)])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)*(1 div 4)])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)*(1 div 2)])),
+        wait(20),
+        fire(none,none,bulletRef(nway,[8+28*rank*rank,0.4,360 div (8+28*rank*rank)*(1 div 4)])),
+        wait(20)
+      ])
+    ]),
+    wait(80),
+    repeat(10,[
+      action([
+        fire(none,none,bulletRef(nwayaim,[8+28*rank*rank,0.8+0.6*rank,360 div (8+28*rank*rank)div 2])),
+        fire(none,none,bulletRef(nwayaim,[8+28*rank*rank,1.0+0.6*rank,360 div (8+28*rank*rank)div 4])),
+        fire(none,none,bulletRef(nwayaim,[8+28*rank*rank,1.2+0.6*rank,0])),
+        wait(30)
+      ])
+    ]),
+    wait(60)
+  ]),
+  ebullet(nway,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+    action([
+      fire(some(dirAbs($3)),some(spdAbs($2)),bullet(none,none,[])),
+      repeat($1,[
+        action([fire(some(dirSeq(360 div $1)),some(spdAbs($2)),bullet(none,none,[]))])
+      ]),
+      vanish
+    ])
+  ])),
+  ebullet(nwayaim,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+    action([
+      fire(some(dirAim($3)),some(spdAbs($2)),bullet(none,none,[])),
+      repeat($1,[
+        action([fire(some(dirSeq(360 div $1)),some(spdAbs($2)),bullet(none,none,[]))])
+      ]),
+      vanish
+    ])
+  ]))
+]).

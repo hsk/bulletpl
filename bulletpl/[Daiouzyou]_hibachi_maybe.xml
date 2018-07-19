@@ -1,0 +1,44 @@
+bulletML(vertical,[
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
+  eaction('XWayFan',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  ]),
+  ebullet(curve,bullet(none,none,[
+    action([
+      repeat(9999,[action([changeDirection(dirRel(- $1*(4+rank*rank*4)),10),wait(10)])])
+    ])
+  ])),
+  eaction(spiral,[
+    repeat(10+rank*15,[
+      action([
+        repeat(2,[
+          action([
+            fire(some(dirSeq($1)),some(spdAbs(1.5+rank*rank*1.5)),bulletRef(curve,[$1])),
+            repeat(10+rank*10-1,[
+              action([
+                fire(some(dirSeq(36 div (rank+1))),some(spdSeq(0)),bulletRef(curve,[$1]))
+              ])
+            ]),
+            wait(6-rank*3)
+          ])
+        ]),
+        wait(6-rank*3),
+        fire(some(dirSeq($1)),some(spdAbs(1+rank*2)),bulletRef('Dummy',[]))
+      ])
+    ])
+  ]),
+  eaction(top1,[actionRef(spiral,[- 2])]),
+  eaction(fan4,[
+    fire(some(dirAbs(- $1)),none,bulletRef('Dummy',[])),
+    repeat(30+rank*45,[
+      action([
+        fire(some(dirSeq($1)),some(spdAbs(1+rank*rank*2)),bullet(none,none,[])),
+        actionRef('XWay',[4,90]),
+        wait(6-rank*3)
+      ])
+    ])
+  ]),
+  eaction(top2,[actionRef(fan4,[4])]),
+  eaction(top3,[actionRef(fan4,[- 4])])
+]).

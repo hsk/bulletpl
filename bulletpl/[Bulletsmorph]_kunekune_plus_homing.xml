@@ -1,0 +1,22 @@
+bulletML(none,[
+  eaction(top,[repeat(4,[action([actionRef('impl:259',[]),wait(50)])]),wait(60)]),
+  eaction('impl:259',[
+    fire(some(dirAim(15+30*rand)),some(spdAbs(1.8-rank+rand)),bullet(none,none,[action([actionRef('impl:30',[])])]))
+  ]),
+  eaction('impl:30',[
+    fire(some(dirAbs($2)),some(spdAbs($1)),bullet(none,none,[action([actionRef('impl:156',[]),vanish])])),
+    repeat(10+rank*10,[action([actionRef('impl:12',[])])]),
+    vanish
+  ]),
+  eaction('impl:156',[
+    wait(1),
+    fire(some(dirSeq(0)),none,bulletRef('bulletmls/[G_DARIUS]_homing_laser.xml:_:hmgLsr',[]))
+  ]),
+  ebullet('bulletmls/[G_DARIUS]_homing_laser.xml:_:hmgLsr',bullet(none,some(spdAbs(2)),[
+    action([changeSpeed(spdAbs(0.3),30),wait(100),changeSpeed(spdAbs(5),100)]),
+    action([repeat(12,[action([changeDirection(dirAim(0),45-rank*30),wait(5)])])])
+  ])),
+  eaction('impl:12',[
+    repeat(9999,[action([wait(2),fire(some(dirSeq(15)),none,bullet(none,none,[]))])])
+  ])
+]).

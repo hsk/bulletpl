@@ -1,0 +1,81 @@
+bulletML(vertical,[
+  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
+  eaction('XWay',[
+    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq(0)),bullet(none,none,[]))])])
+  ]),
+  ebullet('Dummy',bullet(none,none,[action([vanish])])),
+  ebullet(blueFan,bullet(none,some(spdAbs(3)),[
+    action([
+      wait(20),
+      actionRef('Stop',[]),
+      repeat(6,[
+        action([
+          fire(some(dirSeq(120+ $1*2)),some(spdAbs(1.6)),bullet(none,none,[])),
+          actionRef('XWay',[3,120]),
+          repeat(6+rank*6,[
+            action([
+              wait(56 div (6+rank*6)),
+              fire(some(dirSeq(120+ $1)),some(spdAbs(1.6)),bullet(none,none,[])),
+              actionRef('XWay',[3,120])
+            ])
+          ]),
+          wait(14)
+        ])
+      ]),
+      vanish
+    ])
+  ])),
+  eaction(singleRedAim,[
+    fire(some(dirAim(0)),some(spdAbs(2)),bullet(none,none,[action([])])),
+    repeat(15,[
+      action([
+        wait(4),
+        fire(some(dirSeq(0)),some(spdAbs(2)),bullet(none,none,[action([])]))
+      ])
+    ])
+  ]),
+  eaction(doubleRedAim,[
+    fire(some(dirAim(- 5* $1)),some(spdAbs(2)),bullet(none,none,[action([])])),
+    fire(some(dirSeq(20* $1)),some(spdAbs(2)),bullet(none,none,[action([])])),
+    repeat(15,[
+      action([
+        wait(4),
+        fire(some(dirSeq(- 20* $1)),some(spdAbs(2)),bullet(none,none,[action([])])),
+        fire(some(dirSeq(20* $1)),some(spdAbs(2)),bullet(none,none,[action([])]))
+      ])
+    ])
+  ]),
+  ebullet(redAim2,bullet(none,some(spdAbs(1)),[
+    action([
+      wait(20),
+      actionRef('Stop',[]),
+      wait(100),
+      actionRef(singleRedAim,[]),
+      wait(60),
+      actionRef(doubleRedAim,[- 1]),
+      wait(20),
+      actionRef(doubleRedAim,[- 1]),
+      vanish
+    ])
+  ])),
+  ebullet(redAim1,bullet(none,some(spdAbs(1)),[
+    action([
+      wait(20),
+      actionRef('Stop',[]),
+      wait(40),
+      actionRef(singleRedAim,[]),
+      wait(60),
+      actionRef(doubleRedAim,[1]),
+      wait(80),
+      actionRef(doubleRedAim,[1]),
+      vanish
+    ])
+  ])),
+  eaction(top,[
+    fire(some(dirAbs(90)),none,bulletRef(blueFan,[4])),
+    fire(some(dirAbs(- 90)),none,bulletRef(blueFan,[- 4])),
+    fire(some(dirAbs(90)),none,bulletRef(redAim2,[])),
+    fire(some(dirAbs(- 90)),none,bulletRef(redAim1,[])),
+    wait(400)
+  ])
+]).

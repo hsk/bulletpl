@@ -1,0 +1,58 @@
+bulletML(vertical,[
+  eaction(top,[
+    fire(none,none,bulletRef(bit,[2,1.0])),
+    fire(none,none,bulletRef(bit,[- 2,1.0])),
+    wait(10),
+    fire(none,none,bulletRef(bit,[2.5,1.05])),
+    fire(none,none,bulletRef(bit,[- 2.5,1.05])),
+    wait(10),
+    fire(none,none,bulletRef(bit,[3,1.1])),
+    fire(none,none,bulletRef(bit,[- 3,1.1])),
+    wait(10),
+    fire(none,none,bulletRef(bit,[3.5,1.15])),
+    fire(none,none,bulletRef(bit,[- 3.5,1.15])),
+    wait(160),
+    repeat(5,[
+      action([
+        fire(some(dirAbs(30)),some(spdAbs(1.55)),bulletRef(kujira,[179])),
+        fire(some(dirAbs(40)),some(spdAbs(1.4)),bulletRef(kujira,[170])),
+        fire(some(dirAbs(50)),some(spdAbs(1.25)),bulletRef(kujira,[160])),
+        fire(some(dirAbs(60)),some(spdAbs(1.1)),bulletRef(kujira,[150])),
+        fire(some(dirAbs(70)),some(spdAbs(0.95)),bulletRef(kujira,[140])),
+        fire(some(dirAbs(80)),some(spdAbs(0.8)),bulletRef(kujira,[130])),
+        fire(some(dirAbs(- 30)),some(spdAbs(1.55)),bulletRef(kujira,[- 179])),
+        fire(some(dirAbs(- 40)),some(spdAbs(1.4)),bulletRef(kujira,[- 170])),
+        fire(some(dirAbs(- 50)),some(spdAbs(1.25)),bulletRef(kujira,[- 160])),
+        fire(some(dirAbs(- 60)),some(spdAbs(1.1)),bulletRef(kujira,[- 150])),
+        fire(some(dirAbs(- 70)),some(spdAbs(0.95)),bulletRef(kujira,[- 140])),
+        fire(some(dirAbs(- 80)),some(spdAbs(0.8)),bulletRef(kujira,[- 130])),
+        wait(2)
+      ])
+    ]),
+    wait(250-100*rank)
+  ]),
+  ebullet(kujira,bullet(none,none,[
+    action([
+      wait(5),
+      changeDirection(dirRel($1),60),
+      wait(60+5),
+      changeSpeed(spdAbs(3.5*(0.75+0.25*rank)),30),
+      repeat(10 div (2.0-1.0*rank),[
+        action([changeDirection(dirAim(0),8*(2.0-1.0*rank)),wait(8*(2.0-1.0*rank))])
+      ])
+    ])
+  ])),
+  ebullet(bit,bullet(some(dirAbs(0)),some(spdAbs(0.0)),[
+    action([
+      fire(some(dirAbs(0)),some(spdAbs($2*(0.5+0.5*rank))),bullet(none,none,[])),
+      wait(2*(3.5-2.5*rank)),
+      repeat(100 div (3.5-2.5*rank),[
+        action([
+          fire(some(dirSeq($1*(3.5-2.5*rank))),some(spdAbs($2*(0.5+0.5*rank))),bullet(none,none,[])),
+          wait(2*(3.5-2.5*rank))
+        ])
+      ]),
+      vanish
+    ])
+  ]))
+]).
