@@ -9,7 +9,7 @@ dir(B,dirAim(D),Ship,D_) :- D_ is atan(Ship.x - B.x / Ship.y - B.y) + D.
 spd(_,spdAbs(S),_,S).
 spd(B,spdSeq(S),_,S_) :- S_ is B.pdir+S.
 
-chgDir(B,Ship,D,B1) :- (_,_,M,M)=B.get(chgDir),
+chgDir(B,Ship,D,B1) :- (_,_,M,M)=B.get(chgDir),!,
   dir(B,B.dir,Ship,D),B1=B.del(chgDir).
 chgDir(B,Ship,D,B1) :- (OD,ND,C,M)=B.get(chgDir),!,
   dir(B,OD,Ship,OD1),dir(B,ND,Ship,ND1),
@@ -25,14 +25,10 @@ chgSpd(B,Ship,S,B1) :- (OS,NS,C,M)=B.get(chgSpd),!,
 chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
 
 moveDefault :-
-  bb_get(ship,Ship),
-  bb_get(bullet,B),
-  chgDir(B,Ship,D,B1),
-  chgSpd(B1,Ship,S,B2),
-  Y is B.y + cos(D)*S,
-  X is B.x - sin(D)*S,
-  NB=B2.put(x,X).put(y,Y).put(pdir,D).put(pspd,S),
-  bb_put(bullet,NB).
+  bb_get(ship,Ship),bb_get(bullet,B),
+  chgDir(B,Ship,D,B1),chgSpd(B1,Ship,S,B2),
+  Y is B.y + cos(D)*S,X is B.x - sin(D)*S,
+  bb_put(bullet,B2.put(x,X).put(y,Y).put(pdir,D).put(pspd,S)).
 
 moveBullet(A) :- writeln(moveBullet(A)),fail.
 moveBullet(action(As)) :- maplist(moveBullet,As).
@@ -46,21 +42,16 @@ moveBullet(changeSpeed(S,T)) :- bb_update(bullet,B,B.put(chgSpd,(B.spd,S,0,T))).
 moveBullet(repeat(0,_)) :- !.
 moveBullet(repeat(N,As)) :- moveBullet(action(As)),N1 is N - 1,moveBullet(repeat(N1,As)).
 runBullet(B) :-
-  bb_put(bullet,B),
-  reset(B.cont,_,Cont),
+  bb_put(bullet,B),reset(B.cont,_,Cont),
   (var(Cont),!;Cont=0,writeln(0)
   ;bb_get(bullet,B1),bb_update(bullets,Bs,[B1.put(cont,Cont)|Bs])).
-
-display:-bb_get(bullets,Bs),maplist(drawBullet,Bs).
-
-drawBullet(B) :- writeln(B.del(cont).del(chgSpd).del(chgDir)).
-
 runBullets :-
   bb_update(bullets,Bs,[]),!,
   (Bs=[] -> true
-  ;maplist(runBullet,Bs),!,
-   display,
-   runBullets).
+  ;maplist(runBullet,Bs),!,display,runBullets).
+
+display :- bb_get(bullets,Bs),maplist(drawBullet,Bs).
+drawBullet(B) :- writeln(B.del(cont).del(chgSpd).del(chgDir)).
 
 :-
   bb_put(ship,ship{x:400,y:400}),!,
