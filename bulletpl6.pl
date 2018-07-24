@@ -2,7 +2,6 @@ initWindow :-
   new(@w, dialog(game)),
   send(@w, size, size(430,430)),
   send(@w,display,new(@text,text('game'))),
-  text('test'),
   send(@w, open).
 initShip :-
   send(@w, display, new(@area, box(10000,10000))),
@@ -24,7 +23,7 @@ evalto(I,I) :- integer(I),!.
 evalto(A,A) :- atom(A),!.
 evalto(F,$rand) :- !,random(0.0,1.0,F).
 evalto(I,$rank) :- !,rank(I).
-evalto(V,$P) :- param(P,V).
+evalto(V,$P) :- !,param(P,V).
 evalto(V,E1+E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_+E2_.
 evalto(V,E1-E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_-E2_.
 evalto(V,E1*E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_*E2_.
@@ -85,7 +84,7 @@ action(N,As) :- repeat(N,As).
 vanish :- shift(1).
 repeat(N,_) :- N1 evalto N, N1 =< 0, !.
 repeat(N,As) :- action(As),N1 evalto N - 1,repeat(N1,As).
-text(T) :- writeln(T),!,T2 evalto T,!, format(atom(T3),'~w',[T2]),send(@text,value,T3).
+text(T) :- T2 evalto T,!, format(atom(T3),'~w',[T2]),writeln(T3),send(@text,value,T3).
 runBullet(B,Bs1,Bs1_) :-
   asserta(bullet(B.del(cont))),reset(B.cont,R,Cont),retract(bullet(B1)),
   (Cont=0,!,Bs1_=[B1.put(cont,wait(99999))|Bs1],dispBullet(B1)
@@ -111,8 +110,8 @@ newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
 
 :- asserta(rank(1)).
 
-setDef(N:action(As)) :- asserta(actionV(N,As)),writeln(asserta(actionV(N,As))).
-setDef(N:action(I,As)) :- asserta(actionV(N,[repeat(I,As)])),writeln(asserta(actionV(N,As))).
+setDef(N:action(As)) :- asserta(actionV(N,As)).
+setDef(N:action(I,As)) :- asserta(actionV(N,[repeat(I,As)])).
 setDef(N:bullet(As)) :- asserta(bulletV(N,As)).
 setDef(N:fire(D,S,As)) :- asserta(fireV(N,D,S,As)).
 setDefs(Ds) :-
@@ -122,40 +121,18 @@ setDefs(Ds) :-
   retractall(fireV(_,_,_,_)),
   maplist(setDef,Ds).
 
-run(Ds) :-
+run(bulletml(Ds)) :-
   setRank(1),
   get_time(Time),assertz(time1(Time)),
   member(top:Action,Ds),
-  writeln(action:Action),
   setDefs(Ds),
-  writeln(setDefs:ok),
   newBullet(200,50,B),move([B.put([dir:dirAbs(0),spd:spdAbs(0),cont:Action])]).
 setRank(N) :- V evalto N, retract(rank(_)),asserta(rank(V)).
 rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
 :- initWindow,initShip.
 
 :- text('ランダム分裂弾'),
-  run([
-    top:action([
-      actionRef(a2,[]),
-      vanish
-    ]),
-    a2:action(6,[
-      wait(100),
-      actionRef(a3,[]),
-      rankUp,
-      text(rank:($rank))
-    ]),
-    a3:action(($rank * 0.5) + 5,[
-      wait(3),
-      fireRef(f1,[$rand*100-50])
-    ]),
-    f1:fire(dirAim($1),spdAbs(1),[])
-  ]).
-:- halt.
-
-:- text('ランダム分裂弾'),
-  run([top:action([
+  run(bulletml([top:action([
     action(6,[
         wait(100),
         action(($rank * 0.5) + 5,[
@@ -166,10 +143,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
         text(rank:($rank))
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('dirAbs 上、右、下、左に飛ぶ'),
-  run([top:action([
+  run(bulletml([top:action([
     action(3,[
       wait(30),
       fire(dirAbs(0),spdAbs(1.0),[wait(500)]),
@@ -182,10 +159,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(30)
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('dirAim4 自機方向にあわせて４方向'),
-  run([top:action([
+  run(bulletml([top:action([
     action(3,[
       wait(20),
       fire(dirAim(0),spdAbs(1.0),[wait(500)]),
@@ -198,10 +175,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(20)
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('dirSeq 8方向にとぶはず'),
-  run([top:action([
+  run(bulletml([top:action([
     action(3,[
       wait(400),
       fire(dirAim(0),spdAbs(1.0),[wait(400)]),
@@ -210,10 +187,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       ])
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('dirSeq 3way'),
-  run([top:action([
+  run(bulletml([top:action([
     action(3,[
       wait(100),
       fire(dirAim(-1*10),spdAbs(1.0),[]),
@@ -222,10 +199,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       ])
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('dirSeq 回転弾'),
-  run([top:action([
+  run(bulletml([top:action([
     wait(100),
     fire(dirAim(-1*10),spdAbs(1.0),[]),
     repeat(72,[
@@ -234,10 +211,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
     ]),
     wait(500),
     vanish
-  ])]).
+  ])])).
 
 :- text('fire:spdSeq 自機方向にスピードかえて３発'),
-  run([top:action([
+  run(bulletml([top:action([
     action(3,[
       wait(100),
       fire(dirAim(0),spdAbs(1.0),[]),
@@ -247,10 +224,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(200)
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('fire:spdRel 自機方向にスピードかえて３発'),
-  run([top:action([
+  run(bulletml([top:action([
     action(3,[
       wait(100),
       fire(dirAim(0),spdAbs(1.0),[
@@ -260,10 +237,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(200)
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('fire:dirRel 自機方向に撃った弾が途中で分裂'),
-  run([top:action([
+  run(bulletml([top:action([
     action(6,[
       wait(100),
       fire(dirAim(0),spdAbs(0.5),[
@@ -275,10 +252,10 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(200)
     ]),
     vanish
-  ])]).
+  ])])).
 
 :- text('changeSpeed changeDirection abs 画面端をぐるっと回って後ろから狙う'),
-  run([top:action([
+  run(bulletml([top:action([
       wait(200),
       repeat(50,[
         fire(dirAbs(90),spdAbs(1),[
@@ -296,6 +273,28 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
         wait(5)
       ]),
       vanish
-    ])]).
+    ])])).
+
+:- text('NWay'),
+  run(bulletml([
+    top:action([
+      actionRef(a2,[]),
+      vanish
+    ]),
+    a2:action(12,[
+      wait(100),
+      actionRef(a3,[$rank,30]),
+      rankUp,
+      text(rank:($rank))
+    ]),
+    a3:action([
+      wait(3),
+      fire(dirAim(- $2/2* ($1-1)),spdAbs(1),[]),
+      repeat($1-1,[
+        fireRef(f1,[$2])
+      ])
+    ]),
+    f1:fire(dirSeq($1),spdAbs(1),[])
+  ])).
 
 :- halt.
