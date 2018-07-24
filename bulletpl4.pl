@@ -16,24 +16,41 @@ moveShip :-
   send(@area,center,point(X,Y)),send(@ship,center,point(X,Y)).
 getShip(ship{x:X,y:Y}) :- get(@area,center,point(X,Y)).
 
+:- op(800,xfx,evalto).
+
+%evalto(_,V) :- writeln(evalto;V),fail.
+evalto(F,F) :- float(F),!.
+evalto(I,I) :- integer(I),!.
+evalto(A,A) :- atom(A),!.
+evalto(F,$rand) :- !,random(0.0,1.0,F).
+evalto(I,$rank) :- !,rank(I).
+%evalto($P,V) :- writeln($P),halt,param(P,V).
+evalto(V,E1+E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_+E2_.
+evalto(V,E1-E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_-E2_.
+evalto(V,E1*E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_*E2_.
+evalto(V,E1/E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_/E2_.
+evalto(V,atan(E)) :- !,evalto(E_,E), V is atan(E_).
+evalto(V,-E) :- !,evalto(E_,E), V is -E_.
+evalto(E1_:E2_,E1:E2) :- !,evalto(E1_,E1),!,evalto(E2_,E2). 
+evalto(_,E) :- writeln(error:evalto(E)),halt.
 M.del(K) := M2 :- del_dict(K,M,_,M2);M=M2.
 dir(_,dirAbs(D),_,D).
-dir(B,dirSeq(D),_,D_) :- D_ is B.fdir + D.
-dir(B,dirRel(D),Ship,D_) :- dir(B,B.dir,Ship,D1), D_ is D1 + D.
-dir(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y, Ship.x > B.x, D_ is D + 90,!.
-dir(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y,               D_ is D - 90,!.
-dir(B,dirAim(D),Ship,D_) :- Ship.y > B.y,!, D_ is atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + 180+ D.
-dir(B,dirAim(D),Ship,D_) :-                 D_ is atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + D.
+dir(B,dirSeq(D),_,D_) :- D_ evalto B.fdir + D.
+dir(B,dirRel(D),Ship,D_) :- dir(B,B.dir,Ship,D1), D_ evalto D1 + D.
+dir(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y, Ship.x > B.x, D_ evalto D + 90,!.
+dir(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y,               D_ evalto D - 90,!.
+dir(B,dirAim(D),Ship,D_) :- Ship.y > B.y,!, D_ evalto atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + 180+ D.
+dir(B,dirAim(D),Ship,D_) :-                 D_ evalto atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + D.
 spd(_,spdAbs(S),_,S).
-spd(B,spdSeq(S),_,S_) :- S_ is B.fspd + S.
-spd(B,spdRel(S),Ship,S_) :- spd(B,B.spd,Ship,S1), S_ is S1 + S.
+spd(B,spdSeq(S),_,S_) :- S_ evalto B.fspd + S.
+spd(B,spdRel(S),Ship,S_) :- spd(B,B.spd,Ship,S1), S_ evalto S1 + S.
 chgDir(B,Ship,D,B1) :- (OD,ND,C,M)=B.get(chgDir),
-  dir(B,ND,Ship,ND1), D is OD*(1-C/M)+ND1*C/M,
+  dir(B,ND,Ship,ND1), D evalto OD*(1-C/M)+ND1*C/M,
   (C = M ->  B1 = B.del(chgDir).put(dir,ND)
   ;C1 is C+1,B1 = B.put(chgDir,(OD,ND,C1,M))).
 chgDir(B,Ship,D,B) :- dir(B,B.dir,Ship,D).
 chgSpd(B,Ship,S,B1) :- (OS,NS,C,M)=B.get(chgSpd),
-  spd(B,NS,Ship,NS1),S is OS*(1-C/M)+NS1*C/M,
+  spd(B,NS,Ship,NS1),S evalto OS*(1-C/M)+NS1*C/M,
   (C = M  -> B1 = B.del(chgSpd).put(spd,NS)
   ;C1 is C+1,B1 = B.put(chgSpd,(OS,NS,C1,M))).
 chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
@@ -41,8 +58,8 @@ chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
 action(As) :- maplist(call,As).
 
 cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)).
-cont(B,N) :- asserta(bullet(B)),shift(N),N1 is N - 1, wait(N1).
-wait(0) :- !.
+cont(B,N) :- asserta(bullet(B)),shift(N),N1 evalto N - 1, wait(N1).
+wait(N) :- N1 evalto N, N1 =< 0, !.
 wait(N) :-
   getShip(Ship),retract(bullet(B)),
   chgDir(B,Ship,D,B1),chgSpd(B1,Ship,S,B2),
@@ -50,15 +67,17 @@ wait(N) :-
   X is B.x + sin(D_)*S,Y is B.y - cos(D_)*S,
   cont(B2.put([x:X,y:Y,pdir:D,pspd:S]),N).
 fire(D,S,As) :-
-  retract(bullet(B)),getShip(Ship),spd(B,S,Ship,S_),dir(B,D,Ship,D_),newBullet(B.x,B.y,B2),
+  retract(bullet(B)),getShip(Ship),
+  spd(B,S,Ship,S_),!,
+  dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2),
   asserta(bullet(B.put([fdir:D_,fspd:S_]))),
   assertz(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]))).
 changeDirection(D,T) :- retract(bullet(B)),asserta(bullet(B.put(chgDir,(B.pdir,D,0,T)))).
 changeSpeed(S,T) :- retract(bullet(B)),asserta(bullet(B.put(chgSpd,(B.pspd,S,0,T)))).
 action(N,As) :- repeat(N,As).
-repeat(0,_) :- !.
-repeat(N,As) :- action(As),N1 is N - 1,repeat(N1,As).
-text(T) :- send(@text,value,T).
+repeat(N,_) :- N1 evalto N, N1 =< 0, !.
+repeat(N,As) :- action(As),N1 evalto N - 1,repeat(N1,As).
+text(T) :- writeln(T),!,T2 evalto T,!, format(atom(T3),'~w',[T2]),send(@text,value,T3).
 runBullet(B,Bs1,Bs1_) :-
   asserta(bullet(B.del(cont))),reset(B.cont,_,Cont),retract(bullet(B1)),
   ( Cont=0,!, freeBullet(B.shape),Bs1_=Bs1
@@ -81,11 +100,26 @@ newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
   send(Shape, pen, 0),
   send(Shape, fill_pattern, colour(red)).
 
+:- asserta(rank(1)).
 run(Bs) :-
+  setRank(1),
   get_time(Time),assertz(time1(Time)),
   newBullet(200,50,B),move([B.put(Bs)]).
-
+setRank(N) :- V evalto N, retract(rank(_)),asserta(rank(V)).
+rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
 :- initWindow,initShip.
+
+:- text('ランダム分裂弾'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(6,[
+    wait(100),
+    action(($rank * 0.5) + 5,[
+      wait(3),
+      fire(dirAim($rand*100-50),spdAbs(1),[wait(500)])
+    ]),
+    rankUp,
+    text(rank:($rank))
+  ])]).
+
 :- text('dirAbs 上、右、下、左に飛ぶ'),
   run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
     wait(30),
@@ -162,7 +196,6 @@ run(Bs) :-
 
 :- text('fire:dirRel 自機方向に撃った弾が途中で分裂'),
   run([dir:dirAbs(0),spd:spdAbs(0),cont:action(6,[
-    text(dirRel),
     wait(100),
     fire(dirAim(0),spdAbs(0.5),[
       wait(150),
@@ -190,7 +223,6 @@ run(Bs) :-
         wait(5)
       ])
     ])]).
-:- text('ランダム分裂弾').
 :- text('vanish').
 
 :- halt.
