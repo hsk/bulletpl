@@ -23,7 +23,7 @@ evalto(I,I) :- integer(I),!.
 evalto(A,A) :- atom(A),!.
 evalto(F,$rand) :- !,random(0.0,1.0,F).
 evalto(I,$rank) :- !,rank(I).
-evalto(V,$P) :- !,param(P,V).
+evalto(V,$P) :- !,bullet(B),!,member(P=V,B.param),!.
 evalto(V,E1+E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_+E2_.
 evalto(V,E1-E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_-E2_.
 evalto(V,E1*E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_*E2_.
@@ -54,12 +54,16 @@ chgSpd(B,Ship,S,B1) :- (OS,NS,C,M)=B.get(chgSpd),
   ;C1 evalto C+1,B1 = B.put(chgSpd,(OS,NS,C1,M))).
 chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
 
-setParams(_,[]).
-setParams(N,[P|Ps]) :- P_ evalto P,asserta(param(N,P_)),N1 is N+1,setParams(N1,Ps).
-rmParams(_,[]).
-rmParams(N,[_|Ps]) :- retract(param(N,_)),N1 is N+1,rmParams(N1,Ps).
+eval1(_,[],Prm,Prm).
+eval1(N,[V|Vs],Prm,[N=V_|Vs_]) :- evalto(V_,V),N1 is N+1,eval1(N1,Vs,Prm,Vs_).
 
-actionRef(K,Ps) :- setParams(1,Ps),actionV(K,As),action(As),rmParams(1,Ps).
+getParam(B,Prm) :- Prm=B.get(param),!;Prm=[].
+setParams(Ps,B1) :-
+  eval1(1,Ps,Prm,Ps_),retract(bullet(B1)),getParam(B1,Prm),asserta(bullet(B1.put(param,Ps_))).
+rmParams(B1) :- retract(bullet(B)),!,(B.shape=B1.shape;halt),!,
+  getParam(B1,Prm),!,asserta(bullet(B.put(param,Prm))).
+
+actionRef(K,Ps) :- setParams(Ps,B),actionV(K,As),action(As),rmParams(B).
 action(As) :- maplist(call,As).
 cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)),shift(1). % 画面外で消える
 cont(B,N) :- asserta(bullet(B)),shift(0),N1 evalto N - 1, wait(N1).
@@ -70,14 +74,14 @@ wait(N) :-
   D_ is D/180*3.14159,
   X is B.x + sin(D_)*S,Y is B.y - cos(D_)*S,
   cont(B2.put([x:X,y:Y,pdir:D,pspd:S]),N).
-fireRef(K,Ps):- setParams(1,Ps),fireV(K,D,S,As),fire(D,S,As),rmParams(1,Ps).
-fire(D,S,bulletRef(K,Ps)) :- setParams(1,Ps),bulletV(K,As), fire(D,S,As),rmParams(1,Ps).
+fireRef(K,Ps):- setParams(Ps,B),fireV(K,D,S,As),fire(D,S,As),rmParams(B).
+fire(D,S,bulletRef(K,Ps)) :- setParams(Ps,B),bulletV(K,As), fire(D,S,As),rmParams(B).
 fire(D,S,As) :-
-  retract(bullet(B)),getShip(Ship),
+  bullet(B),getShip(Ship),
   spd(B,S,Ship,S_),!,
   dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2),
-  asserta(bullet(B.put([fdir:D_,fspd:S_]))),
-  assertz(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]))).
+  retract(bullet(B1)),asserta(bullet(B1.put([fdir:D_,fspd:S_]))),
+  assert(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]))).
 changeDirection(D,T) :- retract(bullet(B)),asserta(bullet(B.put(chgDir,(B.pdir,D,0,T)))).
 changeSpeed(S,T) :- retract(bullet(B)),asserta(bullet(B.put(chgSpd,(B.pspd,S,0,T)))).
 action(N,As) :- repeat(N,As).
@@ -275,7 +279,7 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       vanish
     ])])).
 
-:- text('NWay'),
+:- text('NWay actionRef fireRef'),
   run(bulletml([
     top:action([
       actionRef(a2,[]),
@@ -291,7 +295,7 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(3),
       fire(dirAim(- $2/2* ($1-1)),spdAbs(1),[]),
       repeat($1-1,[
-        fireRef(f1,[$2])
+        fireRef(f1,[30])
       ])
     ]),
     f1:fire(dirSeq($1),spdAbs(1),[])
