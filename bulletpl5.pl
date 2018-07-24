@@ -57,8 +57,8 @@ chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
 
 action(As) :- maplist(call,As).
 
-cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)).
-cont(B,N) :- asserta(bullet(B)),shift(N),N1 evalto N - 1, wait(N1).
+cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)),shift(1). % 画面外で消える
+cont(B,N) :- asserta(bullet(B)),shift(0),N1 evalto N - 1, wait(N1).
 wait(N) :- N1 evalto N, N1 =< 0, !.
 wait(N) :-
   getShip(Ship),retract(bullet(B)),
@@ -75,12 +75,14 @@ fire(D,S,As) :-
 changeDirection(D,T) :- retract(bullet(B)),asserta(bullet(B.put(chgDir,(B.pdir,D,0,T)))).
 changeSpeed(S,T) :- retract(bullet(B)),asserta(bullet(B.put(chgSpd,(B.pspd,S,0,T)))).
 action(N,As) :- repeat(N,As).
+vanish :- shift(1).
 repeat(N,_) :- N1 evalto N, N1 =< 0, !.
 repeat(N,As) :- action(As),N1 evalto N - 1,repeat(N1,As).
 text(T) :- writeln(T),!,T2 evalto T,!, format(atom(T3),'~w',[T2]),send(@text,value,T3).
 runBullet(B,Bs1,Bs1_) :-
-  asserta(bullet(B.del(cont))),reset(B.cont,_,Cont),retract(bullet(B1)),
-  ( Cont=0,!, freeBullet(B.shape),Bs1_=Bs1
+  asserta(bullet(B.del(cont))),reset(B.cont,R,Cont),retract(bullet(B1)),
+  (Cont=0,!,Bs1_=[B1.put(cont,wait(99999))|Bs1],dispBullet(B1)
+  ; R= 1,!, freeBullet(B.shape),Bs1_=Bs1
   ; Bs1_=[B1.put(cont,Cont)|Bs1],dispBullet(B1)).
 move([]).
 move(Bs) :-
@@ -110,31 +112,38 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
 :- initWindow,initShip.
 
 :- text('ランダム分裂弾'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(6,[
-    wait(100),
-    action(($rank * 0.5) + 5,[
-      wait(3),
-      fire(dirAim($rand*100-50),spdAbs(1),[wait(500)])
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(6,[
+        wait(100),
+        action(($rank * 0.5) + 5,[
+          wait(3),
+          fire(dirAim($rand*100-50),spdAbs(1),[])
+        ]),
+        rankUp,
+        text(rank:($rank))
     ]),
-    rankUp,
-    text(rank:($rank))
+    vanish
   ])]).
 
 :- text('dirAbs 上、右、下、左に飛ぶ'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
-    wait(30),
-    fire(dirAbs(0),spdAbs(1.0),[wait(500)]),
-    wait(30),
-    fire(dirAbs(90),spdAbs(1.0),[wait(500)]),
-    wait(30),
-    fire(dirAbs(180),spdAbs(1.0),[wait(500)]),
-    wait(30),
-    fire(dirAbs(270),spdAbs(1.0),[wait(500)]),
-    wait(30)
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(3,[
+      wait(30),
+      fire(dirAbs(0),spdAbs(1.0),[wait(500)]),
+      wait(30),
+      fire(dirAbs(90),spdAbs(1.0),[wait(500)]),
+      wait(30),
+      fire(dirAbs(180),spdAbs(1.0),[wait(500)]),
+      wait(30),
+      fire(dirAbs(270),spdAbs(1.0),[wait(500)]),
+      wait(30)
+    ]),
+    vanish
   ])]).
 
 :- text('dirAim4 自機方向にあわせて４方向'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(3,[
       wait(20),
       fire(dirAim(0),spdAbs(1.0),[wait(500)]),
       wait(20),
@@ -144,64 +153,85 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
       wait(20),
       fire(dirAim(270),spdAbs(1.0),[wait(500)]),
       wait(20)
-    ])]).
+    ]),
+    vanish
+  ])]).
 
 :- text('dirSeq 8方向にとぶはず'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
-    wait(400),
-    fire(dirAim(0),spdAbs(1.0),[wait(400)]),
-    repeat(7,[
-      fire(dirSeq(45),spdAbs(1),[wait(400)])
-    ])
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(3,[
+      wait(400),
+      fire(dirAim(0),spdAbs(1.0),[wait(400)]),
+      repeat(7,[
+        fire(dirSeq(45),spdAbs(1),[wait(400)])
+      ])
+    ]),
+    vanish
   ])]).
 
 :- text('dirSeq 3way'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
-    wait(100),
-    fire(dirAim(-1*10),spdAbs(1.0),[wait(1400)]),
-    repeat(2,[
-      fire(dirSeq(10),spdAbs(1),[wait(1400)])
-    ])
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(3,[
+      wait(100),
+      fire(dirAim(-1*10),spdAbs(1.0),[]),
+      repeat(2,[
+        fire(dirSeq(10),spdAbs(1),[])
+      ])
+    ]),
+    vanish
   ])]).
 
 :- text('dirSeq 回転弾'),
   run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
     wait(100),
-    fire(dirAim(-1*10),spdAbs(1.0),[wait(1400)]),
+    fire(dirAim(-1*10),spdAbs(1.0),[]),
     repeat(72,[
       wait(4),
-      fire(dirSeq(10),spdAbs(1),[wait(1400)])
+      fire(dirSeq(10),spdAbs(1),[])
     ]),
-    wait(500)
+    wait(500),
+    vanish
   ])]).
 
 :- text('fire:spdSeq 自機方向にスピードかえて３発'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
-    wait(100),
-    fire(dirAim(0),spdAbs(1.0),[wait(500)]),action(2,[
-      fire(dirAim(0),spdSeq(0.1),[wait(500)])
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(3,[
+      wait(100),
+      fire(dirAim(0),spdAbs(1.0),[]),
+      action(2,[
+        fire(dirAim(0),spdSeq(0.1),[])
+      ]),
+      wait(200)
     ]),
-    wait(200)
+    vanish
   ])]).
 
 :- text('fire:spdRel 自機方向にスピードかえて３発'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
-    wait(100),
-    fire(dirAim(0),spdAbs(1.0),[
-      fire(dirAim(0),spdRel(0.1),[wait(500)]),
-      fire(dirAim(0),spdRel(0.2),[wait(500)]),
-      wait(500)]),
-    wait(200)
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(3,[
+      wait(100),
+      fire(dirAim(0),spdAbs(1.0),[
+        fire(dirAim(0),spdRel(0.1),[]),
+        fire(dirAim(0),spdRel(0.2),[])
+      ]),
+      wait(200)
+    ]),
+    vanish
   ])]).
 
 :- text('fire:dirRel 自機方向に撃った弾が途中で分裂'),
-  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(6,[
-    wait(100),
-    fire(dirAim(0),spdAbs(0.5),[
-      wait(150),
-      fire(dirRel(10),spdRel(0.5),[wait(500)]),
-      fire(dirRel(-10),spdRel(0.5),[wait(500)])]),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    action(6,[
+      wait(100),
+      fire(dirAim(0),spdAbs(0.5),[
+        wait(150),
+        fire(dirAim(10),spdRel(0.5),[wait(500)]),
+        fire(dirAim(-10),spdRel(0.5),[wait(500)]),
+        vanish
+      ]),
       wait(200)
+    ]),
+    vanish
   ])]).
 
 :- text('changeSpeed changeDirection abs 画面端をぐるっと回って後ろから狙う'),
@@ -221,8 +251,8 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
           changeDirection(dirAbs(-360+70),30),wait(80)
         ]),
         wait(5)
-      ])
+      ]),
+      vanish
     ])]).
-:- text('vanish').
 
 :- halt.
