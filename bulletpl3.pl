@@ -46,8 +46,7 @@ repeat(N,As) :- action(As),N1 is N - 1,repeat(N1,As).
 
 runBullet(B) :-
   asserta(bullet(B)),reset(B.cont,_,Cont),retract(bullet(B1)),
-  ( Cont=0, send(B1.shape,destroy)
-  ; assertz(bullet(B1.put(cont,Cont)))).
+  ( Cont=0, send(B1.shape,destroy); assertz(bullet(B1.put(cont,Cont)))).
 move :-
   moveShip,
   findall(B,retract(bullet(B)),Bs),!,

@@ -1,0 +1,196 @@
+initWindow :-
+  new(@w, dialog(game)),
+  send(@w, size, size(430,430)),
+  send(@w,display,new(@text,text('game'))),
+  text('test'),
+  send(@w, open).
+initShip :-
+  send(@w, display, new(@area, box(10000,10000))),
+  send(@w, display, new(@ship, box(20,20))),
+  send(@area, recogniser,move_gesture(left)),
+  send(@area, center, point(200,350)),
+  send(@ship, fill_pattern, colour(blue)).
+moveShip :- 
+  get(@area,center,point(PX,PY)),
+  X is max(15,min(415,PX)),Y is max(15,min(415,PY)),
+  send(@area,center,point(X,Y)),send(@ship,center,point(X,Y)).
+getShip(ship{x:X,y:Y}) :- get(@area,center,point(X,Y)).
+
+M.del(K) := M2 :- del_dict(K,M,_,M2);M=M2.
+dir(_,dirAbs(D),_,D).
+dir(B,dirSeq(D),_,D_) :- D_ is B.fdir + D.
+dir(B,dirRel(D),Ship,D_) :- dir(B,B.dir,Ship,D1), D_ is D1 + D.
+dir(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y, Ship.x > B.x, D_ is D + 90,!.
+dir(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y,               D_ is D - 90,!.
+dir(B,dirAim(D),Ship,D_) :- Ship.y > B.y,!, D_ is atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + 180+ D.
+dir(B,dirAim(D),Ship,D_) :-                 D_ is atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + D.
+spd(_,spdAbs(S),_,S).
+spd(B,spdSeq(S),_,S_) :- S_ is B.fspd + S.
+spd(B,spdRel(S),Ship,S_) :- spd(B,B.spd,Ship,S1), S_ is S1 + S.
+chgDir(B,Ship,D,B1) :- (OD,ND,C,M)=B.get(chgDir),
+  dir(B,ND,Ship,ND1), D is OD*(1-C/M)+ND1*C/M,
+  (C = M ->  B1 = B.del(chgDir).put(dir,ND)
+  ;C1 is C+1,B1 = B.put(chgDir,(OD,ND,C1,M))).
+chgDir(B,Ship,D,B) :- dir(B,B.dir,Ship,D).
+chgSpd(B,Ship,S,B1) :- (OS,NS,C,M)=B.get(chgSpd),
+  spd(B,NS,Ship,NS1),S is OS*(1-C/M)+NS1*C/M,
+  (C = M  -> B1 = B.del(chgSpd).put(spd,NS)
+  ;C1 is C+1,B1 = B.put(chgSpd,(OS,NS,C1,M))).
+chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
+
+action(As) :- maplist(call,As).
+
+cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)).
+cont(B,N) :- asserta(bullet(B)),shift(N),N1 is N - 1, wait(N1).
+wait(0) :- !.
+wait(N) :-
+  getShip(Ship),retract(bullet(B)),
+  chgDir(B,Ship,D,B1),chgSpd(B1,Ship,S,B2),
+  D_ is D/180*3.14159,
+  X is B.x + sin(D_)*S,Y is B.y - cos(D_)*S,
+  cont(B2.put([x:X,y:Y,pdir:D,pspd:S]),N).
+fire(D,S,As) :-
+  retract(bullet(B)),getShip(Ship),spd(B,S,Ship,S_),dir(B,D,Ship,D_),newBullet(B.x,B.y,B2),
+  asserta(bullet(B.put([fdir:D_,fspd:S_]))),
+  assertz(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]))).
+changeDirection(D,T) :- retract(bullet(B)),asserta(bullet(B.put(chgDir,(B.pdir,D,0,T)))).
+changeSpeed(S,T) :- retract(bullet(B)),asserta(bullet(B.put(chgSpd,(B.pspd,S,0,T)))).
+action(N,As) :- repeat(N,As).
+repeat(0,_) :- !.
+repeat(N,As) :- action(As),N1 is N - 1,repeat(N1,As).
+text(T) :- send(@text,value,T).
+runBullet(B,Bs1,Bs1_) :-
+  asserta(bullet(B.del(cont))),reset(B.cont,_,Cont),retract(bullet(B1)),
+  ( Cont=0,!, freeBullet(B.shape),Bs1_=Bs1
+  ; Bs1_=[B1.put(cont,Cont)|Bs1],dispBullet(B1)).
+move([]).
+move(Bs) :-
+  moveShip,foldl(runBullet,Bs,[],Bs1),!,
+  findall(B,retract(bullet(B)),Bs2),
+  append(Bs1,Bs2,Bs3),
+  get_time(Time),retract(time1(OTime)),assertz(time1(Time)),
+  W is 0.0125-(Time-OTime),sleep(W),
+  send(@w,flush),!,
+  move(Bs3).
+
+dispBullet(B) :- send(B.shape,move,point(B.x,B.y)).
+
+freeBullet(Shape) :- send(Shape,destroy),!.
+newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
+  send(@w, display, new(Shape, box(10,10)), point(X,Y)),
+  send(Shape, pen, 0),
+  send(Shape, fill_pattern, colour(red)).
+
+run(Bs) :-
+  get_time(Time),assertz(time1(Time)),
+  newBullet(200,50,B),move([B.put(Bs)]).
+
+:- initWindow,initShip.
+:- text('dirAbs 上、右、下、左に飛ぶ'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+    wait(30),
+    fire(dirAbs(0),spdAbs(1.0),[wait(500)]),
+    wait(30),
+    fire(dirAbs(90),spdAbs(1.0),[wait(500)]),
+    wait(30),
+    fire(dirAbs(180),spdAbs(1.0),[wait(500)]),
+    wait(30),
+    fire(dirAbs(270),spdAbs(1.0),[wait(500)]),
+    wait(30)
+  ])]).
+
+:- text('dirAim4 自機方向にあわせて４方向'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+      wait(20),
+      fire(dirAim(0),spdAbs(1.0),[wait(500)]),
+      wait(20),
+      fire(dirAim(90),spdAbs(1.0),[wait(500)]),
+      wait(20),
+      fire(dirAim(180),spdAbs(1.0),[wait(500)]),
+      wait(20),
+      fire(dirAim(270),spdAbs(1.0),[wait(500)]),
+      wait(20)
+    ])]).
+
+:- text('dirSeq 8方向にとぶはず'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+    wait(400),
+    fire(dirAim(0),spdAbs(1.0),[wait(400)]),
+    repeat(7,[
+      fire(dirSeq(45),spdAbs(1),[wait(400)])
+    ])
+  ])]).
+
+:- text('dirSeq 3way'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+    wait(100),
+    fire(dirAim(-1*10),spdAbs(1.0),[wait(1400)]),
+    repeat(2,[
+      fire(dirSeq(10),spdAbs(1),[wait(1400)])
+    ])
+  ])]).
+
+:- text('dirSeq 回転弾'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+    wait(100),
+    fire(dirAim(-1*10),spdAbs(1.0),[wait(1400)]),
+    repeat(72,[
+      wait(4),
+      fire(dirSeq(10),spdAbs(1),[wait(1400)])
+    ]),
+    wait(500)
+  ])]).
+
+:- text('fire:spdSeq 自機方向にスピードかえて３発'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+    wait(100),
+    fire(dirAim(0),spdAbs(1.0),[wait(500)]),action(2,[
+      fire(dirAim(0),spdSeq(0.1),[wait(500)])
+    ]),
+    wait(200)
+  ])]).
+
+:- text('fire:spdRel 自機方向にスピードかえて３発'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(3,[
+    wait(100),
+    fire(dirAim(0),spdAbs(1.0),[
+      fire(dirAim(0),spdRel(0.1),[wait(500)]),
+      fire(dirAim(0),spdRel(0.2),[wait(500)]),
+      wait(500)]),
+    wait(200)
+  ])]).
+
+:- text('fire:dirRel 自機方向に撃った弾が途中で分裂'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action(6,[
+    text(dirRel),
+    wait(100),
+    fire(dirAim(0),spdAbs(0.5),[
+      wait(150),
+      fire(dirRel(10),spdRel(0.5),[wait(500)]),
+      fire(dirRel(-10),spdRel(0.5),[wait(500)])]),
+      wait(200)
+  ])]).
+
+:- text('changeSpeed changeDirection abs 画面端をぐるっと回って後ろから狙う'),
+  run([dir:dirAbs(0),spd:spdAbs(0),cont:action([
+      wait(200),
+      repeat(50,[
+        fire(dirAbs(90),spdAbs(1),[
+          changeSpeed(spdAbs(4),30),wait(40),
+          changeDirection(dirAbs(180),30),wait(80),
+          changeSpeed(spdAbs(8),30),
+          changeDirection(dirAbs(360-70),30),wait(80)
+        ]),
+        fire(dirAbs(-90),spdAbs(1),[
+          changeSpeed(spdAbs(4),30),wait(40),
+          changeDirection(dirAbs(-180),30),wait(80),
+          changeSpeed(spdAbs(8),30),
+          changeDirection(dirAbs(-360+70),30),wait(80)
+        ]),
+        wait(5)
+      ])
+    ])]).
+:- text('ランダム分裂弾').
+:- text('vanish').
+
+:- halt.
