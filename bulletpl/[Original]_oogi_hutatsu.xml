@@ -1,22 +1,22 @@
 bulletML(none,[
-  eaction(oogiSeq,[
-    repeat(20,[action([fire(some(dirSeq(8)),some(spdSeq(0)),bullet(none,none,[]))])])
+  oogiSeq:action([
+    repeat(20,[action([fire(dirSeq(8),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(oogi,[
-    fire(some(dirAim(- 80)),some(spdAbs($2)),bullet(none,none,[])),
+  oogi:action([
+    fire(dirAim(- 80),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
     actionRef(oogiSeq,[]),
-    repeat(10+rank*10,[
+    repeat(10+ $rank*10,[
       action([
         wait(2),
-        fire(some(dirSeq(- $1)),some(spdSeq(- 0.04)),bullet(none,none,[])),
+        fire(dirSeq(- $1),spdSeq(- 0.04),bullet(dirAim(0),spdAbs(1),[])),
         actionRef(oogiSeq,[])
       ])
     ])
   ]),
-  eaction(top,[
-    actionRef(oogi,[161,0.8+rank*0.4]),
+  top:action([
+    actionRef(oogi,[161,0.8+ $rank*0.4]),
     wait(30),
-    actionRef(oogi,[159,1+rank*0.6]),
+    actionRef(oogi,[159,1+ $rank*0.6]),
     wait(150)
   ])
 ]).

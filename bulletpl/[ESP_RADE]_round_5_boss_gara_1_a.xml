@@ -1,34 +1,34 @@
 bulletML(none,[
-  eaction(sequenceThree,[
-    fire(some(dirSeq(12)),some(spdSeq(0)),bullet(none,none,[])),
+  sequenceThree:action([
+    fire(dirSeq(12),spdSeq(0),bullet(dirAim(0),spdAbs(1),[])),
     actionRef(sequenceTwo,[])
   ]),
-  eaction(sequenceTwo,[
-    repeat(2,[action([fire(some(dirSeq(3)),some(spdSeq(0)),bullet(none,none,[]))])])
+  sequenceTwo:action([
+    repeat(2,[action([fire(dirSeq(3),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(oogi,[
-    fire(some(dirAim(- 90)),some(spdAbs(1.5)),bullet(none,none,[])),
+  oogi:action([
+    fire(dirAim(- 90),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
     actionRef(sequenceTwo,[]),
     repeat(11,[actionRef(sequenceThree,[])]),
     wait(10)
   ]),
-  eaction(oogiOuHuku,[
-    fire(some(dirSeq(- 213)),some(spdAbs(1.5)),bullet(none,none,[])),
+  oogiOuHuku:action([
+    fire(dirSeq(- 213),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
     actionRef(sequenceTwo,[]),
     repeat(11,[actionRef(sequenceThree,[])]),
     wait(10)
   ]),
-  eaction(gara1a,[
+  gara1a:action([
     repeat(5,[
       action([
-        changeDirection(dirAim(360*rand),1),
-        changeSpeed(spdAbs(0.5*rand+0.5),1),
+        changeDirection(dirAim(360* $rand),1),
+        changeSpeed(spdAbs(0.5* $rand+0.5),1),
         actionRef(oogi,[]),
-        repeat(rand*(3+rank*2)+1+rank*2,[action([actionRef(oogiOuHuku,[])])]),
+        repeat($rand*(3+ $rank*2)+1+ $rank*2,[action([actionRef(oogiOuHuku,[])])]),
         changeSpeed(spdAbs(0),1),
         wait(50)
       ])
     ])
   ]),
-  eaction(top,[actionRef(gara1a,[])])
+  top:action([actionRef(gara1a,[])])
 ]).

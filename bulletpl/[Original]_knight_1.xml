@@ -1,38 +1,38 @@
 bulletML(vertical,[
-  eaction(top,[fire(none,none,bulletRef(bit,[])),wait(450)]),
-  ebullet(bit,bullet(some(dirAim(0)),some(spdAbs(0.5)),[
+  top:action([fire(dirAim(0),spdAbs(1),bulletRef(bit,[])),wait(450)]),
+  bit:bullet(dirAim(0),spdAbs(0.5),[
     action([
       changeSpeed(spdAbs(1.1),120),
       repeat(4,[
         action([
           repeat(6,[action([changeDirection(dirAim(0),10),wait(10)])]),
-          fire(some(dirAim(- 70+20*rand)),none,bulletRef(kick,[]))
+          fire(dirAim(- 70+20* $rand),spdAbs(1),bulletRef(kick,[]))
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(kick,bullet(none,some(spdAbs(4.0)),[
+  ]),
+  kick:bullet(dirAim(0),spdAbs(4.0),[
     action([
       changeSpeed(spdAbs(0.001),30),
       wait(30),
       changeDirection(dirAim(0),1),
       wait(5),
-      fire(some(dirRel(- 20)),some(spdAbs(0.7)),bullet(none,none,[])),
-      repeat(4+25*rank,[
-        action([fire(some(dirSeq(10-8*rank)),some(spdSeq(0.05)),bullet(none,none,[]))])
+      fire(dirRel(- 20),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[])),
+      repeat(4+25* $rank,[
+        action([fire(dirSeq(10-8* $rank),spdSeq(0.05),bullet(dirAim(0),spdAbs(1),[]))])
       ]),
       wait(10),
-      fire(some(dirRel(0)),some(spdAbs(0.7)),bullet(none,none,[])),
-      repeat(4+25*rank,[
-        action([fire(some(dirSeq(10-8*rank)),some(spdSeq(0.05)),bullet(none,none,[]))])
+      fire(dirRel(0),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[])),
+      repeat(4+25* $rank,[
+        action([fire(dirSeq(10-8* $rank),spdSeq(0.05),bullet(dirAim(0),spdAbs(1),[]))])
       ]),
       wait(10),
-      fire(some(dirRel(20)),some(spdAbs(0.7)),bullet(none,none,[])),
-      repeat(4+25*rank,[
-        action([fire(some(dirSeq(10-8*rank)),some(spdSeq(0.05)),bullet(none,none,[]))])
+      fire(dirRel(20),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[])),
+      repeat(4+25* $rank,[
+        action([fire(dirSeq(10-8* $rank),spdSeq(0.05),bullet(dirAim(0),spdAbs(1),[]))])
       ]),
       vanish
     ])
-  ]))
+  ])
 ]).

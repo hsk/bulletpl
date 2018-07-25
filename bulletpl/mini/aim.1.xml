@@ -1,0 +1,7 @@
+bulletML(vertical,[
+  top:action([
+    repeat(1000,[
+      action([fire(dirRel(- 180),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),wait(10)])
+    ])
+  ])
+]).

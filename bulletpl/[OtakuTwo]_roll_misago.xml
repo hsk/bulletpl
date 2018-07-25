@@ -1,5 +1,5 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     changeDirection(dirAbs(180),1),
     changeSpeed(spdAbs(1),1),
     wait(25),
@@ -7,18 +7,18 @@ bulletML(vertical,[
     wait(10),
     repeat(6,[
       action([
-        fire(some(dirSeq(30)),some(spdAbs(0.5)),bulletRef(white,[])),
-        fire(some(dirSeq(30)),some(spdAbs(0.5)),bulletRef(black,[]))
+        fire(dirSeq(30),spdAbs(0.5),bulletRef(white,[])),
+        fire(dirSeq(30),spdAbs(0.5),bulletRef(black,[]))
       ])
     ]),
-    repeat(120,[action([fire(some(dirSeq(3)),some(spdAbs(0.48)),bulletRef(normal,[]))])]),
+    repeat(120,[action([fire(dirSeq(3),spdAbs(0.48),bulletRef(normal,[]))])]),
     wait(1700),
     changeDirection(dirAbs(0),1),
     changeSpeed(spdAbs(1),1),
     wait(25),
     changeSpeed(spdAbs(0),1)
   ]),
-  ebullet(white,bullet(none,none,[
+  white:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(80),
       changeDirection(dirRel(- 90),4),
@@ -26,42 +26,42 @@ bulletML(vertical,[
       repeat(8,[
         action([
           changeDirection(dirRel(- 135),195),
-          repeat(30+rank*15,[
+          repeat(30+ $rank*15,[
             action([
-              fire(some(dirRel(90)),some(spdAbs(0.5)),bullet(none,none,[])),
-              wait(6-rank*2)
+              fire(dirRel(90),spdAbs(0.5),bullet(dirAim(0),spdAbs(1),[])),
+              wait(6- $rank*2)
             ])
           ])
         ])
       ])
     ])
-  ])),
-  ebullet(black,bullet(none,none,[
+  ]),
+  black:bullet(dirAim(0),spdAbs(1),[
     action([
-      fire(some(dirRel(- 90)),some(spdAbs(0.8)),bulletRef(direction,[])),
+      fire(dirRel(- 90),spdAbs(0.8),bulletRef(direction,[])),
       wait(80),
       changeDirection(dirRel(- 90),4),
       wait(4),
       repeat(8,[
         action([
           changeDirection(dirRel(- 135),195),
-          repeat(30+rank*30,[
+          repeat(30+ $rank*30,[
             action([
-              fire(some(dirSeq(3.923076923076923*(2-rank))),some(spdAbs(0.5)),bullet(none,none,[])),
-              wait(6-rank*3)
+              fire(dirSeq(3.923076923076923*(2- $rank)),spdAbs(0.5),bullet(dirAim(0),spdAbs(1),[])),
+              wait(6- $rank*3)
             ])
           ])
         ])
       ])
     ])
-  ])),
-  ebullet(normal,bullet(none,none,[
+  ]),
+  normal:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(80),
       changeDirection(dirRel(- 90),4),
       wait(4),
       repeat(8,[action([changeDirection(dirRel(- 135),195),wait(180)])])
     ])
-  ])),
-  ebullet(direction,bullet(none,none,[action([vanish])]))
+  ]),
+  direction:bullet(dirAim(0),spdAbs(1),[action([vanish])])
 ]).

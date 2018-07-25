@@ -1,18 +1,18 @@
 bulletML(none,[
-  efire(weekHoming,fire(some(dirAim(0)),some(spdAbs(0.1)),bullet(none,none,[
+  weekHoming:fire(dirAim(0),spdAbs(0.1),bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(3,[
         action([
           changeSpeed(spdAbs(1.5),30),
           wait(30),
-          repeat(2+rank*4,[
+          repeat(2+ $rank*4,[
             action([
-              fire(some(dirRel(90)),some(spdAbs(1.3)),bullet(none,none,[])),
-              fire(some(dirRel(- 90)),some(spdAbs(1.3)),bullet(none,none,[])),
+              fire(dirRel(90),spdAbs(1.3),bullet(dirAim(0),spdAbs(1),[])),
+              fire(dirRel(- 90),spdAbs(1.3),bullet(dirAim(0),spdAbs(1),[])),
               wait(2)
             ])
           ]),
-          changeDirection(dirAim(60-120*rand),20),
+          changeDirection(dirAim(60-120* $rand),20),
           changeSpeed(spdAbs(0.1),20),
           wait(20)
         ])
@@ -20,6 +20,6 @@ bulletML(none,[
       changeSpeed(spdAbs(1.5),30),
       wait(30)
     ])
-  ]))),
-  eaction(top,[repeat(10,[action([fireRef(weekHoming,[]),wait(60-rank*30)])]),wait(180)])
+  ])),
+  top:action([repeat(10,[action([fireRef(weekHoming,[]),wait(60- $rank*30)])]),wait(180)])
 ]).

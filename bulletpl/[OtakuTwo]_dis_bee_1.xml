@@ -1,26 +1,26 @@
 bulletML(vertical,[
-  eaction(top,[
-    actionRef(position,[rand,rand,10,6-rank*4]),
-    actionRef(position,[rand,rand,15,6-rank*4]),
-    actionRef(position,[rand,rand,20,6-rank*4]),
-    actionRef(position,[rand,rand,25,6-rank*4]),
-    actionRef(position,[rand,rand,30,6-rank*4])
+  top:action([
+    actionRef(position,[$rand,$rand,10,6- $rank*4]),
+    actionRef(position,[$rand,$rand,15,6- $rank*4]),
+    actionRef(position,[$rand,$rand,20,6- $rank*4]),
+    actionRef(position,[$rand,$rand,25,6- $rank*4]),
+    actionRef(position,[$rand,$rand,30,6- $rank*4])
   ]),
-  eaction(position,[
+  position:action([
     actionRef(move,[100+ $1*160,$2]),
-    changeDirection(dirAbs(rand*360),1),
+    changeDirection(dirAbs($rand*360),1),
     wait(1),
     actionRef(wave,[$3,$4]),
     actionRef(move,[100+ $1*160+180,$2])
   ]),
-  eaction(move,[
+  move:action([
     changeDirection(dirAbs($1),1),
-    changeSpeed(spdAbs($2*6+rank*6),1),
-    wait(10-rank*5),
+    changeSpeed(spdAbs($2*6+ $rank*6),1),
+    wait(10- $rank*5),
     changeSpeed(spdAbs(0),1),
     wait(1)
   ]),
-  eaction(wave,[
+  wave:action([
     repeat(3,[
       action([
         actionRef(allrange,[0.0,$1]),
@@ -58,11 +58,11 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  eaction(allrange,[
-    fire(some(dirRel($1)),some(spdAbs(0.8+rank*1.6)),bullet(none,none,[])),
+  allrange:action([
+    fire(dirRel($1),spdAbs(0.8+ $rank*1.6),bullet(dirAim(0),spdAbs(1),[])),
     repeat($2-1,[
       action([
-        fire(some(dirSeq(360 div $2)),some(spdAbs(0.8+rank*1.6)),bullet(none,none,[]))
+        fire(dirSeq(360/ $2),spdAbs(0.8+ $rank*1.6),bullet(dirAim(0),spdAbs(1),[]))
       ])
     ])
   ])

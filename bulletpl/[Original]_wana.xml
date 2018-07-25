@@ -1,33 +1,33 @@
 bulletML(none,[
-  eaction('XWayFan',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  'XWayFan':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(top2,[
-    fire(some(dirAbs(- 10)),some(spdAbs(0)),bullet(none,none,[action([vanish])])),
+  top2:action([
+    fire(dirAbs(- 10),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
     actionRef(main,[20,5,1.1,- 0.04,1.1,- 0.04]),
-    actionRef(main,[15-rank*6,5,1.06,0.04,1.06,0.04]),
-    actionRef(main,[5+rank*20,5,1.1,- 0.04,1.1,- 0.04])
+    actionRef(main,[15- $rank*6,5,1.06,0.04,1.06,0.04]),
+    actionRef(main,[5+ $rank*20,5,1.1,- 0.04,1.1,- 0.04])
   ]),
-  eaction(top1,[
-    fire(some(dirAbs(215)),some(spdAbs(0)),bullet(none,none,[action([vanish])])),
+  top1:action([
+    fire(dirAbs(215),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
     actionRef(main,[20,- 5,1.1,- 0.04,1.1,- 0.04]),
-    actionRef(main,[15-rank*6,- 5,1.06,0.04,1.06,0.04]),
-    actionRef(main,[5+rank*20,- 5,1.1,- 0.04,1.06,0.04])
+    actionRef(main,[15- $rank*6,- 5,1.06,0.04,1.06,0.04]),
+    actionRef(main,[5+ $rank*20,- 5,1.1,- 0.04,1.06,0.04])
   ]),
-  eaction(main,[
+  main:action([
     repeat($1,[
       action([
-        fire(some(dirSeq(36+ $2)),some(spdAbs($3)),bullet(none,none,[])),
+        fire(dirSeq(36+ $2),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
         actionRef('XWayFan',[5,1,$4]),
         repeat(4,[
           action([
-            fire(some(dirSeq(36)),some(spdAbs($3)),bullet(none,none,[])),
+            fire(dirSeq(36),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
             actionRef('XWayFan',[5,1,$4])
           ])
         ]),
         repeat(4,[
           action([
-            fire(some(dirSeq(36)),some(spdAbs($5)),bullet(none,none,[])),
+            fire(dirSeq(36),spdAbs($5),bullet(dirAim(0),spdAbs(1),[])),
             actionRef('XWayFan',[5,1,$6])
           ])
         ]),

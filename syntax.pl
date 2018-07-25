@@ -8,27 +8,30 @@ int ::= integer.
 option(A)   ::= none | some(A).
 
 expr        ::= float | int
-              | expr+expr | expr-expr | expr * expr | expr div expr | expr mod expr
-              | -expr | $(int) | rand | rank.
-speed       ::= spdAbs(expr) | spdRel(expr) | spdSeq(expr).
-direction   ::= dirAbs(expr) | dirSeq(expr) | dirAim(expr) | dirRel(expr).
+              | expr+expr | expr-expr | expr * expr | expr / expr | expr mod expr
+              | -expr | $(int) | $rand | $rank.
+speed       ::= spdAbs(expr) | spdRel(expr) | spdSeq(expr) | none.
+direction   ::= dirAbs(expr) | dirSeq(expr) | dirAim(expr) | dirRel(expr) | none.
 id(_)       ::= atom.
 syntax(firep).
+syntax(any). any(_).
 action1     ::= repeat(expr,[action1])
               | firep
               | changeSpeed(speed,expr)
               | changeDirection(direction,expr)
-              | accel(option(speed),option(speed),expr)
+              | accel(speed,speed,expr)
               | wait(expr)
               | vanish
+              | rankUp
+              | text(any)
               | action([action1])
               | actionRef(atom,[expr]).
-bullet1     ::= bullet(option(direction),option(speed),[action1]).
+bullet1     ::= bullet(direction,speed,[action1]).
 bulletp     ::= bullet1 | bulletRef(atom,[expr]).
-fire1       ::= fire(option(direction), option(speed), bulletp).
+fire1       ::= fire(direction, speed, bulletp).
 firep       ::= fire1 | fireRef(atom,[expr]).
 orientation ::= horizontal | vertical | none.
-elem        ::= ebullet(atom,bullet1)
-              | eaction(atom,[action1])
-              | efire(atom,fire1).
+elem        ::= atom:bullet1
+              | atom:action([action1])
+              | atom:fire1.
 t           ::= bulletML(orientation,[elem]).

@@ -1,44 +1,40 @@
 bulletML(vertical,[
-  ebullet('Dummy',bullet(none,none,[action([vanish])])),
-  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
-  eaction('XWayFan',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
+  'XWayFan':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  ebullet(curve,bullet(none,none,[
+  curve:bullet(dirAim(0),spdAbs(1),[
     action([
-      repeat(9999,[action([changeDirection(dirRel(- $1*(4+rank*rank*4)),10),wait(10)])])
+      repeat(9999,[action([changeDirection(dirRel(- $1*(4+ $rank* $rank*4)),10),wait(10)])])
     ])
-  ])),
-  eaction(spiral,[
-    repeat(10+rank*15,[
+  ]),
+  spiral:action([
+    repeat(10+ $rank*15,[
       action([
         repeat(2,[
           action([
-            fire(some(dirSeq($1)),some(spdAbs(1.5+rank*rank*1.5)),bulletRef(curve,[$1])),
-            repeat(10+rank*10-1,[
-              action([
-                fire(some(dirSeq(36 div (rank+1))),some(spdSeq(0)),bulletRef(curve,[$1]))
-              ])
-            ]),
-            wait(6-rank*3)
+            fire(dirSeq($1),spdAbs(1.5+ $rank* $rank*1.5),bulletRef(curve,[$1])),
+            repeat(10+ $rank*10-1,[action([fire(dirSeq(36/($rank+1)),spdSeq(0),bulletRef(curve,[$1]))])]),
+            wait(6- $rank*3)
           ])
         ]),
-        wait(6-rank*3),
-        fire(some(dirSeq($1)),some(spdAbs(1+rank*2)),bulletRef('Dummy',[]))
+        wait(6- $rank*3),
+        fire(dirSeq($1),spdAbs(1+ $rank*2),bulletRef('Dummy',[]))
       ])
     ])
   ]),
-  eaction(top1,[actionRef(spiral,[- 2])]),
-  eaction(fan4,[
-    fire(some(dirAbs(- $1)),none,bulletRef('Dummy',[])),
-    repeat(30+rank*45,[
+  top1:action([actionRef(spiral,[- 2])]),
+  fan4:action([
+    fire(dirAbs(- $1),spdAbs(1),bulletRef('Dummy',[])),
+    repeat(30+ $rank*45,[
       action([
-        fire(some(dirSeq($1)),some(spdAbs(1+rank*rank*2)),bullet(none,none,[])),
+        fire(dirSeq($1),spdAbs(1+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[])),
         actionRef('XWay',[4,90]),
-        wait(6-rank*3)
+        wait(6- $rank*3)
       ])
     ])
   ]),
-  eaction(top2,[actionRef(fan4,[4])]),
-  eaction(top3,[actionRef(fan4,[- 4])])
+  top2:action([actionRef(fan4,[4])]),
+  top3:action([actionRef(fan4,[- 4])])
 ]).

@@ -1,54 +1,52 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     fireRef(seed,[0,57,0.8,0.8,0,- 0.8,0]),
     fireRef(seed,[270,206,1.73,0,- 1.2,0,1.2]),
     fireRef(seed2,[]),
-    wait(3*(260+(60-rank*60)))
+    wait(3*(260+(60- $rank*60)))
   ]),
-  efire(seed,fire(some(dirAbs($2)),some(spdAbs($3)),bullet(none,none,[
+  seed:fire(dirAbs($2),spdAbs($3),bullet(dirAim(0),spdAbs(1),[
     action([
       wait(90),
       fireRef(leaf,[1,$1,$4,$5,$6,$7]),
       fireRef(leaf,[- 1,$1,$4,$5,$6,$7]),
       vanish
     ])
-  ]))),
-  efire(leaf,fire(some(dirAbs(50)),some(spdAbs(0)),bullet(none,none,[
+  ])),
+  leaf:fire(dirAbs(50),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
     action([
-      fire(some(dirAbs($2)),some(spdAbs(5.1)),bulletRef(curve,[$1])),
+      fire(dirAbs($2),spdAbs(5.1),bulletRef(curve,[$1])),
       actionRef(move,[35,$1,$1]),
-      actionRef(move,[120,$1 div 2,$1]),
+      actionRef(move,[120,$1/2,$1]),
       actionRef(move,[45,0,$1]),
-      actionRef(move,[90,$3 div 2,$1]),
-      actionRef(move,[60-rank*60,0,$1]),
-      actionRef(move,[120,$4*3 div 8,$1]),
-      actionRef(move,[60-rank*60,0,$1]),
-      actionRef(move,[90,$5 div 2,$1]),
-      actionRef(move,[60-rank*60,0,$1]),
-      actionRef(move,[120,$6*3 div 8,$1]),
+      actionRef(move,[90,$3/2,$1]),
+      actionRef(move,[60- $rank*60,0,$1]),
+      actionRef(move,[120,$4*3/8,$1]),
+      actionRef(move,[60- $rank*60,0,$1]),
+      actionRef(move,[90,$5/2,$1]),
+      actionRef(move,[60- $rank*60,0,$1]),
+      actionRef(move,[120,$6*3/8,$1]),
       actionRef(move,[45,0,$1]),
       vanish
     ])
-  ]))),
-  eaction(move,[
-    repeat($1,[
-      action([fire(some(dirSeq($2)),some(spdAbs(5.1)),bulletRef(curve,[$3])),wait(1)])
-    ])
+  ])),
+  move:action([
+    repeat($1,[action([fire(dirSeq($2),spdAbs(5.1),bulletRef(curve,[$3])),wait(1)])])
   ]),
-  ebullet(curve,bullet(none,none,[action([changeDirection(dirRel($1*85),9-rank*5)])])),
-  efire(seed2,fire(some(dirAbs(131.5)),some(spdAbs(0.05)),bullet(none,none,[
+  curve:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel($1*85),9- $rank*5)])]),
+  seed2:fire(dirAbs(131.5),spdAbs(0.05),bullet(dirAim(0),spdAbs(1),[
     action([
       wait(90),
       changeSpeed(spdAbs(0),1),
       repeat(10,[
         action([
-          fire(some(dirAim(0)),some(spdAbs(1.4+0.4*rank*rank)),bullet(none,none,[])),
-          fire(some(dirAim(3*rand*rank)),some(spdAbs(1.4+0.4*rand*rank*rank)),bullet(none,none,[])),
-          fire(some(dirAim(- 3*rand*rank)),some(spdAbs(1.4+0.4*rand*rank*rank)),bullet(none,none,[])),
-          wait(3*(260+(60-rank*60))div 10)
+          fire(dirAim(0),spdAbs(1.4+0.4* $rank* $rank),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAim(3* $rand* $rank),spdAbs(1.4+0.4* $rand* $rank* $rank),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAim(- 3* $rand* $rank),spdAbs(1.4+0.4* $rand* $rank* $rank),bullet(dirAim(0),spdAbs(1),[])),
+          wait(3*(260+(60- $rank*60))/10)
         ])
       ]),
       vanish
     ])
-  ])))
+  ]))
 ]).

@@ -1,10 +1,10 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(some(dirAim(30)),none,bulletRef(parentbit,[1])),
-    fire(some(dirAim(- 30)),none,bulletRef(parentbit,[- 1])),
+  top:action([
+    fire(dirAim(30),spdAbs(1),bulletRef(parentbit,[1])),
+    fire(dirAim(- 30),spdAbs(1),bulletRef(parentbit,[- 1])),
     wait(300)
   ]),
-  ebullet(parentbit,bullet(none,some(spdAbs(2.0)),[
+  parentbit:bullet(dirAim(0),spdAbs(2.0),[
     action([
       actionRef(cross,[75,0]),
       actionRef(cross,[70,0]),
@@ -20,20 +20,20 @@ bulletML(vertical,[
       actionRef(cross,[55,0]),
       vanish
     ])
-  ])),
-  eaction(cross,[
-    fire(some(dirAbs(0)),none,bulletRef(aimbit,[$1,$2])),
-    fire(some(dirAbs(90)),none,bulletRef(aimbit,[$1,$2])),
-    fire(some(dirAbs(180)),none,bulletRef(aimbit,[$1,$2])),
-    fire(some(dirAbs(270)),none,bulletRef(aimbit,[$1,$2])),
+  ]),
+  cross:action([
+    fire(dirAbs(0),spdAbs(1),bulletRef(aimbit,[$1,$2])),
+    fire(dirAbs(90),spdAbs(1),bulletRef(aimbit,[$1,$2])),
+    fire(dirAbs(180),spdAbs(1),bulletRef(aimbit,[$1,$2])),
+    fire(dirAbs(270),spdAbs(1),bulletRef(aimbit,[$1,$2])),
     wait(5)
   ]),
-  ebullet(aimbit,bullet(none,some(spdAbs(0.6)),[
+  aimbit:bullet(dirAim(0),spdAbs(0.6),[
     action([
       wait($1),
-      fire(some(dirAim($2)),some(spdAbs(1.6*(0.5+0.5*rank))),bullet(none,none,[])),
-      repeat(2+5*rank,[action([fire(some(dirSeq(0)),some(spdSeq(0.1)),bullet(none,none,[]))])]),
+      fire(dirAim($2),spdAbs(1.6*(0.5+0.5* $rank)),bullet(dirAim(0),spdAbs(1),[])),
+      repeat(2+5* $rank,[action([fire(dirSeq(0),spdSeq(0.1),bullet(dirAim(0),spdAbs(1),[]))])]),
       vanish
     ])
-  ]))
+  ])
 ]).

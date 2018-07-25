@@ -1,27 +1,27 @@
 bulletML(none,[
-  eaction(top,[
+  top:action([
     actionRef(move,[180]),
     changeDirection(dirAim(0),1),
     wait(1),
     repeat(50,[
       action([
         wait(1),
-        fireRef(winder,[22.5-rank*12.5,7]),
-        fireRef(winder,[- 22.5+rank*12.5,7]),
-        fireRef(winder,[22.5-rank*12.5,7.1]),
-        fireRef(winder,[- 22.5+rank*12.5,7.1])
+        fireRef(winder,[22.5- $rank*12.5,7]),
+        fireRef(winder,[- 22.5+ $rank*12.5,7]),
+        fireRef(winder,[22.5- $rank*12.5,7.1]),
+        fireRef(winder,[- 22.5+ $rank*12.5,7.1])
       ])
     ]),
     repeat(20,[
       action([
-        changeDirection(dirRel(- 60+rand*120),100+rank*50),
-        repeat(100-rand*50,[
+        changeDirection(dirRel(- 60+ $rand*120),100+ $rank*50),
+        repeat(100- $rand*50,[
           action([
             wait(1),
-            fireRef(winder,[22.5-rank*12.5,7]),
-            fireRef(winder,[- 22.5+rank*12.5,7]),
-            fireRef(winder,[22.5-rank*12.5,7.1]),
-            fireRef(winder,[- 22.5+rank*12.5,7.1])
+            fireRef(winder,[22.5- $rank*12.5,7]),
+            fireRef(winder,[- 22.5+ $rank*12.5,7]),
+            fireRef(winder,[22.5- $rank*12.5,7.1]),
+            fireRef(winder,[- 22.5+ $rank*12.5,7.1])
           ])
         ])
       ])
@@ -29,12 +29,12 @@ bulletML(none,[
     wait(50),
     actionRef(move,[0])
   ]),
-  eaction(move,[
+  move:action([
     changeDirection(dirAbs($1),1),
     changeSpeed(spdAbs(2),1),
     wait(18),
     changeSpeed(spdAbs(0),1),
     wait(5)
   ]),
-  efire(winder,fire(some(dirRel($1)),some(spdAbs($2)),bullet(none,none,[])))
+  winder:fire(dirRel($1),spdAbs($2),bullet(dirAim(0),spdAbs(1),[]))
 ]).

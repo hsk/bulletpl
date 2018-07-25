@@ -1,46 +1,46 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(some(dirAbs(270)),some(spdAbs(1.2)),bulletRef(dummy,[])),
+  top:action([
+    fire(dirAbs(270),spdAbs(1.2),bulletRef(dummy,[])),
     wait(5),
-    fire(some(dirAbs(315)),some(spdAbs(1)),bulletRef(dummy,[])),
+    fire(dirAbs(315),spdAbs(1),bulletRef(dummy,[])),
     wait(5),
-    fire(some(dirAbs(0)),some(spdAbs(1)),bulletRef(dummy,[])),
+    fire(dirAbs(0),spdAbs(1),bulletRef(dummy,[])),
     wait(5),
-    fire(some(dirAbs(45)),some(spdAbs(1)),bulletRef(dummy,[])),
+    fire(dirAbs(45),spdAbs(1),bulletRef(dummy,[])),
     wait(5),
-    fire(some(dirAbs(90)),some(spdAbs(1.2)),bulletRef(dummy,[])),
-    wait(800-350*rank)
+    fire(dirAbs(90),spdAbs(1.2),bulletRef(dummy,[])),
+    wait(800-350* $rank)
   ]),
-  ebullet(dummy,bullet(none,none,[
+  dummy:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(50),
       changeSpeed(spdAbs(0),1),
       wait(10),
       repeat(50,[
         action([
-          fire(some(dirAbs(210)),some(spdAbs(0.5+1.0*rank)),bulletRef(noiz,[
-            36 div (0.5+1.0*rank),
+          fire(dirAbs(210),spdAbs(0.5+1.0* $rank),bulletRef(noiz,[
+            36/(0.5+1.0* $rank),
             90,
-            1.0+2.0*rank,
-            18 div (1.0+2.0*rank),
+            1.0+2.0* $rank,
+            18/(1.0+2.0* $rank),
             210,
-            0.5+1.0*rank
+            0.5+1.0* $rank
           ])),
-          fire(some(dirAbs(150)),some(spdAbs(0.5+1.0*rank)),bulletRef(noiz,[
-            36 div (0.5+1.0*rank),
+          fire(dirAbs(150),spdAbs(0.5+1.0* $rank),bulletRef(noiz,[
+            36/(0.5+1.0* $rank),
             270,
-            1.0+2.0*rank,
-            18 div (1.0+2.0*rank),
+            1.0+2.0* $rank,
+            18/(1.0+2.0* $rank),
             150,
-            0.5+1.0*rank
+            0.5+1.0* $rank
           ])),
           wait(5)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(noiz,bullet(none,none,[
+  ]),
+  noiz:bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(999,[
         action([
@@ -53,5 +53,5 @@ bulletML(vertical,[
         ])
       ])
     ])
-  ]))
+  ])
 ]).

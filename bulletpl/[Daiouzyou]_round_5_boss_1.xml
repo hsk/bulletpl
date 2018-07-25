@@ -1,71 +1,71 @@
 bulletML(vertical,[
-  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
-  eaction('XWay',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq(0)),bullet(none,none,[]))])])
+  'Stop':action([changeSpeed(spdAbs(0),1)]),
+  'XWay':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  ebullet(aim3,bullet(none,none,[action([wait(10),fire(none,some(spdAbs(0)),bulletRef(aim3Impl,[])),vanish])])),
-  ebullet(aim3Impl,bullet(none,none,[
+  aim3:bullet(dirAim(0),spdAbs(1),[action([wait(10),fire(dirAim(0),spdAbs(0),bulletRef(aim3Impl,[])),vanish])]),
+  aim3Impl:bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(7,[
         action([
-          fire(some(dirAim(- 33+rand*6)),some(spdAbs(1.5)),bullet(none,none,[])),
+          fire(dirAim(- 33+ $rand*6),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
           actionRef('XWay',[3,30]),
-          repeat(2+rank*3,[
+          repeat(2+ $rank*3,[
             action([
               wait(3),
-              fire(some(dirSeq(- 60)),some(spdAbs(1.5)),bullet(none,none,[])),
+              fire(dirSeq(- 60),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
               actionRef('XWay',[3,30])
             ])
           ]),
-          wait(54-rank*9)
+          wait(54- $rank*9)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(aim,bullet(none,none,[action([wait(10),fire(none,some(spdAbs(0)),bulletRef(aimImpl,[])),vanish])])),
-  ebullet(aimImpl,bullet(none,none,[
+  ]),
+  aim:bullet(dirAim(0),spdAbs(1),[action([wait(10),fire(dirAim(0),spdAbs(0),bulletRef(aimImpl,[])),vanish])]),
+  aimImpl:bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(7,[
         action([
-          fire(some(dirAim(- 3+rand*6)),some(spdAbs(1.5)),bullet(none,none,[])),
-          repeat(2+rank*3,[
-            action([wait(3),fire(some(dirSeq(0)),some(spdAbs(1.5)),bullet(none,none,[]))])
+          fire(dirAim(- 3+ $rand*6),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+          repeat(2+ $rank*3,[
+            action([wait(3),fire(dirSeq(0),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[]))])
           ]),
-          wait(54-rank*9)
+          wait(54- $rank*9)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(fan,bullet(none,none,[
+  ]),
+  fan:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(10),
       actionRef('Stop',[]),
-      repeat(3+rank*4,[
+      repeat(3+ $rank*4,[
         action([
-          fire(some(dirAbs($1- $2*3)),some(spdAbs($3)),bullet(none,none,[])),
+          fire(dirAbs($1- $2*3),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
           actionRef('XWay',[7,10]),
-          wait(420 div (3+rank*4))
+          wait(420/(3+ $rank*4))
         ])
       ]),
       vanish
     ])
-  ])),
-  eaction(top,[
-    fire(some(dirAbs(110)),some(spdAbs(4)),bulletRef(aim3,[])),
-    fire(some(dirAbs(- 110)),some(spdAbs(4)),bulletRef(aim3,[])),
-    fire(some(dirAbs(125)),some(spdAbs(5)),bulletRef(aim,[])),
-    fire(some(dirAbs(- 125)),some(spdAbs(5)),bulletRef(aim,[])),
-    fire(some(dirAbs(150)),some(spdAbs(7)),bulletRef(aim,[])),
-    fire(some(dirAbs(- 150)),some(spdAbs(7)),bulletRef(aim,[])),
+  ]),
+  top:action([
+    fire(dirAbs(110),spdAbs(4),bulletRef(aim3,[])),
+    fire(dirAbs(- 110),spdAbs(4),bulletRef(aim3,[])),
+    fire(dirAbs(125),spdAbs(5),bulletRef(aim,[])),
+    fire(dirAbs(- 125),spdAbs(5),bulletRef(aim,[])),
+    fire(dirAbs(150),spdAbs(7),bulletRef(aim,[])),
+    fire(dirAbs(- 150),spdAbs(7),bulletRef(aim,[])),
     wait(10),
-    fire(some(dirAbs(90)),some(spdAbs(6)),bulletRef(fan,[- 135,10,1.3])),
-    fire(some(dirAbs(- 90)),some(spdAbs(6)),bulletRef(fan,[135,10,1.3])),
-    fire(some(dirAbs(110)),some(spdAbs(4)),bulletRef(fan,[- 164,8,1.2])),
-    fire(some(dirAbs(- 110)),some(spdAbs(4)),bulletRef(fan,[156,8,1.2])),
-    fire(some(dirAbs(130)),some(spdAbs(2)),bulletRef(fan,[180,8,1.1])),
-    fire(some(dirAbs(- 130)),some(spdAbs(2)),bulletRef(fan,[180,5,1.1])),
+    fire(dirAbs(90),spdAbs(6),bulletRef(fan,[- 135,10,1.3])),
+    fire(dirAbs(- 90),spdAbs(6),bulletRef(fan,[135,10,1.3])),
+    fire(dirAbs(110),spdAbs(4),bulletRef(fan,[- 164,8,1.2])),
+    fire(dirAbs(- 110),spdAbs(4),bulletRef(fan,[156,8,1.2])),
+    fire(dirAbs(130),spdAbs(2),bulletRef(fan,[180,8,1.1])),
+    fire(dirAbs(- 130),spdAbs(2),bulletRef(fan,[180,5,1.1])),
     wait(430)
   ])
 ]).

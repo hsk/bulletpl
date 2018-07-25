@@ -1,22 +1,22 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(some(dirAbs(180)),some(spdAbs(0.7)),bullet(none,none,[actionRef(main,[])])),
+  top:action([
+    fire(dirAbs(180),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[actionRef(main,[])])),
     wait(200)
   ]),
-  eaction(main,[
-    repeat(6+rank*10,[
+  main:action([
+    repeat(6+ $rank*10,[
       action([
-        fire(some(dirSeq(360 div (6+rank*10))),none,bulletRef('16way',[])),
-        wait(100 div (6+rank*10))
+        fire(dirSeq(360/(6+ $rank*10)),spdAbs(1),bulletRef('16way',[])),
+        wait(100/(6+ $rank*10))
       ])
     ]),
     vanish
   ]),
-  ebullet('16way',bullet(none,some(spdAbs(rand+1)),[
+  '16way':bullet(dirAim(0),spdAbs($rand+1),[
     action([
-      wait(20+rand*40),
-      repeat(16,[action([fire(some(dirSeq(22.5)),none,bullet(none,some(spdAbs(1.7)),[]))])]),
+      wait(20+ $rand*40),
+      repeat(16,[action([fire(dirSeq(22.5),spdAbs(1),bullet(dirAim(0),spdAbs(1.7),[]))])]),
       vanish
     ])
-  ]))
+  ])
 ]).

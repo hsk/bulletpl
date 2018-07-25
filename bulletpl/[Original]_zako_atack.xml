@@ -1,14 +1,14 @@
 bulletML(none,[
-  eaction(top,[
-    repeat(40+rank*20,[
+  top:action([
+    repeat(40+ $rank*20,[
       action([
         wait(4),
-        fire(some(dirAim(rand*180-90)),some(spdAbs(1.5)),bullet(none,none,[
+        fire(dirAim($rand*180-90),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[
           action([
             repeat(3,[
               action([
-                fire(some(dirAim((0.5-rand)*rank*10)),some(spdAbs(1.5)),bullet(none,none,[])),
-                wait(20+rand*rank*40)
+                fire(dirAim((0.5- $rand)* $rank*10),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+                wait(20+ $rand* $rank*40)
               ])
             ])
           ])

@@ -1,41 +1,39 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     repeat(2,[
       action([
-        fire(some(dirAbs(180-60)),none,bulletRef(wave,[5,42])),
-        wait(30-15*rank),
-        fire(some(dirAbs(180+60)),none,bulletRef(wave,[- 5,- 42])),
-        wait(30-15*rank),
-        fire(some(dirAbs(180-62)),none,bulletRef(wave,[5,40])),
-        wait(30-15*rank),
-        fire(some(dirAbs(180+62)),none,bulletRef(wave,[- 5,- 40])),
-        wait(30-15*rank),
-        fire(some(dirAbs(180-58)),none,bulletRef(wave,[5,40])),
-        wait(30-15*rank),
-        fire(some(dirAbs(180+58)),none,bulletRef(wave,[- 5,- 40])),
-        wait(30-15*rank)
+        fire(dirAbs(180-60),spdAbs(1),bulletRef(wave,[5,42])),
+        wait(30-15* $rank),
+        fire(dirAbs(180+60),spdAbs(1),bulletRef(wave,[- 5,- 42])),
+        wait(30-15* $rank),
+        fire(dirAbs(180-62),spdAbs(1),bulletRef(wave,[5,40])),
+        wait(30-15* $rank),
+        fire(dirAbs(180+62),spdAbs(1),bulletRef(wave,[- 5,- 40])),
+        wait(30-15* $rank),
+        fire(dirAbs(180-58),spdAbs(1),bulletRef(wave,[5,40])),
+        wait(30-15* $rank),
+        fire(dirAbs(180+58),spdAbs(1),bulletRef(wave,[- 5,- 40])),
+        wait(30-15* $rank)
       ])
     ]),
-    wait(300-50*rank)
+    wait(300-50* $rank)
   ]),
-  ebullet(wave,bullet(none,some(spdAbs(1.0)),[
+  wave:bullet(dirAim(0),spdAbs(1.0),[
     action([
-      fire(some(dirRel($2)),some(spdAbs(0.3)),bulletRef(cross,[])),
+      fire(dirRel($2),spdAbs(0.3),bulletRef(cross,[])),
       wait(3),
-      repeat(10+20*rank*rank,[
-        action([fire(some(dirSeq($1)),some(spdSeq(0.05)),bulletRef(cross,[])),wait(3)])
-      ]),
+      repeat(10+20* $rank* $rank,[action([fire(dirSeq($1),spdSeq(0.05),bulletRef(cross,[])),wait(3)])]),
       vanish
     ])
-  ])),
-  ebullet(cross,bullet(none,none,[
+  ]),
+  cross:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(100),
-      fire(some(dirRel(0)),some(spdRel(0.6*rank)),bullet(none,none,[])),
-      fire(some(dirRel(90)),some(spdRel(0.6*rank)),bullet(none,none,[])),
-      fire(some(dirRel(180)),some(spdRel(0.6*rank)),bullet(none,none,[])),
-      fire(some(dirRel(270)),some(spdRel(0.6*rank)),bullet(none,none,[])),
+      fire(dirRel(0),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(90),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(180),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(270),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
       vanish
     ])
-  ]))
+  ])
 ]).

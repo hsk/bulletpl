@@ -1,0 +1,9 @@
+bulletML(vertical,[
+  top:action([
+    fire(dirAim(0),spdAbs(1),bulletRef(roll,[11])),
+    wait(500)
+  ]),
+  roll:bullet(none,none,[
+      wait($1+40)
+  ])
+]).

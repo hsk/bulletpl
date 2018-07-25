@@ -1,8 +1,8 @@
 bulletML(none,[
-  eaction(top,[
-    repeat(200+200*rank,[
+  top:action([
+    repeat(200+200* $rank,[
       action([
-        fire(some(dirAim(120*rand-60)),some(spdAbs(0.5+rand*2)),bullet(none,none,[]))
+        fire(dirAim(120* $rand-60),spdAbs(0.5+ $rand*2),bullet(dirAim(0),spdAbs(1),[]))
       ])
     ]),
     wait(150)

@@ -1,19 +1,19 @@
 bulletML(horizontal,[
-  eaction(top,[
-    repeat(50,[action([fire(some(dirAbs(270)),none,bulletRef(rocket,[])),wait(10)])]),
+  top:action([
+    repeat(50,[action([fire(dirAbs(270),spdAbs(1),bulletRef(rocket,[])),wait(10)])]),
     wait(120)
   ]),
-  ebullet(rocket,bullet(none,none,[
+  rocket:bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(9999,[
         action([
           fireRef(udBlt,[90]),
-          wait(20-rank*8),
+          wait(20- $rank*8),
           fireRef(udBlt,[- 90]),
-          wait(rand*10+15-rank*8)
+          wait($rand*10+15- $rank*8)
         ])
       ])
     ])
-  ])),
-  efire(udBlt,fire(some(dirRel($1-25+rand*50)),none,bullet(none,none,[])))
+  ]),
+  udBlt:fire(dirRel($1-25+ $rand*50),spdAbs(1),bullet(dirAim(0),spdAbs(1),[]))
 ]).

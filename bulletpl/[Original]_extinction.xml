@@ -1,39 +1,39 @@
 bulletML(vertical,[
-  eaction(top,[fire(some(dirAbs(180)),some(spdAbs(0)),bulletRef(dummy,[0.5])),wait(1500)]),
-  ebullet(dummy,bullet(none,none,[
+  top:action([fire(dirAbs(180),spdAbs(0),bulletRef(dummy,[0.5])),wait(1500)]),
+  dummy:bullet(dirAim(0),spdAbs(1),[
     action([
-      fire(some(dirAbs(180)),some(spdAbs($1)),bulletRef(triangle,[0,7,3])),
-      fire(some(dirAbs(180)),some(spdAbs($1)),bulletRef(triangle,[60,- 11,- 5])),
-      fire(some(dirAbs(180)),some(spdAbs($1)),bulletRef(triangle,[120,7,3])),
-      fire(some(dirAbs(180)),some(spdAbs($1)),bulletRef(triangle,[180,- 11,- 5])),
-      fire(some(dirAbs(180)),some(spdAbs($1)),bulletRef(triangle,[240,7,3])),
-      fire(some(dirAbs(180)),some(spdAbs($1)),bulletRef(triangle,[300,- 11,- 5])),
+      fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[0,7,3])),
+      fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[60,- 11,- 5])),
+      fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[120,7,3])),
+      fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[180,- 11,- 5])),
+      fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[240,7,3])),
+      fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[300,- 11,- 5])),
       vanish
     ])
-  ])),
-  ebullet(triangle,bullet(none,none,[
+  ]),
+  triangle:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(60),
       changeSpeed(spdAbs(0),1),
-      fire(some(dirAbs($1)),some(spdAbs(0.7)),bulletRef(rotate,[])),
+      fire(dirAbs($1),spdAbs(0.7),bulletRef(rotate,[])),
       wait(3),
       repeat(100,[
         action([
-          fire(some(dirSeq($2)),some(spdAbs(0.7)),bulletRef(rotate,[])),
+          fire(dirSeq($2),spdAbs(0.7),bulletRef(rotate,[])),
           wait(3),
-          fire(some(dirSeq(0- $3)),some(spdAbs(0.5)),bulletRef(rotate,[])),
+          fire(dirSeq(0- $3),spdAbs(0.5),bulletRef(rotate,[])),
           wait(3),
-          fire(some(dirSeq($3)),some(spdAbs(0.7)),bulletRef(rotate,[])),
+          fire(dirSeq($3),spdAbs(0.7),bulletRef(rotate,[])),
           wait(3)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(rotate,bullet(none,none,[
+  ]),
+  rotate:bullet(dirAim(0),spdAbs(1),[
     action([
-      repeat(300-100*rank+5*rand,[action([changeDirection(dirRel(1.5),3),wait(1)])]),
+      repeat(300-100* $rank+5* $rand,[action([changeDirection(dirRel(1.5),3),wait(1)])]),
       changeSpeed(spdAbs(2),120)
     ])
-  ]))
+  ])
 ]).

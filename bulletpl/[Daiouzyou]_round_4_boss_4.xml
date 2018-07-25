@@ -1,34 +1,34 @@
 bulletML(vertical,[
-  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
-  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
-  eaction('XWayFan',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  'Stop':action([changeSpeed(spdAbs(0),1)]),
+  'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
+  'XWayFan':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  ebullet('Dummy',bullet(none,none,[action([vanish])])),
-  eaction(fan,[
+  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  fan:action([
     wait(30),
-    fire(some(dirAbs($1)),some(spdAbs(1.2+rank)),bulletRef('Dummy',[])),
+    fire(dirAbs($1),spdAbs(1.2+ $rank),bulletRef('Dummy',[])),
     actionRef('XWay',[$2,$3]),
     repeat(6,[
       action([
         wait(30),
-        fire(some(dirSeq($4)),some(spdSeq(0)),bullet(none,none,[])),
+        fire(dirSeq($4),spdSeq(0),bullet(dirAim(0),spdAbs(1),[])),
         actionRef('XWay',[$2,$3])
       ])
     ])
   ]),
-  eaction(top1,[actionRef(fan,[220,8,5,- 42.5]),actionRef(fan,[150,8,- 5,42.5])]),
-  eaction(top2,[actionRef(fan,[200,7,2.5,- 22.5]),actionRef(fan,[170,7,- 2.5,22.5])]),
-  eaction(top3,[actionRef(fan,[160,8,5,- 42.5]),actionRef(fan,[210,8,- 5,42.5])]),
-  eaction(top4,[
+  top1:action([actionRef(fan,[220,8,5,- 42.5]),actionRef(fan,[150,8,- 5,42.5])]),
+  top2:action([actionRef(fan,[200,7,2.5,- 22.5]),actionRef(fan,[170,7,- 2.5,22.5])]),
+  top3:action([actionRef(fan,[160,8,5,- 42.5]),actionRef(fan,[210,8,- 5,42.5])]),
+  top4:action([
     wait(20),
     repeat(2,[
       action([
-        repeat(36+rank*20,[
+        repeat(36+ $rank*20,[
           action([
-            fire(some(dirAim(rand*360)),some(spdAbs(2)),bullet(none,none,[
+            fire(dirAim($rand*360),spdAbs(2),bullet(dirAim(0),spdAbs(1),[
               action([
-                wait(10*rand),
+                wait(10* $rand),
                 actionRef('Stop',[]),
                 wait(60),
                 changeDirection(dirAim(0),1),
@@ -38,7 +38,7 @@ bulletML(vertical,[
             wait(3)
           ])
         ]),
-        wait(60-rank*60)
+        wait(60- $rank*60)
       ])
     ])
   ])

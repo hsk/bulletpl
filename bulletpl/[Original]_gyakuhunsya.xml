@@ -1,5 +1,5 @@
 bulletML(none,[
-  eaction(gyakuhunsya,[
+  gyakuhunsya:action([
     changeDirection(dirAbs(180),1),
     changeSpeed(spdAbs(2),20),
     wait(60),
@@ -7,11 +7,11 @@ bulletML(none,[
     wait(20),
     changeDirection(dirAbs(0),1),
     changeSpeed(spdAbs(2),30),
-    fire(none,some(spdAbs(0.6)),bullet(none,none,[])),
+    fire(dirAim(0),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
     repeat(80,[
       action([
-        repeat(2+rank*2,[
-          action([fire(some(dirAim(rand*120-60)),some(spdSeq(0.005)),bullet(none,none,[]))])
+        repeat(2+ $rank*2,[
+          action([fire(dirAim($rand*120-60),spdSeq(0.005),bullet(dirAim(0),spdAbs(1),[]))])
         ]),
         wait(1)
       ])
@@ -19,5 +19,5 @@ bulletML(none,[
     changeSpeed(spdAbs(0),1),
     wait(10)
   ]),
-  eaction(top,[actionRef(gyakuhunsya,[])])
+  top:action([actionRef(gyakuhunsya,[])])
 ]).

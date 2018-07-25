@@ -1,14 +1,14 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     fireRef(lr,[90,1.5]),
     fireRef(lr,[- 90,1.5]),
     actionRef(move,[0,0.9]),
     wait(150),
-    repeat(100+100*rank,[action([fireRef(bara,[90]),fireRef(bara,[- 90]),wait(10-rank*5)])]),
+    repeat(100+100* $rank,[action([fireRef(bara,[90]),fireRef(bara,[- 90]),wait(10- $rank*5)])]),
     wait(30),
     actionRef(move,[180,0.9])
   ]),
-  eaction(move,[
+  move:action([
     changeDirection(dirAbs($1),10),
     wait(12),
     changeSpeed(spdAbs($2),50),
@@ -16,17 +16,17 @@ bulletML(vertical,[
     changeSpeed(spdAbs(0),50),
     wait(55)
   ]),
-  efire(bara,fire(some(dirAbs($1)),some(spdAbs(1+rank*5)),bullet(none,none,[
+  bara:fire(dirAbs($1),spdAbs(1+ $rank*5),bullet(dirAim(0),spdAbs(1),[
     action([
       wait(10),
-      fire(some(dirAim(30-rand*60)),some(spdAbs(1)),bullet(none,none,[])),
+      fire(dirAim(30- $rand*60),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
       vanish
     ])
-  ]))),
-  efire(lr,fire(some(dirAbs(0)),some(spdAbs(0)),bullet(none,none,[
+  ])),
+  lr:fire(dirAbs(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
     action([actionRef(move,[$1,$2]),fireRef(tb,[0,0.9]),fireRef(tb,[180,3.0]),vanish])
-  ]))),
-  efire(tb,fire(none,some(spdAbs(0)),bullet(none,none,[
+  ])),
+  tb:fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
     action([
       actionRef(move,[$1,$2]),
       wait(20),
@@ -35,17 +35,17 @@ bulletML(vertical,[
       actionRef(shot,[]),
       vanish
     ])
-  ]))),
-  eaction(shot,[
+  ])),
+  shot:action([
     repeat(500,[
       action([
-        changeDirection(dirAim(0),10+rank*10),
-        fireRef(winder,[20-rank*10]),
-        fireRef(winder,[- 20+rank*10]),
+        changeDirection(dirAim(0),10+ $rank*10),
+        fireRef(winder,[20- $rank*10]),
+        fireRef(winder,[- 20+ $rank*10]),
         wait(2)
       ])
     ]),
     vanish
   ]),
-  efire(winder,fire(some(dirRel($1)),some(spdAbs(8)),bullet(none,none,[])))
+  winder:fire(dirRel($1),spdAbs(8),bullet(dirAim(0),spdAbs(1),[]))
 ]).

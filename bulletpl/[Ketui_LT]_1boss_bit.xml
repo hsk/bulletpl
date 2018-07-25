@@ -1,40 +1,37 @@
 bulletML(vertical,[
-  ebullet('Dummy',bullet(none,none,[action([vanish])])),
-  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
-  eaction('XWayFan',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
+  'XWayFan':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction('3way',[
+  '3way':action([
     repeat(2,[
       action([
         wait(30),
-        fire(some(dirAim(- 3)),some(spdAbs(1.4)),bullet(none,none,[])),
+        fire(dirAim(- 3),spdAbs(1.4),bullet(dirAim(0),spdAbs(1),[])),
         actionRef('XWay',[3,2])
       ])
     ])
   ]),
-  ebullet(bit,bullet(none,none,[
+  bit:bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(3,[
         action([
-          accel(some(spdAbs(0)),some(spdAbs(1)),60),
+          accel(spdAbs(0),spdAbs(1),60),
           actionRef('3way',[]),
-          accel(some(spdAbs(- 2)),some(spdAbs(0)),60),
+          accel(spdAbs(- 2),spdAbs(0),60),
           actionRef('3way',[]),
-          accel(some(spdAbs(0)),some(spdAbs(- 1)),60),
+          accel(spdAbs(0),spdAbs(- 1),60),
           actionRef('3way',[]),
-          accel(some(spdAbs(2)),some(spdAbs(0)),60),
+          accel(spdAbs(2),spdAbs(0),60),
           actionRef('3way',[])
         ])
       ])
     ])
-  ])),
-  eaction(top,[
-    repeat(4+rank*6,[
-      action([
-        fire(some(dirAbs(90)),some(spdAbs(2)),bulletRef(bit,[])),
-        wait(245 div (4+rank*6))
-      ])
+  ]),
+  top:action([
+    repeat(4+ $rank*6,[
+      action([fire(dirAbs(90),spdAbs(2),bulletRef(bit,[])),wait(245/(4+ $rank*6))])
     ]),
     wait(550)
   ])

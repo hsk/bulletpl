@@ -1,53 +1,54 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(some(dirAbs(180)),some(spdAbs(3.0)),bulletRef(center,[0])),
-    wait(800-50*rank)
-  ]),
-  ebullet(center,bullet(none,none,[
+  top:action([fire(dirAbs(180),spdAbs(3.0),bulletRef(center,[0])),wait(800-50* $rank)]),
+  center:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(15),
-      fire(some(dirAbs(- 10+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
-      fire(some(dirAbs(80+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
-      fire(some(dirAbs(170+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
-      fire(some(dirAbs(260+ $1)),some(spdAbs(2.0)),bulletRef(arm,[])),
+      fire(dirAbs(- 10+ $1),spdAbs(2.0),bulletRef(arm,[])),
+      fire(dirAbs(80+ $1),spdAbs(2.0),bulletRef(arm,[])),
+      fire(dirAbs(170+ $1),spdAbs(2.0),bulletRef(arm,[])),
+      fire(dirAbs(260+ $1),spdAbs(2.0),bulletRef(arm,[])),
       vanish
     ])
-  ])),
-  ebullet(arm,bullet(none,none,[
+  ]),
+  arm:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(25),
       changeSpeed(spdAbs(0),1),
       wait(5),
-      fire(none,none,bulletRef(halfwinder,[330,- 8])),
-      fire(none,none,bulletRef(halfwinder,[270,- 5])),
-      fire(none,none,bulletRef(halfwinder,[210,- 2])),
-      fire(none,none,bulletRef(halfwinder,[150,2])),
-      fire(none,none,bulletRef(halfwinder,[90,5])),
-      fire(none,none,bulletRef(halfwinder,[30,8])),
+      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[330,- 8])),
+      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[270,- 5])),
+      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[210,- 2])),
+      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[150,2])),
+      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[90,5])),
+      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[30,8])),
       vanish
     ])
-  ])),
-  ebullet(halfwinder,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+  ]),
+  halfwinder:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(none,none,bulletRef(bit,[$1,$2])),
-      fire(none,none,bulletRef(changecolor,[$1,- $2])),
+      fire(dirAim(0),spdAbs(1),bulletRef(bit,[$1,$2])),
+      fire(dirAim(0),spdAbs(1),bulletRef(changecolor,[$1,- $2])),
       vanish
     ])
-  ])),
-  ebullet(changecolor,bullet(some(dirAbs(0)),some(spdAbs(0)),[
-    action([wait((62-50*rank)div 3),fire(none,none,bulletRef(bit,[$1,$2])),vanish])
-  ])),
-  ebullet(bit,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+  ]),
+  changecolor:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(some(dirAbs($1)),some(spdAbs(0.7+1.1*rank)),bullet(none,none,[])),
-      wait(62-50*rank),
-      repeat(600 div (62-50*rank),[
+      wait((62-50* $rank)/3),
+      fire(dirAim(0),spdAbs(1),bulletRef(bit,[$1,$2])),
+      vanish
+    ])
+  ]),
+  bit:bullet(dirAbs(0),spdAbs(0),[
+    action([
+      fire(dirAbs($1),spdAbs(0.7+1.1* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      wait(62-50* $rank),
+      repeat(600/(62-50* $rank),[
         action([
-          fire(some(dirSeq($2)),some(spdAbs(0.7+1.1*rank)),bullet(none,none,[])),
-          wait(62-50*rank)
+          fire(dirSeq($2),spdAbs(0.7+1.1* $rank),bullet(dirAim(0),spdAbs(1),[])),
+          wait(62-50* $rank)
         ])
       ]),
       vanish
     ])
-  ]))
+  ])
 ]).

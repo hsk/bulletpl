@@ -1,14 +1,14 @@
 bulletML(vertical,[
-  efire(circle,fire(some(dirSeq($1)),some(spdAbs(6)),bullet(none,none,[
+  circle:fire(dirSeq($1),spdAbs(6),bullet(dirAim(0),spdAbs(1),[
     action([
       wait(3),
-      fire(some(dirAbs($2)),some(spdAbs(1.5+rank)),bullet(none,none,[])),
+      fire(dirAbs($2),spdAbs(1.5+ $rank),bullet(dirAim(0),spdAbs(1),[])),
       vanish
     ])
-  ]))),
-  eaction(fireCircle,[repeat(18,[action([fireRef(circle,[20,$1])])])]),
-  eaction(top,[
-    repeat(50,[action([actionRef(fireCircle,[180-45+90*rand]),wait(12-rank*4)])]),
+  ])),
+  fireCircle:action([repeat(18,[action([fireRef(circle,[20,$1])])])]),
+  top:action([
+    repeat(50,[action([actionRef(fireCircle,[180-45+90* $rand]),wait(12- $rank*4)])]),
     wait(100)
   ])
 ]).

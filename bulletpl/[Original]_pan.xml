@@ -1,20 +1,16 @@
 bulletML(none,[
-  ebullet(pan,bullet(none,none,[
+  pan:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(10),
-      fire(some(dirRel(95* $1)),some(spdAbs(1.8+rank)),bullet(none,none,[])),
+      fire(dirRel(95* $1),spdAbs(1.8+ $rank),bullet(dirAim(0),spdAbs(1),[])),
       vanish
     ])
-  ])),
-  eaction(top,[
-    fire(some(dirAim(- 90)),some(spdAbs(0.001)),bulletRef(pan,[1])),
-    repeat(20,[
-      action([fire(some(dirSeq(3)),some(spdSeq(0.2+rank*0.4)),bulletRef(pan,[1]))])
-    ]),
-    fire(some(dirAim(90)),some(spdAbs(0.001)),bulletRef(pan,[- 1])),
-    repeat(20,[
-      action([fire(some(dirSeq(- 3)),some(spdSeq(0.2+rank*0.4)),bulletRef(pan,[- 1]))])
-    ]),
+  ]),
+  top:action([
+    fire(dirAim(- 90),spdAbs(0.001),bulletRef(pan,[1])),
+    repeat(20,[action([fire(dirSeq(3),spdSeq(0.2+ $rank*0.4),bulletRef(pan,[1]))])]),
+    fire(dirAim(90),spdAbs(0.001),bulletRef(pan,[- 1])),
+    repeat(20,[action([fire(dirSeq(- 3),spdSeq(0.2+ $rank*0.4),bulletRef(pan,[- 1]))])]),
     wait(40)
   ])
 ]).

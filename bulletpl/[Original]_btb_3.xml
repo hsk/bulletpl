@@ -1,55 +1,55 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(none,none,bulletRef(half,[1])),
-    fire(none,none,bulletRef(half,[- 1])),
-    wait(90+100 div (5-4*rank))
+  top:action([
+    fire(dirAim(0),spdAbs(1),bulletRef(half,[1])),
+    fire(dirAim(0),spdAbs(1),bulletRef(half,[- 1])),
+    wait(90+100/(5-4* $rank))
   ]),
-  ebullet(half,bullet(some(dirAbs(0)),some(spdAbs(0)),[
+  half:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(some(dirAbs(4*(5-4*rank)* $1)),none,bulletRef(laser,[0.8])),
+      fire(dirAbs(4*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[0.8])),
       wait(1),
-      repeat(30 div (5-4*rank),[
+      repeat(30/(5-4* $rank),[
         action([
           repeat(2,[
-            action([fire(some(dirSeq(6*(5-4*rank)* $1)),none,bulletRef(laser,[0.8]))])
+            action([fire(dirSeq(6*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[0.8]))])
           ]),
           wait(1)
         ])
       ]),
-      fire(some(dirAim(0)),none,bulletRef(laser,[0.9])),
+      fire(dirAim(0),spdAbs(1),bulletRef(laser,[0.9])),
       wait(1),
-      repeat(30 div (5-4*rank),[
+      repeat(30/(5-4* $rank),[
         action([
           repeat(2,[
-            action([fire(some(dirSeq(6*(5-4*rank)* $1)),none,bulletRef(laser,[0.9]))])
+            action([fire(dirSeq(6*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[0.9]))])
           ]),
           wait(1)
         ])
       ]),
-      fire(some(dirAbs(11* $1)),none,bulletRef(laser,[1.2])),
+      fire(dirAbs(11* $1),spdAbs(1),bulletRef(laser,[1.2])),
       wait(1),
-      repeat(30 div (5-4*rank),[
+      repeat(30/(5-4* $rank),[
         action([
           repeat(2,[
-            action([fire(some(dirSeq(6*(5-4*rank)* $1)),none,bulletRef(laser,[1.2]))])
+            action([fire(dirSeq(6*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[1.2]))])
           ]),
           wait(1)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(laser,bullet(none,some(spdAbs(0.01)),[
+  ]),
+  laser:bullet(dirAim(0),spdAbs(0.01),[
     action([
-      fire(some(dirRel(0)),some(spdAbs($1)),bullet(none,none,[])),
+      fire(dirRel(0),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
       wait(3),
       repeat(4,[
         action([
-          fire(some(dirSeq(2.5-2.0*rank)),some(spdAbs($1)),bullet(none,none,[])),
+          fire(dirSeq(2.5-2.0* $rank),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
           wait(3)
         ])
       ]),
       vanish
     ])
-  ]))
+  ])
 ]).

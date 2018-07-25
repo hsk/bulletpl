@@ -1,22 +1,22 @@
 bulletML(none,[
-  eaction(issyuu,[
-    repeat(360 div (20-rank*10)+1,[
-      action([fire(some(dirSeq(18-rank*6)),some(spdSeq(0)),bullet(none,none,[]))])
+  issyuu:action([
+    repeat(360/(20- $rank*10)+1,[
+      action([fire(dirSeq(18- $rank*6),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])
     ])
   ]),
-  efire(guruguru,fire(none,some(spdAbs(0.3)),bullet(none,none,[
+  guruguru:fire(dirAim(0),spdAbs(0.3),bullet(dirAim(0),spdAbs(1),[
     action([
-      fire(none,some(spdAbs(0.7)),bullet(none,none,[])),
+      fire(dirAim(0),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[])),
       actionRef(issyuu,[]),
       repeat(30,[
         action([
           wait(12),
-          fire(some(dirSeq(- 356)),some(spdSeq(0)),bullet(none,none,[])),
+          fire(dirSeq(- 356),spdSeq(0),bullet(dirAim(0),spdAbs(1),[])),
           actionRef(issyuu,[])
         ])
       ]),
       vanish
     ])
-  ]))),
-  eaction(top,[fireRef(guruguru,[]),wait(500)])
+  ])),
+  top:action([fireRef(guruguru,[]),wait(500)])
 ]).

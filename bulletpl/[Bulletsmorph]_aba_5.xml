@@ -1,33 +1,29 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(some(dirAbs(90)),none,bulletRef(bit,[1])),
-    fire(some(dirAbs(90)),none,bulletRef(bit,[- 1])),
-    fire(some(dirAbs(- 90)),none,bulletRef(bit,[1])),
-    fire(some(dirAbs(- 90)),none,bulletRef(bit,[- 1])),
+  top:action([
+    fire(dirAbs(90),spdAbs(1),bulletRef(bit,[1])),
+    fire(dirAbs(90),spdAbs(1),bulletRef(bit,[- 1])),
+    fire(dirAbs(- 90),spdAbs(1),bulletRef(bit,[1])),
+    fire(dirAbs(- 90),spdAbs(1),bulletRef(bit,[- 1])),
     repeat(300,[
       action([
-        fire(some(dirAbs(- (120+45*rank)+(240+90*rank)*rand)),some(spdAbs(1.6)),bullet(none,none,[])),
-        repeat(5,[action([fire(some(dirSeq(0)),some(spdSeq(0.2)),bullet(none,none,[]))])]),
+        fire(dirAbs(- (120+45* $rank)+(240+90* $rank)* $rand),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+        repeat(5,[action([fire(dirSeq(0),spdSeq(0.2),bullet(dirAim(0),spdAbs(1),[]))])]),
         wait(2)
       ])
     ])
   ]),
-  ebullet(bit,bullet(none,some(spdAbs(0.2)),[
+  bit:bullet(dirAim(0),spdAbs(0.2),[
     action([
       wait(60),
       changeSpeed(spdAbs(0),1),
       wait(5),
-      fire(some(dirAim((45-25*rank)* $1)),none,bulletRef(backstab,[])),
+      fire(dirAim((45-25* $rank)* $1),spdAbs(1),bulletRef(backstab,[])),
       wait(3),
-      repeat(29,[
-        action([fire(some(dirSeq(- 0.5* $1)),none,bulletRef(backstab,[])),wait(3)])
-      ]),
-      repeat(30,[action([fire(some(dirSeq(0.5* $1)),none,bulletRef(backstab,[])),wait(3)])]),
-      repeat(30,[
-        action([fire(some(dirSeq(- 0.5* $1)),none,bulletRef(backstab,[])),wait(3)])
-      ]),
+      repeat(29,[action([fire(dirSeq(- 0.5* $1),spdAbs(1),bulletRef(backstab,[])),wait(3)])]),
+      repeat(30,[action([fire(dirSeq(0.5* $1),spdAbs(1),bulletRef(backstab,[])),wait(3)])]),
+      repeat(30,[action([fire(dirSeq(- 0.5* $1),spdAbs(1),bulletRef(backstab,[])),wait(3)])]),
       vanish
     ])
-  ])),
-  ebullet(backstab,bullet(none,some(spdAbs(1.6)),[action([wait(70+20*rand),changeDirection(dirAim(0),1)])]))
+  ]),
+  backstab:bullet(dirAim(0),spdAbs(1.6),[action([wait(70+20* $rand),changeDirection(dirAim(0),1)])])
 ]).

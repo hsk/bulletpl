@@ -1,73 +1,73 @@
 bulletML(none,[
-  eaction(top1,[
-    fire(some(dirAbs(0)),some(spdAbs(0)),bulletRef('4way',[rand,rand])),
-    actionRef('3way',[rand,rand]),
+  top1:action([
+    fire(dirAbs(0),spdAbs(0),bulletRef('4way',[$rand,$rand])),
+    actionRef('3way',[$rand,$rand]),
     wait(100)
   ]),
-  eaction('3way',[
+  '3way':action([
     repeat(200,[
       action([
-        fire(some(dirSeq(123.7+ $1)),some(spdAbs((1+ $2*0.5)*(1+rank*rank*rank*rank))),bullet(none,none,[])),
+        fire(dirSeq(123.7+ $1),spdAbs((1+ $2*0.5)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[])),
         repeat(2,[
           action([
-            fire(some(dirSeq(120)),some(spdAbs((1+ $2*0.5)*(1+rank*rank*rank*rank))),bullet(none,none,[]))
+            fire(dirSeq(120),spdAbs((1+ $2*0.5)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[]))
           ])
         ]),
-        wait(8-rank*4)
+        wait(8- $rank*4)
       ])
     ])
   ]),
-  ebullet('4way',bullet(none,none,[
+  '4way':bullet(dirAim(0),spdAbs(1),[
     action([
       repeat(200,[
         action([
-          fire(some(dirSeq(92.1+ $1)),some(spdAbs((0.8+ $2*0.8)*(1+rank*rank*rank*rank))),bullet(none,none,[])),
+          fire(dirSeq(92.1+ $1),spdAbs((0.8+ $2*0.8)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[])),
           repeat(3,[
             action([
-              fire(some(dirSeq(90)),some(spdAbs((0.8+ $2*0.8)*(1+rank*rank*rank*rank))),bullet(none,none,[]))
+              fire(dirSeq(90),spdAbs((0.8+ $2*0.8)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[]))
             ])
           ]),
-          wait(8-rank*4)
+          wait(8- $rank*4)
         ])
       ]),
       vanish
     ])
-  ])),
-  eaction(top5,[actionRef('5way',[rand,rand])]),
-  eaction('5way',[
+  ]),
+  top5:action([actionRef('5way',[$rand,$rand])]),
+  '5way':action([
     repeat(200,[
       action([
-        fire(some(dirSeq(78.7+ $1)),some(spdAbs((0.6+ $2*1.6)*(1+rank*rank*rank*rank))),bullet(none,none,[action([changeSpeed(spdRel(0),9999)])])),
+        fire(dirSeq(78.7+ $1),spdAbs((0.6+ $2*1.6)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[action([changeSpeed(spdRel(0),9999)])])),
         repeat(4,[
           action([
-            fire(some(dirSeq(72)),some(spdAbs((0.6+ $2*1.6)*(1+rank*rank*rank*rank))),bullet(none,none,[action([changeSpeed(spdRel(0),9999)])]))
+            fire(dirSeq(72),spdAbs((0.6+ $2*1.6)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[action([changeSpeed(spdRel(0),9999)])]))
           ])
         ]),
-        wait(8-rank*4)
+        wait(8- $rank*4)
       ])
     ])
   ]),
-  eaction(top6,[actionRef('6way',[rand,rand])]),
-  eaction('6way',[
+  top6:action([actionRef('6way',[$rand,$rand])]),
+  '6way':action([
     repeat(200,[
       action([
-        fire(some(dirSeq(63.3+ $1)),some(spdAbs((0.6+ $2*0.9)*(1+rank*rank*rank*rank))),bullet(none,none,[
+        fire(dirSeq(63.3+ $1),spdAbs((0.6+ $2*0.9)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[
           action([
             wait(9999),
-            fire(some(dirRel(0)),some(spdRel(0)),bullet(none,none,[action([vanish])]))
+            fire(dirRel(0),spdRel(0),bullet(dirAim(0),spdAbs(1),[action([vanish])]))
           ])
         ])),
         repeat(5,[
           action([
-            fire(some(dirSeq(60)),some(spdAbs((0.6+ $2*0.9)*(1+rank*rank*rank*rank))),bullet(none,none,[
+            fire(dirSeq(60),spdAbs((0.6+ $2*0.9)*(1+ $rank* $rank* $rank* $rank)),bullet(dirAim(0),spdAbs(1),[
               action([
                 wait(9999),
-                fire(some(dirRel(0)),some(spdRel(0)),bullet(none,none,[action([vanish])]))
+                fire(dirRel(0),spdRel(0),bullet(dirAim(0),spdAbs(1),[action([vanish])]))
               ])
             ]))
           ])
         ]),
-        wait(8-rank*4)
+        wait(8- $rank*4)
       ])
     ])
   ])

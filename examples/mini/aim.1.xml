@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "../../bulletml.dtd">
+<bulletml  type="vertical">
+<action label="top">
+    <repeat>
+        <times>1000</times>
+        <action>
+            <fire>
+                <direction type="relative">-180</direction>
+                <bullet>
+                    <speed>1</speed>
+                </bullet>
+            </fire>
+            <wait>10</wait>
+        </action>
+    </repeat>
+</action>
+</bulletml>

@@ -1,69 +1,59 @@
 bulletML(vertical,[
-  eaction(top,[actionRef(allway,[]),actionRef(bar,[]),wait(200)]),
-  eaction(allway,[
-    fire(some(dirAim(15)),none,bulletRef(allwaybit,[])),
-    repeat(11,[action([fire(some(dirSeq(30)),none,bulletRef(allwaybit,[]))])])
+  top:action([actionRef(allway,[]),actionRef(bar,[]),wait(200)]),
+  allway:action([
+    fire(dirAim(15),spdAbs(1),bulletRef(allwaybit,[])),
+    repeat(11,[action([fire(dirSeq(30),spdAbs(1),bulletRef(allwaybit,[]))])])
   ]),
-  ebullet(allwaybit,bullet(none,some(spdAbs(6.0)),[
+  allwaybit:bullet(dirAim(0),spdAbs(6.0),[
     action([
       repeat(999,[
         action([
-          fire(some(dirRel(90)),none,bulletRef(stopandgo,[])),
-          fire(some(dirRel(- 90)),none,bulletRef(stopandgo,[])),
-          wait(6-4*rank)
+          fire(dirRel(90),spdAbs(1),bulletRef(stopandgo,[])),
+          fire(dirRel(- 90),spdAbs(1),bulletRef(stopandgo,[])),
+          wait(6-4* $rank)
         ])
       ])
     ])
-  ])),
-  ebullet(stopandgo,bullet(none,some(spdAbs(1.0)),[
+  ]),
+  stopandgo:bullet(dirAim(0),spdAbs(1.0),[
     action([
       wait(20),
       changeSpeed(spdAbs(0.0001),1),
       wait(40),
       changeSpeed(spdAbs(4.0),300)
     ])
-  ])),
-  eaction(bar,[
-    fire(none,none,bulletRef(barhand,[1])),
-    fire(none,none,bulletRef(barhand,[- 1]))
   ]),
-  ebullet(barhand,bullet(some(dirAbs(0)),some(spdAbs(0.0001)),[
+  bar:action([
+    fire(dirAim(0),spdAbs(1),bulletRef(barhand,[1])),
+    fire(dirAim(0),spdAbs(1),bulletRef(barhand,[- 1]))
+  ]),
+  barhand:bullet(dirAbs(0),spdAbs(0.0001),[
     action([
-      fire(some(dirAbs(90)),some(spdAbs(4.0-2.0*rank)),bulletRef(barbit,[1])),
-      repeat(2+3*rank,[
-        action([fire(some(dirSeq(0)),some(spdSeq(4.0-2.0*rank)),bulletRef(barbit,[1]))])
-      ]),
-      fire(some(dirSeq(180)),some(spdAbs(4.0-2.0*rank)),bulletRef(barbit,[- 1])),
-      repeat(2+3*rank,[
-        action([fire(some(dirSeq(0)),some(spdSeq(4.0-2.0*rank)),bulletRef(barbit,[- 1]))])
-      ]),
+      fire(dirAbs(90),spdAbs(4.0-2.0* $rank),bulletRef(barbit,[1])),
+      repeat(2+3* $rank,[action([fire(dirSeq(0),spdSeq(4.0-2.0* $rank),bulletRef(barbit,[1]))])]),
+      fire(dirSeq(180),spdAbs(4.0-2.0* $rank),bulletRef(barbit,[- 1])),
+      repeat(2+3* $rank,[action([fire(dirSeq(0),spdSeq(4.0-2.0* $rank),bulletRef(barbit,[- 1]))])]),
       wait(5),
       repeat(20,[
         action([
-          fire(some(dirSeq(180+10* $1)),some(spdAbs(4.0-2.0*rank)),bulletRef(barbit,[1])),
-          repeat(2+3*rank,[
-            action([fire(some(dirSeq(0)),some(spdSeq(4.0-2.0*rank)),bulletRef(barbit,[1]))])
-          ]),
-          fire(some(dirSeq(180)),some(spdAbs(4.0-2.0*rank)),bulletRef(barbit,[- 1])),
-          repeat(2+3*rank,[
-            action([
-              fire(some(dirSeq(0)),some(spdSeq(4.0-2.0*rank)),bulletRef(barbit,[- 1]))
-            ])
-          ]),
+          fire(dirSeq(180+10* $1),spdAbs(4.0-2.0* $rank),bulletRef(barbit,[1])),
+          repeat(2+3* $rank,[action([fire(dirSeq(0),spdSeq(4.0-2.0* $rank),bulletRef(barbit,[1]))])]),
+          fire(dirSeq(180),spdAbs(4.0-2.0* $rank),bulletRef(barbit,[- 1])),
+          repeat(2+3* $rank,[action([fire(dirSeq(0),spdSeq(4.0-2.0* $rank),bulletRef(barbit,[- 1]))])]),
           wait(5)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(barbit,bullet(none,none,[
+  ]),
+  barbit:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(5),
       changeSpeed(spdAbs(0.0001),1),
       wait(5),
-      fire(some(dirRel(90* $1)),some(spdAbs(1.3)),bullet(none,none,[])),
-      repeat(2,[action([fire(some(dirSeq(0)),some(spdSeq(0.1)),bullet(none,none,[]))])]),
+      fire(dirRel(90* $1),spdAbs(1.3),bullet(dirAim(0),spdAbs(1),[])),
+      repeat(2,[action([fire(dirSeq(0),spdSeq(0.1),bullet(dirAim(0),spdAbs(1),[]))])]),
       vanish
     ])
-  ]))
+  ])
 ]).

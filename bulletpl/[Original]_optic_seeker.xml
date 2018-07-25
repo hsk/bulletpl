@@ -1,43 +1,46 @@
 bulletML(vertical,[
-  eaction(top,[
-    repeat(2+8*rank,[
+  top:action([
+    repeat(2+8* $rank,[
       action([
-        fire(some(dirAim(- 30+60*rand)),some(spdAbs(3.0+2.0*rank)),bulletRef(seal,[])),
-        wait(25-20*rank),
+        fire(dirAim(- 30+60* $rand),spdAbs(3.0+2.0* $rank),bulletRef(seal,[])),
+        wait(25-20* $rank),
         repeat(3,[
           action([
-            fire(some(dirAim(- 60+120*rand)),some(spdAbs(3.0+2.0*rank)),bulletRef(reflect,[])),
-            wait(25-20*rank)
+            fire(dirAim(- 60+120* $rand),spdAbs(3.0+2.0* $rank),bulletRef(reflect,[])),
+            wait(25-20* $rank)
           ])
         ])
       ])
     ]),
     wait(100)
   ]),
-  ebullet(reflect,bullet(none,none,[
+  reflect:bullet(dirAim(0),spdAbs(1),[
     action([
-      wait((30+20*rand)*(1.0-0.5*rank)),
+      wait((30+20* $rand)*(1.0-0.5* $rank)),
       repeat(3,[
-        action([changeDirection(dirRel(60+240*rand),1),wait((10+10*rand)*(1.0-0.5*rank))])
+        action([
+          changeDirection(dirRel(60+240* $rand),1),
+          wait((10+10* $rand)*(1.0-0.5* $rank))
+        ])
       ]),
       changeDirection(dirAim(0),1)
     ])
-  ])),
-  ebullet(seal,bullet(none,none,[
+  ]),
+  seal:bullet(dirAim(0),spdAbs(1),[
     action([
-      wait(10+10*rand),
+      wait(10+10* $rand),
       changeSpeed(spdAbs(0),1),
       wait(5),
-      fire(some(dirAim(0)),some(spdAbs(3.0+2.0*rank)),bullet(none,none,[])),
+      fire(dirAim(0),spdAbs(3.0+2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
       wait(5),
       repeat(7,[
         action([
-          fire(some(dirSeq(45)),some(spdAbs(3.0+2.0*rank)),bullet(none,none,[])),
+          fire(dirSeq(45),spdAbs(3.0+2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
           wait(5)
         ])
       ]),
-      fire(some(dirAim(0)),some(spdAbs(3.0+2.0*rank)),bullet(none,none,[])),
+      fire(dirAim(0),spdAbs(3.0+2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
       vanish
     ])
-  ]))
+  ])
 ]).

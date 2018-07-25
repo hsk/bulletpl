@@ -1,39 +1,39 @@
 bulletML(vertical,[
-  eaction(top,[
-    actionRef(main,[rand,1,1,1,1]),
-    actionRef(main,[rand,- 1,- 1,- 1,- 1]),
-    actionRef(main,[rand,- 1,- 1,1,1]),
-    actionRef(main,[rand,1,1,- 1,- 1]),
-    actionRef(main,[rand,1,- 1,- 1,1]),
-    actionRef(main,[rand,- 1,1,1,- 1]),
-    actionRef(main,[rand,- 1,1,- 1,1]),
-    actionRef(main,[rand,1,- 1,1,- 1])
+  top:action([
+    actionRef(main,[$rand,1,1,1,1]),
+    actionRef(main,[$rand,- 1,- 1,- 1,- 1]),
+    actionRef(main,[$rand,- 1,- 1,1,1]),
+    actionRef(main,[$rand,1,1,- 1,- 1]),
+    actionRef(main,[$rand,1,- 1,- 1,1]),
+    actionRef(main,[$rand,- 1,1,1,- 1]),
+    actionRef(main,[$rand,- 1,1,- 1,1]),
+    actionRef(main,[$rand,1,- 1,1,- 1])
   ]),
-  eaction(main,[
-    fire(some(dirAbs(45)),some(spdAbs(1)),bulletRef(cross,[$1,$2])),
-    repeat(1+rank*2,[action([fire(some(dirSeq(0)),some(spdSeq(0.2)),bulletRef(cross,[$1,$2]))])]),
-    fire(some(dirSeq(90)),some(spdAbs(1)),bulletRef(cross,[$1,$3])),
-    repeat(1+rank*2,[action([fire(some(dirSeq(0)),some(spdSeq(0.2)),bulletRef(cross,[$1,$3]))])]),
-    fire(some(dirSeq(90)),some(spdAbs(1)),bulletRef(cross,[$1,$4])),
-    repeat(1+rank*2,[action([fire(some(dirSeq(0)),some(spdSeq(0.2)),bulletRef(cross,[$1,$4]))])]),
-    fire(some(dirSeq(90)),some(spdAbs(1)),bulletRef(cross,[$1,$5])),
-    repeat(1+rank*2,[action([fire(some(dirSeq(0)),some(spdSeq(0.2)),bulletRef(cross,[$1,$5]))])]),
-    wait(200-rank*100)
+  main:action([
+    fire(dirAbs(45),spdAbs(1),bulletRef(cross,[$1,$2])),
+    repeat(1+ $rank*2,[action([fire(dirSeq(0),spdSeq(0.2),bulletRef(cross,[$1,$2]))])]),
+    fire(dirSeq(90),spdAbs(1),bulletRef(cross,[$1,$3])),
+    repeat(1+ $rank*2,[action([fire(dirSeq(0),spdSeq(0.2),bulletRef(cross,[$1,$3]))])]),
+    fire(dirSeq(90),spdAbs(1),bulletRef(cross,[$1,$4])),
+    repeat(1+ $rank*2,[action([fire(dirSeq(0),spdSeq(0.2),bulletRef(cross,[$1,$4]))])]),
+    fire(dirSeq(90),spdAbs(1),bulletRef(cross,[$1,$5])),
+    repeat(1+ $rank*2,[action([fire(dirSeq(0),spdSeq(0.2),bulletRef(cross,[$1,$5]))])]),
+    wait(200- $rank*100)
   ]),
-  ebullet(cross,bullet(none,none,[
+  cross:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(15),
       changeSpeed(spdAbs(0),1),
-      fire(some(dirAbs(360* $1* $2)),some(spdAbs(1+rank*rank*1)),bullet(none,none,[])),
-      fire(some(dirSeq(180* $2)),some(spdAbs(1+rank*rank*1)),bullet(none,none,[])),
+      fire(dirAbs(360* $1* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirSeq(180* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
       repeat(49,[
         action([
-          wait(4-rank*2),
-          fire(some(dirSeq(187.7* $2)),some(spdAbs(1+rank*rank*1)),bullet(none,none,[])),
-          fire(some(dirSeq(180* $2)),some(spdAbs(1+rank*rank*1)),bullet(none,none,[]))
+          wait(4- $rank*2),
+          fire(dirSeq(187.7* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq(180* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[]))
         ])
       ]),
       vanish
     ])
-  ]))
+  ])
 ]).

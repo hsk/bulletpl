@@ -1,19 +1,19 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     actionRef(move,[180]),
-    changeDirection(dirAbs(rand*360),1),
+    changeDirection(dirAbs($rand*360),1),
     wait(5),
-    repeat(20+rank*20,[
+    repeat(20+ $rank*20,[
       action([
         actionRef(wall,[15]),
-        wait(25-rank*rank*12),
+        wait(25- $rank* $rank*12),
         actionRef(wall,[0]),
-        wait(25-rank*rank*12)
+        wait(25- $rank* $rank*12)
       ])
     ]),
     actionRef(move,[0])
   ]),
-  eaction(move,[
+  move:action([
     changeDirection(dirAbs($1),5),
     wait(6),
     changeSpeed(spdAbs(1),50),
@@ -21,19 +21,19 @@ bulletML(vertical,[
     changeSpeed(spdAbs(0),50),
     wait(55)
   ]),
-  eaction(wall,[
-    fire(some(dirRel($1)),some(spdAbs(1+rank*1.2)),bullet(none,none,[])),
+  wall:action([
+    fire(dirRel($1),spdAbs(1+ $rank*1.2),bullet(dirAim(0),spdAbs(1),[])),
     actionRef(wallbody,[]),
     repeat(11,[
       action([
-        fire(some(dirSeq(15)),some(spdAbs(1+rank*1.2)),bullet(none,none,[])),
+        fire(dirSeq(15),spdAbs(1+ $rank*1.2),bullet(dirAim(0),spdAbs(1),[])),
         actionRef(wallbody,[])
       ])
     ])
   ]),
-  eaction(wallbody,[
+  wallbody:action([
     repeat(15,[
-      action([fire(some(dirSeq(1)),some(spdAbs(1+rank*1.2)),bullet(none,none,[]))])
+      action([fire(dirSeq(1),spdAbs(1+ $rank*1.2),bullet(dirAim(0),spdAbs(1),[]))])
     ])
   ])
 ]).

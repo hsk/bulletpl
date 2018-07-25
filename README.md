@@ -16,7 +16,12 @@ BulletPL is Prolog version BulletML Library.
     - 下に角度180で飛ぶ
     - 左に角度270で飛ぶ
 
-- 画面
+- fireとbulletの両方にdirパラメータ指定した場合の例を作って見る
+    - dirAim(-90),dirAim(0) bulletが優先される
+    - dirAim(-90),dirSeq(0) -90が生きる
+    - dirAim(-90),dirAbs(0)
+    - dirAim(-30),dirRel(30)
+
 ### Links
 
   - [Official site](http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/index_e.html)

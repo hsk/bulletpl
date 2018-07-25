@@ -1,31 +1,31 @@
 bulletML(vertical,[
-  eaction(top,[fire(some(dirAbs(120)),none,bulletRef(parentbit,[1.6])),wait(300-100*rank)]),
-  ebullet(parentbit,bullet(some(dirAim(0)),some(spdAbs(1.5)),[
+  top:action([fire(dirAbs(120),spdAbs(1),bulletRef(parentbit,[1.6])),wait(300-100* $rank)]),
+  parentbit:bullet(dirAim(0),spdAbs(1.5),[
     action([
-      wait(20+10*rand),
+      wait(20+10* $rand),
       repeat(3,[
         action([
-          fire(some(dirRel(60)),none,bulletRef(bit,[- 120,$1])),
+          fire(dirRel(60),spdAbs(1),bulletRef(bit,[- 120,$1])),
           wait(10),
-          fire(some(dirRel(- 60)),none,bulletRef(bit,[120,$1])),
+          fire(dirRel(- 60),spdAbs(1),bulletRef(bit,[120,$1])),
           wait(10)
         ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(bit,bullet(none,some(spdAbs(2.5)),[
+  ]),
+  bit:bullet(dirAim(0),spdAbs(2.5),[
     action([
       wait(10),
       changeSpeed(spdAbs(0.0001),1),
       wait(5),
-      repeat(4+4*rank,[
+      repeat(4+4* $rank,[
         action([
-          fire(some(dirRel($1)),some(spdAbs($2*(0.5+0.5*rank))),bullet(none,none,[])),
+          fire(dirRel($1),spdAbs($2*(0.5+0.5* $rank)),bullet(dirAim(0),spdAbs(1),[])),
           wait(5)
         ])
       ]),
       vanish
     ])
-  ]))
+  ])
 ]).

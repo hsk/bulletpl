@@ -1,6 +1,6 @@
 bulletML(none,[
-  eaction(top,[
-    fire(some(dirAbs(175)),some(spdAbs(1+rank*4)),bullet(none,none,[])),
+  top:action([
+    fire(dirAbs(175),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
     repeat(30,[
       action([
         fireRef(allway,[]),
@@ -19,13 +19,13 @@ bulletML(none,[
         actionRef(rights,[]),
         actionRef(rights,[]),
         actionRef(rights,[]),
-        wait(15-rank*10),
-        fire(some(dirSeq(4)),some(spdAbs(1+rank*4)),bullet(none,none,[]))
+        wait(15- $rank*10),
+        fire(dirSeq(4),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[]))
       ])
     ])
   ]),
-  eaction(tops,[
-    fire(some(dirAbs(185)),some(spdAbs(1+rank*4)),bullet(none,none,[])),
+  tops:action([
+    fire(dirAbs(185),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
     repeat(30,[
       action([
         fireRef(allway,[]),
@@ -44,13 +44,13 @@ bulletML(none,[
         actionRef(lefts,[]),
         actionRef(lefts,[]),
         actionRef(lefts,[]),
-        wait(15-rank*10),
-        fire(some(dirSeq(- 4)),some(spdAbs(1+rank*4)),bullet(none,none,[]))
+        wait(15- $rank*10),
+        fire(dirSeq(- 4),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[]))
       ])
     ])
   ]),
-  eaction(lefts,[
-    fire(some(dirSeq(- 0.7)),some(spdAbs(1+rank*4)),bullet(none,none,[])),
+  lefts:action([
+    fire(dirSeq(- 0.7),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
     fireRef(allway,[]),
     fireRef(allway,[]),
     fireRef(allway,[]),
@@ -60,8 +60,8 @@ bulletML(none,[
     fireRef(allway,[]),
     wait(1)
   ]),
-  eaction(rights,[
-    fire(some(dirSeq(0.7)),some(spdAbs(1+rank*4)),bullet(none,none,[])),
+  rights:action([
+    fire(dirSeq(0.7),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
     fireRef(allway,[]),
     fireRef(allway,[]),
     fireRef(allway,[]),
@@ -71,5 +71,5 @@ bulletML(none,[
     fireRef(allway,[]),
     wait(1)
   ]),
-  efire(allway,fire(some(dirSeq(45)),some(spdAbs(1+rank*4)),bullet(none,none,[])))
+  allway:fire(dirSeq(45),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[]))
 ]).

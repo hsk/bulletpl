@@ -1,52 +1,52 @@
 bulletML(vertical,[
-  eaction(top,[
-    repeat(80+rank*120,[
+  top:action([
+    repeat(80+ $rank*120,[
       action([
-        fire(some(dirAbs(360*rand)),some(spdAbs(0.6-0.5*rank+0.15*rand)),bullet(none,none,[])),
-        fire(some(dirAbs(60+240*rand)),some(spdAbs(0.6-0.5*rank+0.15*rand)),bullet(none,none,[])),
-        fire(some(dirAbs(120+120*rand)),some(spdAbs(0.6-0.5*rank+0.15*rand)),bullet(none,none,[])),
+        fire(dirAbs(360* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAbs(60+240* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAbs(120+120* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(dirAim(0),spdAbs(1),[])),
         wait(2)
       ])
     ]),
-    wait(10+210*rank*rank),
-    fire(some(dirAbs(70+40*rand)),some(spdAbs(0.6-0.3*rank)),bulletRef(layer1,[])),
-    fire(some(dirSeq(180)),some(spdAbs(0.6-0.3*rank)),bulletRef(layer1,[])),
+    wait(10+210* $rank* $rank),
+    fire(dirAbs(70+40* $rand),spdAbs(0.6-0.3* $rank),bulletRef(layer1,[])),
+    fire(dirSeq(180),spdAbs(0.6-0.3* $rank),bulletRef(layer1,[])),
     wait(600)
   ]),
-  ebullet(layer1,bullet(none,none,[
+  layer1:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(15),
       repeat(100,[
         action([
-          fire(some(dirRel(90)),some(spdAbs(0.8-0.4*rank)),bulletRef(layer2,[])),
-          fire(some(dirRel(- 90)),some(spdAbs(0.8-0.4*rank)),bulletRef(layer2,[])),
+          fire(dirRel(90),spdAbs(0.8-0.4* $rank),bulletRef(layer2,[])),
+          fire(dirRel(- 90),spdAbs(0.8-0.4* $rank),bulletRef(layer2,[])),
           wait(60)
         ])
       ])
     ])
-  ])),
-  ebullet(layer2,bullet(none,none,[
+  ]),
+  layer2:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(15),
       repeat(100,[
         action([
-          fire(some(dirRel(45)),some(spdAbs(1.0-0.5*rank)),bulletRef(layer3,[])),
-          fire(some(dirRel(- 45)),some(spdAbs(1.0-0.5*rank)),bulletRef(layer3,[])),
+          fire(dirRel(45),spdAbs(1.0-0.5* $rank),bulletRef(layer3,[])),
+          fire(dirRel(- 45),spdAbs(1.0-0.5* $rank),bulletRef(layer3,[])),
           wait(60)
         ])
       ])
     ])
-  ])),
-  ebullet(layer3,bullet(none,none,[
+  ]),
+  layer3:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(15),
       repeat(100,[
         action([
-          fire(some(dirRel(30)),some(spdAbs(0.2+0.3*rank*rand)),bullet(none,none,[])),
-          fire(some(dirRel(- 30)),some(spdAbs(0.2+0.3*rank*rand)),bullet(none,none,[])),
+          fire(dirRel(30),spdAbs(0.2+0.3* $rank* $rand),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(- 30),spdAbs(0.2+0.3* $rank* $rand),bullet(dirAim(0),spdAbs(1),[])),
           wait(60)
         ])
       ])
     ])
-  ]))
+  ])
 ]).

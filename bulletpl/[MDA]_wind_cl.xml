@@ -1,18 +1,18 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     fireRef(side,[120]),
     fireRef(side,[240]),
     wait(31),
-    repeat(5+rank*20,[action([fire(none,none,bulletRef(center,[])),wait(30)])]),
+    repeat(5+ $rank*20,[action([fire(dirAim(0),spdAbs(1),bulletRef(center,[])),wait(30)])]),
     wait(100)
   ]),
-  efire(side,fire(some(dirAbs($1)),some(spdAbs(18.6)),bullet(none,none,[
+  side:fire(dirAbs($1),spdAbs(18.6),bullet(dirAim(0),spdAbs(1),[
     action([
       wait(1),
       changeSpeed(spdAbs(0.02),2),
       wait(30),
       changeDirection(dirAim(0),1),
-      repeat(77+rank*306,[
+      repeat(77+ $rank*306,[
         action([
           wait(2),
           changeDirection(dirAim(0),30),
@@ -23,21 +23,21 @@ bulletML(vertical,[
       ]),
       vanish
     ])
-  ]))),
-  efire('3way',fire(some(dirRel($1)),some(spdAbs(4.9)),bullet(none,none,[]))),
-  eaction('2way',[
-    fire(some(dirRel($1)),some(spdAbs(2.3)),bulletRef(dummy,[])),
-    fire(some(dirRel(- $1)),some(spdAbs(2.3)),bulletRef(dummy,[])),
+  ])),
+  '3way':fire(dirRel($1),spdAbs(4.9),bullet(dirAim(0),spdAbs(1),[])),
+  '2way':action([
+    fire(dirRel($1),spdAbs(2.3),bulletRef(dummy,[])),
+    fire(dirRel(- $1),spdAbs(2.3),bulletRef(dummy,[])),
     wait(5)
   ]),
-  ebullet(dummy,bullet(none,none,[action([])])),
-  ebullet(center,bullet(none,none,[
+  dummy:bullet(dirAim(0),spdAbs(1),[action([])]),
+  center:bullet(dirAim(0),spdAbs(1),[
     action([
       changeSpeed(spdAbs(0.01),1),
       actionRef('2way',[0]),
-      actionRef('2way',[8-rank*4]),
-      actionRef('2way',[16-rank*8]),
+      actionRef('2way',[8- $rank*4]),
+      actionRef('2way',[16- $rank*8]),
       vanish
     ])
-  ]))
+  ])
 ]).

@@ -112,17 +112,12 @@ newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
   send(Shape, pen, 0),
   send(Shape, fill_pattern, colour(red)).
 
-:- asserta(rank(1)).
-
 setDef(N:action(As)) :- asserta(actionV(N,As)).
 setDef(N:action(I,As)) :- asserta(actionV(N,[repeat(I,As)])).
 setDef(N:bullet(As)) :- asserta(bulletV(N,As)).
 setDef(N:fire(D,S,As)) :- asserta(fireV(N,D,S,As)).
 setDefs(Ds) :-
-  retractall(param(_,_)),
-  retractall(actionV(_,_)),
-  retractall(bulletV(_,_)),
-  retractall(fireV(_,_,_,_)),
+  retractall(actionV(_,_)),retractall(bulletV(_,_)),retractall(fireV(_,_,_,_)),
   maplist(setDef,Ds).
 
 run(bulletml(Ds)) :-
@@ -131,7 +126,7 @@ run(bulletml(Ds)) :-
   member(top:Action,Ds),
   setDefs(Ds),
   newBullet(200,50,B),move([B.put([dir:dirAbs(0),spd:spdAbs(0),cont:Action])]).
-setRank(N) :- V evalto N, retract(rank(_)),asserta(rank(V)).
+setRank(N) :- V evalto N, retractall(rank(_)),asserta(rank(V)).
 rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
 :- initWindow,initShip.
 

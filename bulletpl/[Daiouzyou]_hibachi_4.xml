@@ -1,34 +1,34 @@
 bulletML(none,[
-  eaction(top,[
-    fire(some(dirAbs(45)),some(spdAbs(1+rank*0.5)),bullet(none,none,[])),
-    repeat(113+900 div (16-rank*10),[
+  top:action([
+    fire(dirAbs(45),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+    repeat(113+900/(16- $rank*10),[
       action([
         fireRef(four,[]),
         fireRef(four,[]),
         fireRef(four,[]),
-        fire(some(dirSeq(86)),some(spdAbs(1+rank*0.5)),bullet(none,none,[])),
-        wait(16-rank*10)
+        fire(dirSeq(86),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+        wait(16- $rank*10)
       ])
     ])
   ]),
-  eaction(tops,[
-    wait((16-rank*10)*22.5),
-    fire(some(dirAbs(45)),some(spdAbs(1+rank*0.5)),bullet(none,none,[])),
-    repeat(91+900 div (16-rank*10),[
+  tops:action([
+    wait((16- $rank*10)*22.5),
+    fire(dirAbs(45),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+    repeat(91+900/(16- $rank*10),[
       action([
         fireRef(four,[]),
         fireRef(four,[]),
         fireRef(four,[]),
-        fire(some(dirSeq(94)),some(spdAbs(1+rank*0.5)),bullet(none,none,[])),
-        wait(16-rank*10)
+        fire(dirSeq(94),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+        wait(16- $rank*10)
       ])
     ])
   ]),
-  eaction(topt,[wait((16-rank*10)*45),fire(none,none,bulletRef(gurugurup,[]))]),
-  ebullet(gurugurup,bullet(none,none,[action([changeSpeed(spdAbs(0),1),actionRef(guru2,[]),vanish])])),
-  eaction(guru2,[
-    fire(some(dirAbs(0)),some(spdAbs(1+rank)),bulletRef(guruc,[])),
-    repeat(450 div (16-rank*10),[
+  topt:action([wait((16- $rank*10)*45),fire(dirAim(0),spdAbs(1),bulletRef(gurugurup,[]))]),
+  gurugurup:bullet(dirAim(0),spdAbs(1),[action([changeSpeed(spdAbs(0),1),actionRef(guru2,[]),vanish])]),
+  guru2:action([
+    fire(dirAbs(0),spdAbs(1+ $rank),bulletRef(guruc,[])),
+    repeat(450/(16- $rank*10),[
       action([
         fireRef(guru,[]),
         fireRef(guru,[]),
@@ -45,8 +45,8 @@ bulletML(none,[
         fireRef(guru,[]),
         fireRef(guru,[]),
         fireRef(guru,[]),
-        fire(some(dirSeq(20.5)),some(spdAbs(1+rank)),bulletRef(guruc,[])),
-        wait(16-rank*10)
+        fire(dirSeq(20.5),spdAbs(1+ $rank),bulletRef(guruc,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -66,8 +66,8 @@ bulletML(none,[
         fireRef(guru2,[]),
         fireRef(guru2,[]),
         fireRef(guru2,[]),
-        fire(some(dirSeq(20.5)),some(spdAbs(1+rank)),bulletRef(guruc2,[])),
-        wait(16-rank*10)
+        fire(dirSeq(20.5),spdAbs(1+ $rank),bulletRef(guruc2,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -87,8 +87,8 @@ bulletML(none,[
         fireRef(guru3,[]),
         fireRef(guru3,[]),
         fireRef(guru3,[]),
-        fire(some(dirSeq(20.5)),some(spdAbs(1+rank)),bulletRef(guruc3,[])),
-        wait(16-rank*10)
+        fire(dirSeq(20.5),spdAbs(1+ $rank),bulletRef(guruc3,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -108,8 +108,8 @@ bulletML(none,[
         fireRef(guru4,[]),
         fireRef(guru4,[]),
         fireRef(guru4,[]),
-        fire(some(dirSeq(20.5)),some(spdAbs(1+rank)),bulletRef(guruc4,[])),
-        wait(16-rank*10)
+        fire(dirSeq(20.5),spdAbs(1+ $rank),bulletRef(guruc4,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -129,8 +129,8 @@ bulletML(none,[
         fireRef(guru5,[]),
         fireRef(guru5,[]),
         fireRef(guru5,[]),
-        fire(some(dirSeq(20.5)),some(spdAbs(1+rank)),bulletRef(guruc5,[])),
-        wait(16-rank*10)
+        fire(dirSeq(20.5),spdAbs(1+ $rank),bulletRef(guruc5,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(4,[
@@ -150,8 +150,8 @@ bulletML(none,[
         fireRef(guru6,[]),
         fireRef(guru6,[]),
         fireRef(guru6,[]),
-        fire(some(dirSeq(20.5)),some(spdAbs(1+rank)),bulletRef(guruc6,[])),
-        wait(16-rank*10)
+        fire(dirSeq(20.5),spdAbs(1+ $rank),bulletRef(guruc6,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(4,[
@@ -171,8 +171,8 @@ bulletML(none,[
         fireRef(guru7,[]),
         fireRef(guru7,[]),
         fireRef(guru7,[]),
-        fire(some(dirSeq(21)),some(spdAbs(1+rank)),bulletRef(guruc7,[])),
-        wait(16-rank*10)
+        fire(dirSeq(21),spdAbs(1+ $rank),bulletRef(guruc7,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(6,[
@@ -192,8 +192,8 @@ bulletML(none,[
         fireRef(guru8,[]),
         fireRef(guru8,[]),
         fireRef(guru8,[]),
-        fire(some(dirSeq(21.5)),some(spdAbs(1+rank)),bulletRef(guruc8,[])),
-        wait(16-rank*10)
+        fire(dirSeq(21.5),spdAbs(1+ $rank),bulletRef(guruc8,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(7,[
@@ -213,8 +213,8 @@ bulletML(none,[
         fireRef(guru9,[]),
         fireRef(guru9,[]),
         fireRef(guru9,[]),
-        fire(some(dirSeq(22)),some(spdAbs(1+rank)),bulletRef(guruc9,[])),
-        wait(16-rank*10)
+        fire(dirSeq(22),spdAbs(1+ $rank),bulletRef(guruc9,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(2,[
@@ -234,8 +234,8 @@ bulletML(none,[
         fireRef(guru10,[]),
         fireRef(guru10,[]),
         fireRef(guru10,[]),
-        fire(some(dirSeq(22.7)),some(spdAbs(1+rank)),bulletRef(guruc10,[])),
-        wait(16-rank*10)
+        fire(dirSeq(22.7),spdAbs(1+ $rank),bulletRef(guruc10,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(7,[
@@ -255,8 +255,8 @@ bulletML(none,[
         fireRef(guru11,[]),
         fireRef(guru11,[]),
         fireRef(guru11,[]),
-        fire(some(dirSeq(23)),some(spdAbs(1+rank)),bulletRef(guruc11,[])),
-        wait(16-rank*10)
+        fire(dirSeq(23),spdAbs(1+ $rank),bulletRef(guruc11,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(6,[
@@ -276,8 +276,8 @@ bulletML(none,[
         fireRef(guru12,[]),
         fireRef(guru12,[]),
         fireRef(guru12,[]),
-        fire(some(dirSeq(23.5)),some(spdAbs(1+rank)),bulletRef(guruc12,[])),
-        wait(16-rank*10)
+        fire(dirSeq(23.5),spdAbs(1+ $rank),bulletRef(guruc12,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(4,[
@@ -297,8 +297,8 @@ bulletML(none,[
         fireRef(guru13,[]),
         fireRef(guru13,[]),
         fireRef(guru13,[]),
-        fire(some(dirSeq(24)),some(spdAbs(1+rank)),bulletRef(guruc13,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24),spdAbs(1+ $rank),bulletRef(guruc13,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(4,[
@@ -318,8 +318,8 @@ bulletML(none,[
         fireRef(guru14,[]),
         fireRef(guru14,[]),
         fireRef(guru14,[]),
-        fire(some(dirSeq(24.5)),some(spdAbs(1+rank)),bulletRef(guruc14,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24.5),spdAbs(1+ $rank),bulletRef(guruc14,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -339,8 +339,8 @@ bulletML(none,[
         fireRef(guru15,[]),
         fireRef(guru15,[]),
         fireRef(guru15,[]),
-        fire(some(dirSeq(24.5)),some(spdAbs(1+rank)),bulletRef(guruc15,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24.5),spdAbs(1+ $rank),bulletRef(guruc15,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -360,8 +360,8 @@ bulletML(none,[
         fireRef(guru16,[]),
         fireRef(guru16,[]),
         fireRef(guru16,[]),
-        fire(some(dirSeq(24.5)),some(spdAbs(1+rank)),bulletRef(guruc16,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24.5),spdAbs(1+ $rank),bulletRef(guruc16,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -381,8 +381,8 @@ bulletML(none,[
         fireRef(guru17,[]),
         fireRef(guru17,[]),
         fireRef(guru17,[]),
-        fire(some(dirSeq(24.5)),some(spdAbs(1+rank)),bulletRef(guruc17,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24.5),spdAbs(1+ $rank),bulletRef(guruc17,[])),
+        wait(16- $rank*10)
       ])
     ]),
     repeat(3,[
@@ -402,11 +402,11 @@ bulletML(none,[
         fireRef(guru18,[]),
         fireRef(guru18,[]),
         fireRef(guru18,[]),
-        fire(some(dirSeq(24.5)),some(spdAbs(1+rank)),bulletRef(guruc18,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24.5),spdAbs(1+ $rank),bulletRef(guruc18,[])),
+        wait(16- $rank*10)
       ])
     ]),
-    repeat(450 div (16-rank*10),[
+    repeat(450/(16- $rank*10),[
       action([
         fireRef(guru19,[]),
         fireRef(guru19,[]),
@@ -423,48 +423,48 @@ bulletML(none,[
         fireRef(guru19,[]),
         fireRef(guru19,[]),
         fireRef(guru19,[]),
-        fire(some(dirSeq(24.5)),some(spdAbs(1+rank)),bulletRef(guruc19,[])),
-        wait(16-rank*10)
+        fire(dirSeq(24.5),spdAbs(1+ $rank),bulletRef(guruc19,[])),
+        wait(16- $rank*10)
       ])
     ])
   ]),
-  efire(guru,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc,[]))),
-  efire(guru2,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc2,[]))),
-  efire(guru3,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc3,[]))),
-  efire(guru4,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc4,[]))),
-  efire(guru5,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc5,[]))),
-  efire(guru6,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc6,[]))),
-  efire(guru7,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc7,[]))),
-  efire(guru8,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc8,[]))),
-  efire(guru9,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc9,[]))),
-  efire(guru10,fire(some(dirSeq(22.3+rand*0.4)),some(spdAbs(1+rank)),bulletRef(guruc10,[]))),
-  efire(guru11,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc11,[]))),
-  efire(guru12,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc12,[]))),
-  efire(guru13,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc13,[]))),
-  efire(guru14,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc14,[]))),
-  efire(guru15,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc15,[]))),
-  efire(guru16,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc16,[]))),
-  efire(guru17,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc17,[]))),
-  efire(guru18,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc18,[]))),
-  efire(guru19,fire(some(dirSeq(22.5)),some(spdAbs(1+rank)),bulletRef(guruc19,[]))),
-  efire(four,fire(some(dirSeq(90)),some(spdAbs(1+rank*0.5)),bullet(none,none,[]))),
-  ebullet(guruc,bullet(none,none,[action([changeDirection(dirRel(- 270),90)])])),
-  ebullet(guruc2,bullet(none,none,[action([changeDirection(dirRel(- 270),170)])])),
-  ebullet(guruc3,bullet(none,none,[action([changeDirection(dirRel(- 270),260)])])),
-  ebullet(guruc4,bullet(none,none,[action([changeDirection(dirRel(- 270),300)])])),
-  ebullet(guruc5,bullet(none,none,[action([changeDirection(dirRel(- 270),450)])])),
-  ebullet(guruc6,bullet(none,none,[action([changeDirection(dirRel(- 270),600)])])),
-  ebullet(guruc7,bullet(none,none,[action([changeDirection(dirRel(- 270),700)])])),
-  ebullet(guruc8,bullet(none,none,[action([changeDirection(dirRel(- 270),800)])])),
-  ebullet(guruc9,bullet(none,none,[action([changeDirection(dirRel(- 270),900)])])),
-  ebullet(guruc10,bullet(none,none,[action([changeDirection(dirRel(0),90)])])),
-  ebullet(guruc11,bullet(none,none,[action([changeDirection(dirRel(270),900)])])),
-  ebullet(guruc12,bullet(none,none,[action([changeDirection(dirRel(270),800)])])),
-  ebullet(guruc13,bullet(none,none,[action([changeDirection(dirRel(270),700)])])),
-  ebullet(guruc14,bullet(none,none,[action([changeDirection(dirRel(270),600)])])),
-  ebullet(guruc15,bullet(none,none,[action([changeDirection(dirRel(270),450)])])),
-  ebullet(guruc16,bullet(none,none,[action([changeDirection(dirRel(270),300)])])),
-  ebullet(guruc17,bullet(none,none,[action([changeDirection(dirRel(270),280)])])),
-  ebullet(guruc18,bullet(none,none,[action([changeDirection(dirRel(270),230)])])),
-  ebullet(guruc19,bullet(none,none,[action([changeDirection(dirRel(270),90)])]))
+  guru:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc,[])),
+  guru2:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc2,[])),
+  guru3:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc3,[])),
+  guru4:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc4,[])),
+  guru5:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc5,[])),
+  guru6:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc6,[])),
+  guru7:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc7,[])),
+  guru8:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc8,[])),
+  guru9:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc9,[])),
+  guru10:fire(dirSeq(22.3+ $rand*0.4),spdAbs(1+ $rank),bulletRef(guruc10,[])),
+  guru11:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc11,[])),
+  guru12:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc12,[])),
+  guru13:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc13,[])),
+  guru14:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc14,[])),
+  guru15:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc15,[])),
+  guru16:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc16,[])),
+  guru17:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc17,[])),
+  guru18:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc18,[])),
+  guru19:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc19,[])),
+  four:fire(dirSeq(90),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+  guruc:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),90)])]),
+  guruc2:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),170)])]),
+  guruc3:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),260)])]),
+  guruc4:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),300)])]),
+  guruc5:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),450)])]),
+  guruc6:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),600)])]),
+  guruc7:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),700)])]),
+  guruc8:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),800)])]),
+  guruc9:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),900)])]),
+  guruc10:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(0),90)])]),
+  guruc11:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),900)])]),
+  guruc12:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),800)])]),
+  guruc13:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),700)])]),
+  guruc14:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),600)])]),
+  guruc15:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),450)])]),
+  guruc16:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),300)])]),
+  guruc17:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),280)])]),
+  guruc18:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),230)])]),
+  guruc19:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),90)])])
 ]).

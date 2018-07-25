@@ -1,32 +1,32 @@
 bulletML(vertical,[
-  eaction(top,[
+  top:action([
     repeat(3,[
       action([
-        fire(some(dirAbs(90)),some(spdAbs(1.1)),bulletRef(dummy,[])),
+        fire(dirAbs(90),spdAbs(1.1),bulletRef(dummy,[])),
         wait(60),
-        fire(some(dirAbs(- 90)),some(spdAbs(1.1)),bulletRef(dummy,[])),
+        fire(dirAbs(- 90),spdAbs(1.1),bulletRef(dummy,[])),
         wait(60)
       ])
     ]),
-    wait(250-50*rank)
+    wait(250-50* $rank)
   ]),
-  ebullet(dummy,bullet(none,none,[
+  dummy:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(60),
-      fire(some(dirAim(- 32)),some(spdAbs(1.1)),bulletRef(bit,[])),
-      repeat(8,[action([fire(some(dirSeq(8)),some(spdSeq(0)),bulletRef(bit,[]))])]),
+      fire(dirAim(- 32),spdAbs(1.1),bulletRef(bit,[])),
+      repeat(8,[action([fire(dirSeq(8),spdSeq(0),bulletRef(bit,[]))])]),
       vanish
     ])
-  ])),
-  ebullet(bit,bullet(none,none,[
+  ]),
+  bit:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(20),
-      fire(some(dirRel(0)),some(spdRel(0.3)),bulletRef(slowdown,[])),
-      repeat(2+4*rank,[action([fire(some(dirRel(0)),some(spdSeq(0.3)),bulletRef(slowdown,[]))])]),
+      fire(dirRel(0),spdRel(0.3),bulletRef(slowdown,[])),
+      repeat(2+4* $rank,[action([fire(dirRel(0),spdSeq(0.3),bulletRef(slowdown,[]))])]),
       wait(20),
-      changeDirection(dirAim((30-20*rank)*(- 1.0+2.0*rand)),1),
-      changeSpeed(spdRel(2.0+2.0*rank),300)
+      changeDirection(dirAim((30-20* $rank)*(- 1.0+2.0* $rand)),1),
+      changeSpeed(spdRel(2.0+2.0* $rank),300)
     ])
-  ])),
-  ebullet(slowdown,bullet(none,none,[action([wait(20),changeSpeed(spdAbs(0.3),60)])]))
+  ]),
+  slowdown:bullet(dirAim(0),spdAbs(1),[action([wait(20),changeSpeed(spdAbs(0.3),60)])])
 ]).

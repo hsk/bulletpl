@@ -1,21 +1,21 @@
 bulletML(none,[
-  eaction('5sp',[
-    fire(some(dirAim($1)),some(spdAbs(1)),bullet(none,none,[])),
-    repeat(3,[action([fire(none,some(spdSeq(0.4)),bullet(none,none,[]))])])
+  '5sp':action([
+    fire(dirAim($1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+    repeat(3,[action([fire(dirAim(0),spdSeq(0.4),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  efire(maru,fire(some(dirAbs(90)),some(spdAbs(4)),bullet(none,none,[
+  maru:fire(dirAbs(90),spdAbs(4),bullet(dirAim(0),spdAbs(1),[
     action([
       changeDirection(dirSeq(4),1000),
       repeat(90,[
         action([
           actionRef('5sp',[0]),
-          actionRef('5sp',[70-rank*40]),
-          actionRef('5sp',[- 70+rank*40]),
+          actionRef('5sp',[70- $rank*40]),
+          actionRef('5sp',[- 70+ $rank*40]),
           wait(3)
         ])
       ]),
       vanish
     ])
-  ]))),
-  eaction(top,[fireRef(maru,[]),wait(320)])
+  ])),
+  top:action([fireRef(maru,[]),wait(320)])
 ]).

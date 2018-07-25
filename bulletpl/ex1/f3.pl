@@ -1,0 +1,22 @@
+bulletML(none,[
+  top:action([
+    text('changeSpeed changeDirection abs 画面端をぐるっと回って後ろから狙う'),
+    wait(200),
+    repeat(50,[
+      fire(dirAbs(90),spdAbs(1),bullet(none,none,[
+        changeSpeed(spdAbs(4),30),wait(40),
+        changeDirection(dirAbs(180),30),wait(80),
+        changeSpeed(spdAbs(8),30),
+        changeDirection(dirAbs(360-70),30),wait(80)
+      ])),
+      fire(dirAbs(-90),spdAbs(1),bullet(none,none,[
+        changeSpeed(spdAbs(4),30),wait(40),
+        changeDirection(dirAbs(-180),30),wait(80),
+        changeSpeed(spdAbs(8),30),
+        changeDirection(dirAbs(-360+70),30),wait(80)
+      ])),
+      wait(5)
+    ]),
+    vanish
+  ])
+]).

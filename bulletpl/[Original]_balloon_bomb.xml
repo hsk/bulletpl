@@ -1,56 +1,42 @@
 bulletML(vertical,[
-  eaction(top,[
-    repeat(3+17*rank,[
+  top:action([
+    repeat(3+17* $rank,[
       action([
-        fire(some(dirAbs(120+120*rand)),some(spdAbs(1.0+0.3*rand)),bulletRef(balloon,[0.6+1.2*rank])),
-        wait(43-30*rank)
+        fire(dirAbs(120+120* $rand),spdAbs(1.0+0.3* $rand),bulletRef(balloon,[0.6+1.2* $rank])),
+        wait(43-30* $rank)
       ])
     ]),
-    wait(200-100*rank)
+    wait(200-100* $rank)
   ]),
-  ebullet(balloon,bullet(none,none,[
+  balloon:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(20),
       changeSpeed(spdAbs(0),1),
       wait(5),
-      fire(some(dirAbs(360*rand)),some(spdAbs($1*0.88)),bulletRef(balloonbit,[$1*0.88])),
+      fire(dirAbs(360* $rand),spdAbs($1*0.88),bulletRef(balloonbit,[$1*0.88])),
       repeat(2,[
-        action([
-          fire(some(dirSeq(120)),some(spdAbs($1*0.88)),bulletRef(balloonbit,[$1*0.88]))
-        ])
+        action([fire(dirSeq(120),spdAbs($1*0.88),bulletRef(balloonbit,[$1*0.88]))])
       ]),
-      repeat(24,[
-        action([fire(some(dirSeq(15)),some(spdAbs($1)),bulletRef(curvebit,[10,40,$1]))])
-      ]),
+      repeat(24,[action([fire(dirSeq(15),spdAbs($1),bulletRef(curvebit,[10,40,$1]))])]),
       wait(5),
-      fire(some(dirSeq(10)),some(spdAbs($1)),bulletRef(curvebit,[10,40,$1])),
-      repeat(23,[
-        action([fire(some(dirSeq(15)),some(spdAbs($1)),bulletRef(curvebit,[10,40,$1]))])
-      ]),
-      fire(some(dirSeq(- 3)),some(spdAbs($1*0.88)),bulletRef(balloonbit,[$1*0.88])),
+      fire(dirSeq(10),spdAbs($1),bulletRef(curvebit,[10,40,$1])),
+      repeat(23,[action([fire(dirSeq(15),spdAbs($1),bulletRef(curvebit,[10,40,$1]))])]),
+      fire(dirSeq(- 3),spdAbs($1*0.88),bulletRef(balloonbit,[$1*0.88])),
       repeat(2,[
-        action([
-          fire(some(dirSeq(120)),some(spdAbs($1*0.88)),bulletRef(balloonbit,[$1*0.88]))
-        ])
+        action([fire(dirSeq(120),spdAbs($1*0.88),bulletRef(balloonbit,[$1*0.88]))])
       ]),
       vanish
     ])
-  ])),
-  ebullet(balloonbit,bullet(none,none,[
+  ]),
+  balloonbit:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(4),
-      fire(some(dirRel(- 60)),some(spdAbs($1)),bulletRef(curvebit,[5,- 50,$1])),
-      repeat(9,[
-        action([fire(some(dirSeq(13)),some(spdAbs($1)),bulletRef(curvebit,[5,- 50,$1]))])
-      ]),
+      fire(dirRel(- 60),spdAbs($1),bulletRef(curvebit,[5,- 50,$1])),
+      repeat(9,[action([fire(dirSeq(13),spdAbs($1),bulletRef(curvebit,[5,- 50,$1]))])]),
       vanish
     ])
-  ])),
-  ebullet(curvebit,bullet(none,none,[
-    action([
-      wait($1),
-      fire(some(dirRel($2)),some(spdAbs($3)),bullet(none,none,[])),
-      vanish
-    ])
-  ]))
+  ]),
+  curvebit:bullet(dirAim(0),spdAbs(1),[
+    action([wait($1),fire(dirRel($2),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),vanish])
+  ])
 ]).

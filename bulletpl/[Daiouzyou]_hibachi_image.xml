@@ -1,17 +1,17 @@
 bulletML(vertical,[
-  ebullet('Dummy',bullet(none,none,[action([vanish])])),
-  eaction('XWay',[actionRef('XWayFan',[$1,$2,0])]),
-  eaction('XWayFan',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq($3)),bullet(none,none,[]))])])
+  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
+  'XWayFan':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(spiral,[
-    fire(none,some(spdAbs(0)),bullet(none,none,[
+  spiral:action([
+    fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
       action([
-        repeat(30+rank*45,[
+        repeat(30+ $rank*45,[
           action([
-            fire(some(dirSeq($1)),some(spdAbs(1+rank*2)),bullet(none,none,[])),
+            fire(dirSeq($1),spdAbs(1+ $rank*2),bullet(dirAim(0),spdAbs(1),[])),
             actionRef('XWay',[10,36]),
-            wait(6-rank*3)
+            wait(6- $rank*3)
           ])
         ]),
         vanish
@@ -19,17 +19,17 @@ bulletML(vertical,[
     ])),
     wait(225)
   ]),
-  eaction(top1,[actionRef(spiral,[7]),actionRef(spiral,[- 7])]),
-  eaction(fan4,[
-    fire(some(dirAbs(- $1)),none,bulletRef('Dummy',[])),
-    repeat(60+rank*90,[
+  top1:action([actionRef(spiral,[7]),actionRef(spiral,[- 7])]),
+  fan4:action([
+    fire(dirAbs(- $1),spdAbs(1),bulletRef('Dummy',[])),
+    repeat(60+ $rank*90,[
       action([
-        fire(some(dirSeq($1)),some(spdAbs(1+rank*2)),bullet(none,none,[])),
+        fire(dirSeq($1),spdAbs(1+ $rank*2),bullet(dirAim(0),spdAbs(1),[])),
         actionRef('XWay',[4,90]),
-        wait(6-rank*3)
+        wait(6- $rank*3)
       ])
     ])
   ]),
-  eaction(top2,[actionRef(fan4,[4])]),
-  eaction(top3,[actionRef(fan4,[- 4])])
+  top2:action([actionRef(fan4,[4])]),
+  top3:action([actionRef(fan4,[- 4])])
 ]).

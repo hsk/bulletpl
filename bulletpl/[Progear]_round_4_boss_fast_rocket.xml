@@ -1,22 +1,22 @@
 bulletML(horizontal,[
-  eaction(fireRoot,[
-    fire(some(dirAbs($1)),some(spdAbs(0.2)),bulletRef(rootBl,[])),
-    repeat(3,[action([fire(some(dirAbs($1)),some(spdSeq(0.5)),bulletRef(rootBl,[]))])])
+  fireRoot:action([
+    fire(dirAbs($1),spdAbs(0.2),bulletRef(rootBl,[])),
+    repeat(3,[action([fire(dirAbs($1),spdSeq(0.5),bulletRef(rootBl,[]))])])
   ]),
-  eaction(top,[actionRef(fireRoot,[rand*16]),actionRef(fireRoot,[180+rand*16]),wait(120)]),
-  ebullet(rootBl,bullet(none,none,[
-    action([wait(40),fire(some(dirAbs(274+rand*4)),none,bulletRef(rocket,[])),vanish])
-  ])),
-  ebullet(rocket,bullet(none,some(spdAbs(5+rand)),[
+  top:action([actionRef(fireRoot,[$rand*16]),actionRef(fireRoot,[180+ $rand*16]),wait(120)]),
+  rootBl:bullet(dirAim(0),spdAbs(1),[
+    action([wait(40),fire(dirAbs(274+ $rand*4),spdAbs(1),bulletRef(rocket,[])),vanish])
+  ]),
+  rocket:bullet(dirAim(0),spdAbs(5+ $rand),[
     action([
       repeat(9999,[
         action([
-          fire(some(dirAbs(0)),some(spdAbs(1)),bulletRef(downAccel,[])),
-          fire(some(dirAbs(60)),some(spdAbs(1.8)),bulletRef(downAccel,[])),
-          wait(5-rank*4)
+          fire(dirAbs(0),spdAbs(1),bulletRef(downAccel,[])),
+          fire(dirAbs(60),spdAbs(1.8),bulletRef(downAccel,[])),
+          wait(5- $rank*4)
         ])
       ])
     ])
-  ])),
-  ebullet(downAccel,bullet(none,none,[action([accel(none,some(spdAbs(2.7)),120)])]))
+  ]),
+  downAccel:bullet(dirAim(0),spdAbs(1),[action([accel(spdRel(0),spdAbs(2.7),120)])])
 ]).

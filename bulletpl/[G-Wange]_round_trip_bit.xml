@@ -1,17 +1,17 @@
 bulletML(none,[
-  eaction(top,[
-    fire(none,none,bulletRef(src,[5,91])),
-    fire(none,none,bulletRef(src,[4,- 91])),
+  top:action([
+    fire(dirAim(0),spdAbs(1),bulletRef(src,[5,91])),
+    fire(dirAim(0),spdAbs(1),bulletRef(src,[4,- 91])),
     wait(600)
   ]),
-  eaction('Xway',[
-    fire(some(dirAim(- (5+rank*5)*($1-1)-4+rand*8)),some(spdAbs(1.6)),bullet(none,none,[])),
+  'Xway':action([
+    fire(dirAim(- (5+ $rank*5)*($1-1)-4+ $rand*8),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
     repeat($1-1,[
-      action([fire(some(dirSeq(5+rank*5)),some(spdAbs(1.6)),bullet(none,none,[]))])
+      action([fire(dirSeq(5+ $rank*5),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[]))])
     ])
   ]),
-  eaction(fire,[actionRef('Xway',[3]),wait(15),actionRef('Xway',[5]),wait(15)]),
-  ebullet(src,bullet(some(dirAbs($2)),some(spdAbs($1)),[
+  fire:action([actionRef('Xway',[3]),wait(15),actionRef('Xway',[5]),wait(15)]),
+  src:bullet(dirAbs($2),spdAbs($1),[
     action([
       repeat(5,[
         action([
@@ -28,5 +28,5 @@ bulletML(none,[
         ])
       ])
     ])
-  ]))
+  ])
 ]).

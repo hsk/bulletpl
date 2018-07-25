@@ -1,16 +1,16 @@
 bulletML(none,[
-  eaction(top1,[
-    repeat(600 div (3-rank*2),[action([actionRef(line,[]),wait(3-rank*2+rand)])])
+  top1:action([
+    repeat(600/(3- $rank*2),[action([actionRef(line,[]),wait(3- $rank*2+ $rand)])])
   ]),
-  eaction(line,[
-    fire(some(dirSeq(- 7)),some(spdAbs(0.6)),bullet(none,none,[])),
-    repeat(5+rank*5,[action([fire(some(dirSeq(0)),some(spdSeq(0.3)),bullet(none,none,[]))])])
+  line:action([
+    fire(dirSeq(- 7),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
+    repeat(5+ $rank*5,[action([fire(dirSeq(0),spdSeq(0.3),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(top2,[
+  top2:action([
     repeat(20,[
       action([
-        changeDirection(dirSeq(- 1+rand*2),30),
-        changeSpeed(spdAbs((- 1+rand*2)*(rank*2+1)),30),
+        changeDirection(dirSeq(- 1+ $rand*2),30),
+        changeSpeed(spdAbs((- 1+ $rand*2)*($rank*2+1)),30),
         wait(30)
       ])
     ])

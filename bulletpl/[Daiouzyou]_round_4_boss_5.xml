@@ -1,21 +1,21 @@
 bulletML(vertical,[
-  eaction('Stop',[changeSpeed(spdAbs(0),1)]),
-  eaction('XWay',[
-    repeat($1-1,[action([fire(some(dirSeq($2)),some(spdSeq(0)),bullet(none,none,[]))])])
+  'Stop':action([changeSpeed(spdAbs(0),1)]),
+  'XWay':action([
+    repeat($1-1,[action([fire(dirSeq($2),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  ebullet('Dummy',bullet(none,none,[action([vanish])])),
-  ebullet(blueFan,bullet(none,some(spdAbs(3)),[
+  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  blueFan:bullet(dirAim(0),spdAbs(3),[
     action([
       wait(20),
       actionRef('Stop',[]),
       repeat(6,[
         action([
-          fire(some(dirSeq(120+ $1*2)),some(spdAbs(1.6)),bullet(none,none,[])),
+          fire(dirSeq(120+ $1*2),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
           actionRef('XWay',[3,120]),
-          repeat(6+rank*6,[
+          repeat(6+ $rank*6,[
             action([
-              wait(56 div (6+rank*6)),
-              fire(some(dirSeq(120+ $1)),some(spdAbs(1.6)),bullet(none,none,[])),
+              wait(56/(6+ $rank*6)),
+              fire(dirSeq(120+ $1),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
               actionRef('XWay',[3,120])
             ])
           ]),
@@ -24,28 +24,25 @@ bulletML(vertical,[
       ]),
       vanish
     ])
-  ])),
-  eaction(singleRedAim,[
-    fire(some(dirAim(0)),some(spdAbs(2)),bullet(none,none,[action([])])),
+  ]),
+  singleRedAim:action([
+    fire(dirAim(0),spdAbs(2),bullet(dirAim(0),spdAbs(1),[action([])])),
+    repeat(15,[
+      action([wait(4),fire(dirSeq(0),spdAbs(2),bullet(dirAim(0),spdAbs(1),[action([])]))])
+    ])
+  ]),
+  doubleRedAim:action([
+    fire(dirAim(- 5* $1),spdAbs(2),bullet(dirAim(0),spdAbs(1),[action([])])),
+    fire(dirSeq(20* $1),spdAbs(2),bullet(dirAim(0),spdAbs(1),[action([])])),
     repeat(15,[
       action([
         wait(4),
-        fire(some(dirSeq(0)),some(spdAbs(2)),bullet(none,none,[action([])]))
+        fire(dirSeq(- 20* $1),spdAbs(2),bullet(dirAim(0),spdAbs(1),[action([])])),
+        fire(dirSeq(20* $1),spdAbs(2),bullet(dirAim(0),spdAbs(1),[action([])]))
       ])
     ])
   ]),
-  eaction(doubleRedAim,[
-    fire(some(dirAim(- 5* $1)),some(spdAbs(2)),bullet(none,none,[action([])])),
-    fire(some(dirSeq(20* $1)),some(spdAbs(2)),bullet(none,none,[action([])])),
-    repeat(15,[
-      action([
-        wait(4),
-        fire(some(dirSeq(- 20* $1)),some(spdAbs(2)),bullet(none,none,[action([])])),
-        fire(some(dirSeq(20* $1)),some(spdAbs(2)),bullet(none,none,[action([])]))
-      ])
-    ])
-  ]),
-  ebullet(redAim2,bullet(none,some(spdAbs(1)),[
+  redAim2:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(20),
       actionRef('Stop',[]),
@@ -57,8 +54,8 @@ bulletML(vertical,[
       actionRef(doubleRedAim,[- 1]),
       vanish
     ])
-  ])),
-  ebullet(redAim1,bullet(none,some(spdAbs(1)),[
+  ]),
+  redAim1:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(20),
       actionRef('Stop',[]),
@@ -70,12 +67,12 @@ bulletML(vertical,[
       actionRef(doubleRedAim,[1]),
       vanish
     ])
-  ])),
-  eaction(top,[
-    fire(some(dirAbs(90)),none,bulletRef(blueFan,[4])),
-    fire(some(dirAbs(- 90)),none,bulletRef(blueFan,[- 4])),
-    fire(some(dirAbs(90)),none,bulletRef(redAim2,[])),
-    fire(some(dirAbs(- 90)),none,bulletRef(redAim1,[])),
+  ]),
+  top:action([
+    fire(dirAbs(90),spdAbs(1),bulletRef(blueFan,[4])),
+    fire(dirAbs(- 90),spdAbs(1),bulletRef(blueFan,[- 4])),
+    fire(dirAbs(90),spdAbs(1),bulletRef(redAim2,[])),
+    fire(dirAbs(- 90),spdAbs(1),bulletRef(redAim1,[])),
     wait(400)
   ])
 ]).

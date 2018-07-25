@@ -1,21 +1,21 @@
 bulletML(none,[
-  eaction(top,[
+  top:action([
     changeDirection(dirAbs(180),1),
     changeSpeed(spdAbs(1),1),
     wait(25),
     changeSpeed(spdAbs(0),1),
-    repeat(20+rank*40,[
+    repeat(20+ $rank*40,[
       action([
-        fire(some(dirAim(0)),some(spdAbs(0.4+rank*0.6)),bullet(none,none,[])),
+        fire(dirAim(0),spdAbs(0.4+ $rank*0.6),bullet(dirAim(0),spdAbs(1),[])),
         repeat(59,[
-          action([fire(some(dirSeq(6)),some(spdAbs(0.4+rank*0.6)),bullet(none,none,[]))])
+          action([fire(dirSeq(6),spdAbs(0.4+ $rank*0.6),bullet(dirAim(0),spdAbs(1),[]))])
         ]),
-        wait(30-rank*20),
-        fire(some(dirSeq(9)),some(spdAbs(1.2+rank*1.8)),bullet(none,none,[])),
+        wait(30- $rank*20),
+        fire(dirSeq(9),spdAbs(1.2+ $rank*1.8),bullet(dirAim(0),spdAbs(1),[])),
         repeat(59,[
-          action([fire(some(dirSeq(6)),some(spdAbs(1.2+rank*1.8)),bullet(none,none,[]))])
+          action([fire(dirSeq(6),spdAbs(1.2+ $rank*1.8),bullet(dirAim(0),spdAbs(1),[]))])
         ]),
-        wait(30-rank*20)
+        wait(30- $rank*20)
       ])
     ]),
     changeDirection(dirAbs(0),1),

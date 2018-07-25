@@ -1,45 +1,45 @@
 bulletML(vertical,[
-  eaction(top,[
-    fire(some(dirAbs(0)),some(spdAbs(0)),bulletRef(top,[])),
-    fire(some(dirAbs(0)),none,bulletRef(byakko,[])),
+  top:action([
+    fire(dirAbs(0),spdAbs(0),bulletRef(top,[])),
+    fire(dirAbs(0),spdAbs(1),bulletRef(byakko,[])),
     actionRef(byakko,[]),
-    repeat(120+rank*rank*rank*120,[
+    repeat(120+ $rank* $rank* $rank*120,[
       action([
-        wait(8-rank*rank*rank*4),
-        fire(some(dirSeq(128+rand*0.5)),none,bulletRef(byakko,[])),
+        wait(8- $rank* $rank* $rank*4),
+        fire(dirSeq(128+ $rand*0.5),spdAbs(1),bulletRef(byakko,[])),
         actionRef(byakko,[])
       ])
     ])
   ]),
-  eaction(byakko,[repeat(2,[action([fire(some(dirSeq(120)),none,bulletRef(byakko,[]))])])]),
-  ebullet(byakko,bullet(none,some(spdAbs(6)),[
+  byakko:action([repeat(2,[action([fire(dirSeq(120),spdAbs(1),bulletRef(byakko,[]))])])]),
+  byakko:bullet(dirAim(0),spdAbs(6),[
     action([
-      fireRef(byakkoway,[48.4-rand*0.8]),
-      fireRef(byakkoway,[32.4-rand*0.8]),
-      fireRef(byakkoway,[16.4-rand*0.8]),
-      fireRef(byakkoway,[0.4-rand*0.8]),
-      fireRef(byakkoway,[- 16.4+rand*0.8]),
-      fireRef(byakkoway,[- 32.4+rand*0.8]),
-      fireRef(byakkoway,[- 48.4+rand*0.8]),
+      fireRef(byakkoway,[48.4- $rand*0.8]),
+      fireRef(byakkoway,[32.4- $rand*0.8]),
+      fireRef(byakkoway,[16.4- $rand*0.8]),
+      fireRef(byakkoway,[0.4- $rand*0.8]),
+      fireRef(byakkoway,[- 16.4+ $rand*0.8]),
+      fireRef(byakkoway,[- 32.4+ $rand*0.8]),
+      fireRef(byakkoway,[- 48.4+ $rand*0.8]),
       vanish
     ])
-  ])),
-  efire(byakkoway,fire(some(dirRel($1)),some(spdAbs(0.8+rank*rank*1)),bullet(none,none,[]))),
-  ebullet(top,bullet(none,none,[
+  ]),
+  byakkoway:fire(dirRel($1),spdAbs(0.8+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
+  top:bullet(dirAim(0),spdAbs(1),[
     action([
-      fire(some(dirAbs(0)),none,bulletRef(backfire,[])),
+      fire(dirAbs(0),spdAbs(1),bulletRef(backfire,[])),
       actionRef(backfire,[]),
-      repeat(120+rank*rank*rank*120,[
+      repeat(120+ $rank* $rank* $rank*120,[
         action([
-          wait(8-rank*rank*rank*4),
-          fire(some(dirSeq(112+rand*0.5-rank*rank*rank*rank*rank*9.5)),none,bulletRef(backfire,[])),
+          wait(8- $rank* $rank* $rank*4),
+          fire(dirSeq(112+ $rand*0.5- $rank* $rank* $rank* $rank* $rank*9.5),spdAbs(1),bulletRef(backfire,[])),
           actionRef(backfire,[])
         ])
       ])
     ])
-  ])),
-  eaction(backfire,[repeat(2,[action([fire(some(dirSeq(120)),none,bulletRef(backfire,[]))])])]),
-  ebullet(backfire,bullet(none,some(spdAbs(10)),[
+  ]),
+  backfire:action([repeat(2,[action([fire(dirSeq(120),spdAbs(1),bulletRef(backfire,[]))])])]),
+  backfire:bullet(dirAim(0),spdAbs(10),[
     action([
       wait(4),
       fireRef(backfire,[100.5]),
@@ -49,6 +49,6 @@ bulletML(vertical,[
       fireRef(backfire,[140.5]),
       vanish
     ])
-  ])),
-  efire(backfire,fire(some(dirRel($1-rand)),some(spdAbs(1+rank*rank)),bullet(none,none,[])))
+  ]),
+  backfire:fire(dirRel($1- $rand),spdAbs(1+ $rank* $rank),bullet(dirAim(0),spdAbs(1),[]))
 ]).

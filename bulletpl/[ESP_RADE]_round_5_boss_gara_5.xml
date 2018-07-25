@@ -1,40 +1,40 @@
 bulletML(none,[
-  eaction(accel,[changeDirection(dirAim(360*rand),1),changeSpeed(spdAbs(0.5+rand*0.5),1)]),
-  eaction(stop,[changeSpeed(spdAbs(0),1)]),
-  eaction(stopAndWait,[actionRef(stop,[]),wait(70-rank*50)]),
-  eaction(ippon,[
-    repeat(26,[action([fire(some(dirSeq(0)),some(spdSeq(0.12)),bullet(none,none,[]))])])
+  accel:action([changeDirection(dirAim(360* $rand),1),changeSpeed(spdAbs(0.5+ $rand*0.5),1)]),
+  stop:action([changeSpeed(spdAbs(0),1)]),
+  stopAndWait:action([actionRef(stop,[]),wait(70- $rank*50)]),
+  ippon:action([
+    repeat(26,[action([fire(dirSeq(0),spdSeq(0.12),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(murasaki,[
-    fire(some(dirAbs($2)),some(spdAbs(0.8)),bullet(none,none,[])),
-    repeat(3+rand*17,[
+  murasaki:action([
+    fire(dirAbs($2),spdAbs(0.8),bullet(dirAim(0),spdAbs(1),[])),
+    repeat(3+ $rand*17,[
       action([
         actionRef(ippon,[]),
         wait(6),
-        fire(some(dirSeq($1)),some(spdAbs(0.8)),bullet(none,none,[]))
+        fire(dirSeq($1),spdAbs(0.8),bullet(dirAim(0),spdAbs(1),[]))
       ])
     ])
   ]),
-  eaction(ao,[
-    repeat(3+rand*17,[
+  ao:action([
+    repeat(3+ $rand*17,[
       action([
-        fire(none,some(spdAbs(0.8)),bullet(none,none,[])),
+        fire(dirAim(0),spdAbs(0.8),bullet(dirAim(0),spdAbs(1),[])),
         actionRef(ippon,[]),
         wait(6)
       ])
     ])
   ]),
-  eaction(gara5,[
+  gara5:action([
     repeat(2,[
       action([
         actionRef(accel,[]),
-        actionRef(murasaki,[5,180-rand*90]),
+        actionRef(murasaki,[5,180- $rand*90]),
         actionRef(stopAndWait,[]),
         actionRef(accel,[]),
         actionRef(ao,[]),
         actionRef(stopAndWait,[]),
         actionRef(accel,[]),
-        actionRef(murasaki,[- 5,180+rand*90]),
+        actionRef(murasaki,[- 5,180+ $rand*90]),
         actionRef(stopAndWait,[]),
         actionRef(accel,[]),
         actionRef(ao,[]),
@@ -42,5 +42,5 @@ bulletML(none,[
       ])
     ])
   ]),
-  eaction(top,[actionRef(gara5,[])])
+  top:action([actionRef(gara5,[])])
 ]).

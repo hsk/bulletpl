@@ -1,10 +1,10 @@
 bulletML(none,[
-  efire(alice,fire(some(dirAim(rand*360)),some(spdAbs(8)),bullet(none,none,[
+  alice:fire(dirAim($rand*360),spdAbs(8),bullet(dirAim(0),spdAbs(1),[
     action([
-      wait(10*rand),
-      fire(some(dirAim(rand*30-15)),none,bullet(none,none,[])),
+      wait(10* $rand),
+      fire(dirAim($rand*30-15),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
       vanish
     ])
-  ]))),
-  eaction(top,[repeat(600,[action([fireRef(alice,[]),wait(rank+1+rand)])]),wait(100)])
+  ])),
+  top:action([repeat(600,[action([fireRef(alice,[]),wait($rank+1+ $rand)])]),wait(100)])
 ]).

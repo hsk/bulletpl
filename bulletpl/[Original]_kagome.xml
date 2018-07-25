@@ -1,37 +1,37 @@
 bulletML(vertical,[
-  eaction(top,[
-    repeat(10+10*rank,[
+  top:action([
+    repeat(10+10* $rank,[
       action([
-        fire(some(dirAbs(75)),some(spdAbs(1.1)),bulletRef(matrixbit,[])),
-        fire(some(dirAbs(255)),some(spdAbs(1.1)),bulletRef(matrixbit,[])),
-        wait(30*(2.0-1.0*rank))
+        fire(dirAbs(75),spdAbs(1.1),bulletRef(matrixbit,[])),
+        fire(dirAbs(255),spdAbs(1.1),bulletRef(matrixbit,[])),
+        wait(30*(2.0-1.0* $rank))
       ])
     ]),
     wait(150)
   ]),
-  ebullet(matrixbit,bullet(none,some(spdAbs(0.5)),[
+  matrixbit:bullet(dirAim(0),spdAbs(0.5),[
     action([
-      wait(30*(2.0-1.0*rank)),
+      wait(30*(2.0-1.0* $rank)),
       repeat(999,[
         action([
-          fire(some(dirRel(90)),some(spdAbs(1.1)),bulletRef(finalbit,[])),
-          fire(some(dirRel(- 90)),some(spdAbs(1.1)),bulletRef(finalbit,[])),
-          fire(some(dirAim(- 10+20*rand)),some(spdAbs(1.1)),bullet(none,none,[])),
-          wait(60*(2.0-1.0*rank))
+          fire(dirRel(90),spdAbs(1.1),bulletRef(finalbit,[])),
+          fire(dirRel(- 90),spdAbs(1.1),bulletRef(finalbit,[])),
+          fire(dirAim(- 10+20* $rand),spdAbs(1.1),bullet(dirAim(0),spdAbs(1),[])),
+          wait(60*(2.0-1.0* $rank))
         ])
       ])
     ])
-  ])),
-  ebullet(finalbit,bullet(none,none,[
+  ]),
+  finalbit:bullet(dirAim(0),spdAbs(1),[
     action([
-      wait(30*(2.0-1.0*rank)),
+      wait(30*(2.0-1.0* $rank)),
       repeat(999,[
         action([
-          fire(some(dirRel(30)),some(spdAbs(1.1*(2 div 1.7320508))),bullet(none,none,[])),
-          fire(some(dirRel(- 30)),some(spdAbs(1.1*(2 div 1.7320508))),bullet(none,none,[])),
-          wait(60*(2.0-1.0*rank))
+          fire(dirRel(30),spdAbs(1.1*(2/1.7320508)),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(- 30),spdAbs(1.1*(2/1.7320508)),bullet(dirAim(0),spdAbs(1),[])),
+          wait(60*(2.0-1.0* $rank))
         ])
       ])
     ])
-  ]))
+  ])
 ]).

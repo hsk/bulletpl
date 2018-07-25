@@ -1,5 +1,5 @@
 bulletML(none,[
-  ebullet(roll,bullet(none,none,[
+  roll:bullet(dirAim(0),spdAbs(1),[
     action([
       changeDirection(dirSeq(3),10000),
       changeSpeed(spdAbs(2),60),
@@ -11,19 +11,19 @@ bulletML(none,[
       changeDirection(dirSeq(2),10000),
       changeSpeed(spdSeq(0.01),100000)
     ])
-  ])),
-  ebullet(explosionBullet,bullet(none,none,[
+  ]),
+  explosionBullet:bullet(dirAim(0),spdAbs(1),[
     action([
       wait(30),
-      repeat(12,[action([fire(some(dirSeq(30)),some(spdAbs(1.2)),bulletRef(roll,[]))])]),
+      repeat(12,[action([fire(dirSeq(30),spdAbs(1.2),bulletRef(roll,[]))])]),
       vanish
     ])
-  ])),
-  eaction(top,[
-    repeat(3+rank*6,[
+  ]),
+  top:action([
+    repeat(3+ $rank*6,[
       action([
-        fire(some(dirAim(- 90+180*rand)),some(spdAbs(rand*3+1)),bulletRef(explosionBullet,[])),
-        wait(90-rank*60)
+        fire(dirAim(- 90+180* $rand),spdAbs($rand*3+1),bulletRef(explosionBullet,[])),
+        wait(90- $rank*60)
       ])
     ])
   ])

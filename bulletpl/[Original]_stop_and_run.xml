@@ -1,18 +1,16 @@
 bulletML(vertical,[
-  ebullet(stopAndRun,bullet(none,none,[
+  stopAndRun:bullet(dirAim(0),spdAbs(1),[
     action([
       changeSpeed(spdAbs(0),60),
-      wait(180-rank*120),
-      accel(none,some(spdAbs(3)),120),
+      wait(180- $rank*120),
+      accel(spdRel(0),spdAbs(3),120),
       wait(120)
     ])
-  ])),
-  eaction(top,[
+  ]),
+  top:action([
     repeat(200,[
-      action([
-        fire(some(dirAim(rand*360)),some(spdAbs(3*rand+0.5)),bulletRef(stopAndRun,[]))
-      ])
+      action([fire(dirAim($rand*360),spdAbs(3* $rand+0.5),bulletRef(stopAndRun,[]))])
     ]),
-    wait(260-rank*120)
+    wait(260- $rank*120)
   ])
 ]).

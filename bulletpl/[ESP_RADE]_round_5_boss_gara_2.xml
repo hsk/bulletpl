@@ -1,32 +1,35 @@
 bulletML(none,[
-  ebullet(featherShot,bullet(none,some(spdAbs(6)),[
+  featherShot:bullet(dirAim(0),spdAbs(6),[
     action([
       changeSpeed(spdAbs(0),20),
       wait(20),
-      fire(none,none,bulletRef(featherAim,[])),
-      repeat(150+rank*100,[
-        action([fire(some(dirAim(90*rand-45)),none,bullet(none,none,[])),wait(3-rank*2)])
+      fire(dirAim(0),spdAbs(1),bulletRef(featherAim,[])),
+      repeat(150+ $rank*100,[
+        action([
+          fire(dirAim(90* $rand-45),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+          wait(3- $rank*2)
+        ])
       ]),
       vanish
     ])
-  ])),
-  ebullet(featherAim,bullet(none,some(spdAbs(0)),[
+  ]),
+  featherAim:bullet(dirAim(0),spdAbs(0),[
     action([
       repeat(7,[
         action([
-          fire(none,some(spdAbs(3)),bullet(none,none,[])),
+          fire(dirAim(0),spdAbs(3),bullet(dirAim(0),spdAbs(1),[])),
           repeat(20,[
-            action([wait(2),fire(some(dirSeq(0)),some(spdAbs(3)),bullet(none,none,[]))])
+            action([wait(2),fire(dirSeq(0),spdAbs(3),bullet(dirAim(0),spdAbs(1),[]))])
           ]),
           wait(30)
         ])
       ]),
       vanish
     ])
-  ])),
-  eaction(top,[
-    fire(some(dirAbs(90)),none,bulletRef(featherShot,[])),
-    fire(some(dirAbs(- 90)),none,bulletRef(featherShot,[])),
+  ]),
+  top:action([
+    fire(dirAbs(90),spdAbs(1),bulletRef(featherShot,[])),
+    fire(dirAbs(- 90),spdAbs(1),bulletRef(featherShot,[])),
     wait(550)
   ])
 ]).

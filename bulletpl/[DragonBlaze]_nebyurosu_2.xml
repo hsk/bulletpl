@@ -1,25 +1,25 @@
 bulletML(vertical,[
-  eaction(add3,[
-    repeat(3,[action([fire(some(dirSeq(90)),some(spdSeq(0)),bullet(none,none,[]))])])
+  add3:action([
+    repeat(3,[action([fire(dirSeq(90),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
   ]),
-  eaction(top1,[
+  top1:action([
     repeat(150,[
       action([
-        fire(some(dirSeq(4)),some(spdAbs(1+rank)),bullet(none,none,[])),
+        fire(dirSeq(4),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
         actionRef(add3,[]),
         wait(2)
       ])
     ]),
-    wait(60-rank*30)
+    wait(60- $rank*30)
   ]),
-  eaction(top2,[
+  top2:action([
     repeat(150,[
       action([
-        fire(some(dirSeq(- 5)),some(spdAbs(1+rank)),bullet(none,none,[])),
+        fire(dirSeq(- 5),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
         actionRef(add3,[]),
         wait(2)
       ])
     ]),
-    wait(60-rank*30)
+    wait(60- $rank*30)
   ])
 ]).

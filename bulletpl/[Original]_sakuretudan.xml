@@ -1,19 +1,19 @@
 bulletML(none,[
-  eaction(top,[
+  top:action([
     repeat(10,[
       action([
-        fire(some(dirAim(rand*360)),some(spdAbs(2)),bullet(none,none,[
+        fire(dirAim($rand*360),spdAbs(2),bullet(dirAim(0),spdAbs(1),[
           action([
             changeDirection(dirAim(0),60),
             wait(60),
-            repeat(15+rank*20,[
+            repeat(15+ $rank*20,[
               action([
                 repeat(2,[
                   action([
-                    fire(some(dirAim(360*rand)),some(spdAbs(5)),bullet(none,none,[
+                    fire(dirAim(360* $rand),spdAbs(5),bullet(dirAim(0),spdAbs(1),[
                       action([
-                        wait(rand*5),
-                        fire(none,some(spdAbs(rand*4+0.5)),bullet(none,none,[])),
+                        wait($rand*5),
+                        fire(dirAim(0),spdAbs($rand*4+0.5),bullet(dirAim(0),spdAbs(1),[])),
                         vanish
                       ])
                     ]))

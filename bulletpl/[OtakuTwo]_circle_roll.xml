@@ -1,20 +1,20 @@
 bulletML(none,[
-  eaction(top,[
+  top:action([
     actionRef(move,[180]),
-    repeat(20+rank*20,[
+    repeat(20+ $rank*20,[
       action([
-        changeDirection(dirRel(- 179+rand*358),(80+rand*40)div(1+rank)),
+        changeDirection(dirRel(- 179+ $rand*358),(80+ $rand*40)/(1+ $rank)),
         repeat(5,[
           action([
-            fire(some(dirRel(0)),some(spdAbs(1+rank*0.5)),bulletRef(curve,[1])),
-            fire(some(dirSeq(10)),some(spdAbs(1+rank*0.5)),bulletRef(curve,[- 1])),
+            fire(dirRel(0),spdAbs(1+ $rank*0.5),bulletRef(curve,[1])),
+            fire(dirSeq(10),spdAbs(1+ $rank*0.5),bulletRef(curve,[- 1])),
             repeat(17,[
               action([
-                fire(some(dirSeq(10)),some(spdAbs(1+rank*0.5)),bulletRef(curve,[1])),
-                fire(some(dirSeq(10)),some(spdAbs(1+rank*0.5)),bulletRef(curve,[- 1]))
+                fire(dirSeq(10),spdAbs(1+ $rank*0.5),bulletRef(curve,[1])),
+                fire(dirSeq(10),spdAbs(1+ $rank*0.5),bulletRef(curve,[- 1]))
               ])
             ]),
-            wait(16-rank*8)
+            wait(16- $rank*8)
           ])
         ])
       ])
@@ -22,26 +22,26 @@ bulletML(none,[
     wait(80),
     actionRef(move,[0])
   ]),
-  eaction(move,[
+  move:action([
     changeDirection(dirAbs($1),1),
     changeSpeed(spdAbs(2),1),
     wait(12),
     changeSpeed(spdAbs(0),1),
     wait(5)
   ]),
-  ebullet(curve,bullet(none,none,[
+  curve:bullet(dirAim(0),spdAbs(1),[
     action([
-      wait(30-rank*15),
+      wait(30- $rank*15),
       changeDirection(dirRel(150* $1),25),
       wait(25),
       repeat(9999,[
         action([
-          changeDirection(dirRel(- 150* $1*rank),1000-rank*950),
+          changeDirection(dirRel(- 150* $1* $rank),1000- $rank*950),
           wait(30),
-          changeDirection(dirRel(150* $1*rank),1000-rank*900),
+          changeDirection(dirRel(150* $1* $rank),1000- $rank*900),
           wait(60)
         ])
       ])
     ])
-  ]))
+  ])
 ]).

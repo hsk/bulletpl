@@ -1,16 +1,16 @@
 bulletML(none,[
-  eaction(rollShots,[
+  rollShots:action([
     repeat(200,[
       action([
-        fire(some(dirSeq(11* $1)),some(spdAbs(1)),bullet(none,none,[])),
-        repeat(3+rank*4,[action([fire(some(dirSeq(0)),some(spdSeq(0.3)),bullet(none,none,[]))])]),
+        fire(dirSeq(11* $1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+        repeat(3+ $rank*4,[action([fire(dirSeq(0),spdSeq(0.3),bullet(dirAim(0),spdAbs(1),[]))])]),
         wait(2)
       ])
     ])
   ]),
-  eaction(right,[changeDirection(dirAbs(90),1),changeSpeed(spdAbs(1.5),1),wait(50)]),
-  eaction(left,[changeDirection(dirAbs(- 90),1),changeSpeed(spdAbs(1.5),1),wait(50)]),
-  eaction(top1,[
+  right:action([changeDirection(dirAbs(90),1),changeSpeed(spdAbs(1.5),1),wait(50)]),
+  left:action([changeDirection(dirAbs(- 90),1),changeSpeed(spdAbs(1.5),1),wait(50)]),
+  top1:action([
     repeat(2,[
       action([
         actionRef(right,[]),
@@ -22,6 +22,6 @@ bulletML(none,[
     changeSpeed(spdAbs(0),1),
     wait(1)
   ]),
-  eaction(top2,[actionRef(rollShots,[- 1])]),
-  eaction(top3,[actionRef(rollShots,[1])])
+  top2:action([actionRef(rollShots,[- 1])]),
+  top3:action([actionRef(rollShots,[1])])
 ]).
