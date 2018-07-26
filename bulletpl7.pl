@@ -23,7 +23,6 @@ evalto(I,I) :- integer(I),!.
 evalto(A,A) :- atom(A),!.
 evalto(F,$rand) :- !,random(0.0,1.0,F).
 evalto(I,$rank) :- !,rank(I).
-evalto(V,$P) :- !,bullet(B),!,member(P=V,B.param),!.
 evalto(V,E1+E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_+E2_.
 evalto(V,E1-E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_-E2_.
 evalto(V,E1*E2) :- !,evalto(E1_,E1),evalto(E2_,E2), V is E1_*E2_.
@@ -56,19 +55,7 @@ chgSpd(B,Ship,S,B1) :- (OS,NS,C,M)=B.get(chgSpd),
   ;C1 evalto C+1,B1 = B.put(chgSpd,(OS,NS,C1,M))).
 chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
 
-eval1(_,[],Prm,Prm).
-eval1(N,[V|Vs],Prm,[N=V_|Vs_]) :- evalto(V_,V),N1 is N+1,eval1(N1,Vs,Prm,Vs_).
-
-getParam(B,Prm) :- Prm=B.get(param),!;Prm=[].
-setParams(Ps,B1) :-
-  eval1(1,Ps,Prm,Ps_),retract(bullet(B1)),getParam(B1,Prm),asserta(bullet(B1.put(param,Ps_))).
-rmParams(B1) :- retract(bullet(B)),!,(B.shape=B1.shape;halt),!,
-  getParam(B1,Prm),!,asserta(bullet(B.put(param,Prm))).
-
-setParamsz(Ps,B1) :-
-  eval1(1,Ps,[],Ps_),assertz(bullet(B1.put(param,Ps_))).
-
-actionRef(K,Ps) :- setParams(Ps,B),actionV(K,As),action(As),rmParams(B).
+actionRef(K,Ps) :- actionV(K,G,As),maplist((=),G,Ps),writeln(action(As)),!,action(As).
 action(As) :- maplist(call,As).
 cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)),shift(1). % 画面外で消える
 cont(B,N) :- asserta(bullet(B)),shift(0),N1 evalto N - 1, wait(N1).
@@ -79,22 +66,14 @@ wait(N) :-
   D_ is D/180*3.14159,
   X is B.x + sin(D_)*S,Y is B.y - cos(D_)*S,
   cont(B2.put([x:X,y:Y,pdir:D,pspd:S]),N).
-fireRef(K,Ps):- setParams(Ps,B),fireV(K,D,S,As),fire(D,S,As),rmParams(B).
-fire(D,S,bulletRef(K,Ps)) :-
-  bulletV(K,_,_,As),
-  bullet(B),getShip(Ship),
-  spd(B,S,Ship,S_),!,
-  dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2),
-  retract(bullet(B1)),asserta(bullet(B1.put([fdir:D_,fspd:S_]))),
-  B3=B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]),
-  setParamsz(Ps,B3).
+fireRef(K,Ps):- fireV(K,G,D,S,As),maplist((=),G,Ps),fire(D,S,As).
+fire(D,S,bulletRef(K,Ps)) :- bulletV(K,G,D_,S_,As),maplist((=),G,Ps),fire(D,S,bullet(D_,S_,As)).
 fire(D,S,bullet(_,_,As)) :-
   bullet(B),getShip(Ship),
   spd(B,S,Ship,S_),!,
   dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2),
   retract(bullet(B1)),asserta(bullet(B1.put([fdir:D_,fspd:S_]))),
-  getParam(B,Ps),
-  assert(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As),param:Ps]))).
+  assert(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]))).
 getPDir(B,PDir) :- PDir=B.get(pdir).
 getPDir(B,PDir) :- getShip(Ship),dir(B,B.dir,Ship,PDir).
 getPSpd(B,PSpd) :- PSpd=B.get(pspd).
@@ -138,10 +117,20 @@ newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
   send(Shape, pen, 0),
   send(Shape, fill_pattern, colour(red)).
 
-setDef(N:action(As)) :- asserta(actionV(N,As)).
-setDef(N:action(I,As)) :- asserta(actionV(N,[repeat(I,As)])).
-setDef(N:bullet(D,S,As)) :- asserta(bulletV(N,D,S,As)).
-setDef(N:fire(D,S,B)) :- asserta(fireV(N,D,S,B)).
+replaceParams(G,$I,T,G) :- member(I:T,G),!.
+replaceParams(G,$I,T,[I:T|G]) :- integer(I),!.
+replaceParams(G,E,E_,G_) :- compound(E),
+  E=..[N|Ps],
+  foldl([P,(Ps1,G1),([P_|Ps1],G1_)]>>replaceParams(G1,P,P_,G1_),Ps,([],G),(Ps_,G_)),
+  reverse(Ps_,Ps1),
+  E_=..[N|Ps1].
+replaceParams(G,E,E,G).
+
+replaceParam(A,A_,G) :- replaceParams([],A,A_,G1),sort(G1,G2),maplist([_:V,V]>>!,G2,G).
+setDef(N:action(As)) :- replaceParam(As,As_,G),writeln(As>As_),asserta(actionV(N,G,As_)).
+setDef(N:action(I,As)) :- replaceParam([repeat(I,As)],As_,G),asserta(actionV(N,G,As_)).
+setDef(N:bullet(D,S,As)) :- replaceParam(bullet(D,S,As),bullet(D_,S_,As_),G),asserta(bulletV(N,G,D_,S_,As_)).
+setDef(N:fire(D,S,B)) :- replaceParam(fire(D,S,B),fire(D_,S_,B_),G),asserta(fireV(N,G,D_,S_,B_)).
 setDefs(Ds) :-
   retractall(actionV(_,_)),retractall(bulletV(_,_,_,_)),retractall(fireV(_,_,_,_)),
   maplist(setDef,Ds).

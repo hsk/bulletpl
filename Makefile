@@ -63,7 +63,7 @@ run:
 	swipl bulletpl7.pl -- 'bulletpl/[Psyvariar]_X-B_colony_shape_satellite.xml' #ok
 	swipl bulletpl7.pl -- 'bulletpl/[Strikers1999]_hanabi.xml' #ok
 	make run2
-run2: bulletref_param ayashii_ok fspd_ok pspd_ok pdir_ok param_ok_evalSpdDir param_ok prolog_syntax_ok pdir_kieru_ok
+run2: bulletref_param_ok ayashii_ok fspd_ok pspd_ok pdir_ok param_ok_evalSpdDir param_ok prolog_syntax_ok pdir_kieru_ok
 bulletref_param_ok:
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_2.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_6.xml'
@@ -193,7 +193,6 @@ errors:
 	swipl bulletpl7.pl -- 'bulletpl/[Progear]_round_10_boss_before_final.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Psyvariar]_X-A_boss_winder.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[STORM_CALIBAR]_last_boss_double_roll_bullets.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_kunekune_plus_homing.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_3_boss_2.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Original]_hirahira.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0012.xml'
@@ -203,22 +202,24 @@ errors:
 	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_3boss_roll_and_aim.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Original]_wana.xml'
 
-run_omoi:
-	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_7.xml' #ok omo
-	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_2boss_winder_crash.xml' # omoi
-	swipl bulletpl7.pl -- 'bulletpl/1943_rolling_fire.xml' #ok1
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_air_elemental.xml' # omo
-	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_5.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[MDA]_10flower_2.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_extinction.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_optic_seeker.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_time_twist.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[tenmado]_5_boss_3.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[Noiz2sa]_5_players.xml' %omo
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_entangled_space.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_kedama.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_kujira.xml' #omo
-	swipl bulletpl7.pl -- 'bulletpl/[XII_STAG]_3b.xml' #omo
+heavy_ok:
+	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_2boss_winder_crash.xml' # heavy
+	swipl bulletpl7.pl -- 'bulletpl/1943_rolling_fire.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_5.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[MDA]_10flower_2.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[tenmado]_5_boss_3.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Noiz2sa]_5_players.xml' #heavy
+ng_heavy:
+	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_7.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_air_elemental.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_extinction.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_optic_seeker.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_time_twist.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_entangled_space.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_kedama.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_kujira.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[XII_STAG]_3b.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_kunekune_plus_homing.xml'
 
 
 all:
