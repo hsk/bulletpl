@@ -54,8 +54,9 @@ chgSpd(B,Ship,S,B1) :- (OS,NS,C,M)=B.get(chgSpd),
   (C = M  -> B1 = B.del(chgSpd).put(spd,NS)
   ;C1 evalto C+1,B1 = B.put(chgSpd,(OS,NS,C1,M))).
 chgSpd(B,Ship,S,B) :- spd(B,B.spd,Ship,S).
-
-actionRef(K,Ps) :- actionV(K,G,As),maplist((=),G,Ps),writeln(action(As)),!,action(As).
+refmap(G,P,N,N1) :- N1 is N+1,P_ evalto P,member(N:P_,G),!.
+refmap(_,P,N,N1) :- N1 is N+1,writeln(waring:parameter($N:P)).
+actionRef(K,Ps) :- actionV(K,G,As),foldl(refmap(G),Ps,1,_),!,action(As).
 action(As) :- maplist(call,As).
 cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)),shift(1). % 画面外で消える
 cont(B,N) :- asserta(bullet(B)),shift(0),N1 evalto N - 1, wait(N1).
@@ -66,8 +67,8 @@ wait(N) :-
   D_ is D/180*3.14159,
   X is B.x + sin(D_)*S,Y is B.y - cos(D_)*S,
   cont(B2.put([x:X,y:Y,pdir:D,pspd:S]),N).
-fireRef(K,Ps):- fireV(K,G,D,S,As),maplist((=),G,Ps),fire(D,S,As).
-fire(D,S,bulletRef(K,Ps)) :- bulletV(K,G,D_,S_,As),maplist((=),G,Ps),fire(D,S,bullet(D_,S_,As)).
+fireRef(K,Ps):- fireV(K,G,D,S,As),foldl(refmap(G),Ps,1,_),fire(D,S,As).
+fire(D,S,bulletRef(K,Ps)) :- bulletV(K,G,D_,S_,As),foldl(refmap(G),Ps,1,_),fire(D,S,bullet(D_,S_,As)).
 fire(D,S,bullet(_,_,As)) :-
   bullet(B),getShip(Ship),
   spd(B,S,Ship,S_),!,
@@ -119,15 +120,14 @@ newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
 
 replaceParams(G,$I,T,G) :- member(I:T,G),!.
 replaceParams(G,$I,T,[I:T|G]) :- integer(I),!.
-replaceParams(G,E,E_,G_) :- compound(E),
+replaceParams(G,E,E_,G_) :-
   E=..[N|Ps],
   foldl([P,(Ps1,G1),([P_|Ps1],G1_)]>>replaceParams(G1,P,P_,G1_),Ps,([],G),(Ps_,G_)),
   reverse(Ps_,Ps1),
   E_=..[N|Ps1].
-replaceParams(G,E,E,G).
 
-replaceParam(A,A_,G) :- replaceParams([],A,A_,G1),sort(G1,G2),maplist([_:V,V]>>!,G2,G).
-setDef(N:action(As)) :- replaceParam(As,As_,G),writeln(As>As_),asserta(actionV(N,G,As_)).
+replaceParam(A,A_,G) :- replaceParams([],A,A_,G).
+setDef(N:action(As)) :- replaceParam(As,As_,G),asserta(actionV(N,G,As_)).
 setDef(N:action(I,As)) :- replaceParam([repeat(I,As)],As_,G),asserta(actionV(N,G,As_)).
 setDef(N:bullet(D,S,As)) :- replaceParam(bullet(D,S,As),bullet(D_,S_,As_),G),asserta(bulletV(N,G,D_,S_,As_)).
 setDef(N:fire(D,S,B)) :- replaceParam(fire(D,S,B),fire(D_,S_,B_),G),asserta(fireV(N,G,D_,S_,B_)).
@@ -145,7 +145,7 @@ run(bulletML(Mode,Ds)) :-
   get_time(Time),assertz(time1(Time)),
   member(top:Action,Ds),
   setDefs(Ds),
-  newBullet(200,50,B),move([B.put([dir:dirAbs(0),spd:spdAbs(0),cont:Action])]).
+  newBullet(200,100,B),move([B.put([dir:dirAbs(0),spd:spdAbs(0),cont:Action])]).
 runfile(F) :-
   text(read:F),
   read_file_to_terms(F,[BML],[]),

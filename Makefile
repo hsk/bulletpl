@@ -102,7 +102,6 @@ bulletref_param_ok:
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-2010.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-2011.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Progear]_round_3_boss_wave_bullets.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[tenmado]_3_boss_2.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[xsoldier]_8_boss_main.xml'
 ayashii_ok:
 	swipl bulletpl7.pl -- 'bulletpl/[G_DARIUS]_homing_laser.xml' #ok ayashi
@@ -130,10 +129,11 @@ param_ok_evalSpdDir:
 	swipl bulletpl7.pl -- 'bulletpl/[Original]_shooting_star.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_circle_trap.xml'
 param_ok:
+	swipl bulletpl7.pl -- 'bulletpl/[tenmado]_3_boss_2.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_ares_2.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[MDA]_mossari.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_3_boss_last.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_1.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_ares_2.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Guwange]_round_2_boss_circle_fire.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[MDA]_14b_2-3w.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[MDA]_2f.xml'
@@ -181,6 +181,7 @@ accel_error:
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0081.xml'
 errors:
 	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_1_boss.xml'
+e:
 	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_1_boss_hakkyou.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_3.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_5.xml'
