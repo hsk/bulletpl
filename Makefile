@@ -63,7 +63,7 @@ run:
 	swipl bulletpl7.pl -- 'bulletpl/[Psyvariar]_X-B_colony_shape_satellite.xml' #ok
 	swipl bulletpl7.pl -- 'bulletpl/[Strikers1999]_hanabi.xml' #ok
 	make run2
-run2: bulletref_param_ok ayashii_ok fspd_ok pspd_ok pdir_ok param_ok_evalSpdDir param_ok prolog_syntax_ok pdir_kieru_ok
+run2: bulletref_param_ok ayashii_ok fspd_ok pspd_ok pdir_ok param_ok_evalSpdDir param_ok prolog_syntax_ok pdir_kieru_ok top1_action_ok heavy_ok
 bulletref_param_ok:
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_2.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_6.xml'
@@ -164,6 +164,36 @@ pdir_kieru_ok:
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0034.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0071.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-2020.xml'
+top1_action_ok:
+	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_1_boss_hakkyou.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_3.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_5.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[DragonBlaze]_nebyurosu_2.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[G-Wange]_roll_gara.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[GigaWing2]_akurimi.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Noiz2sa]_rollbar.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_dis_bee_hakkyou.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0012.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-1021.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Progear]_round_10_boss_before_final.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Psyvariar]_X-A_boss_winder.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_3_boss_2.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_hirahira.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_4_boss_4.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[STORM_CALIBAR]_last_boss_double_roll_bullets.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_hibachi_image.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_hibachi_maybe.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_3boss_roll_and_aim.xml'
+	swipl bulletpl7.pl -- 'bulletpl/[Original]_wana.xml'
+heavy_ok:
+	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_2boss_winder_crash.xml' # heavy
+	swipl bulletpl7.pl -- 'bulletpl/1943_rolling_fire.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_5.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[MDA]_10flower_2.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[tenmado]_5_boss_3.xml' #heavy
+	swipl bulletpl7.pl -- 'bulletpl/[Noiz2sa]_5_players.xml' #heavy
+ng_none_top:
+	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_1_boss.xml'
 accel_error:
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_fallen_string.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_5.xml'
@@ -179,37 +209,6 @@ accel_error:
 	swipl bulletpl7.pl -- 'bulletpl/[Progear]_round_4_boss_fast_rocket.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[Progear]_round_6_boss_parabola_shot.xml'
 	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0081.xml'
-errors:
-	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_1_boss.xml'
-e:
-	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_1_boss_hakkyou.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_3.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Dodonpachi]_kitiku_5.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[DragonBlaze]_nebyurosu_2.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[G-Wange]_roll_gara.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[GigaWing2]_akurimi.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Noiz2sa]_rollbar.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_dis_bee_hakkyou.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-1021.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Progear]_round_10_boss_before_final.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Psyvariar]_X-A_boss_winder.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[STORM_CALIBAR]_last_boss_double_roll_bullets.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_3_boss_2.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_hirahira.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[OtakuTwo]_self-0012.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_hibachi_image.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_hibachi_maybe.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Daiouzyou]_round_4_boss_4.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_3boss_roll_and_aim.xml'
-	swipl bulletpl7.pl -- 'bulletpl/[Original]_wana.xml'
-
-heavy_ok:
-	swipl bulletpl7.pl -- 'bulletpl/[Ketui_LT]_2boss_winder_crash.xml' # heavy
-	swipl bulletpl7.pl -- 'bulletpl/1943_rolling_fire.xml' #heavy
-	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_5.xml' #heavy
-	swipl bulletpl7.pl -- 'bulletpl/[MDA]_10flower_2.xml' #heavy
-	swipl bulletpl7.pl -- 'bulletpl/[tenmado]_5_boss_3.xml' #heavy
-	swipl bulletpl7.pl -- 'bulletpl/[Noiz2sa]_5_players.xml' #heavy
 ng_heavy:
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_aba_7.xml' #heavy
 	swipl bulletpl7.pl -- 'bulletpl/[Original]_air_elemental.xml' #heavy
@@ -221,7 +220,6 @@ ng_heavy:
 	swipl bulletpl7.pl -- 'bulletpl/[Original]_kujira.xml' #heavy
 	swipl bulletpl7.pl -- 'bulletpl/[XII_STAG]_3b.xml' #heavy
 	swipl bulletpl7.pl -- 'bulletpl/[Bulletsmorph]_kunekune_plus_homing.xml'
-
 
 all:
 	swipl load.pl

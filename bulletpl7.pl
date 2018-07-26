@@ -1,19 +1,54 @@
+:- use_module(library(pce)).
+
+ratio(1.5).
+
+:- pce_begin_class(canvas, graphical,"canvas").
+  initialise(S,W:width=int, H:height=int) :->
+    send(S, send_super, initialise, 0, 0, W, H).
+  '_redraw_area'(S, _A:area) :->
+    send(S, save_graphics_state),
+    ratio(Ratio),
+    objs(R),
+    getShip(ship{x:X,y:Y}),
+    send(S, graphics_state, 0, none, colour(c,200*255,200*255,200*255)),
+    maplist(view2(Ratio,S),[(X,Y,blue)|R]),
+    send(S, graphics_state, 0, none, colour(c2,186*255,186*255,186*255)),
+    maplist(view3(Ratio,S),[(X,Y,blue)|R]),
+    maplist(view(Ratio,S),[(X,Y,blue)|R]),
+    send(S, restore_graphics_state),
+    send(S, send_super, redraw).
+:- pce_end_class.
+:- assert(objs([])).
+
+view(Ratio,S,(X,Y,C)) :-
+  send(S, graphics_state, 0, none, C),
+  send(S, draw_fill, X*Ratio-4, Y*Ratio-5, 9, 9).
+view2(Ratio,S,(X,Y,_)) :-
+  send(S, draw_fill, X*Ratio-7, Y*Ratio+15, 15, 15).
+view3(Ratio,S,(X,Y,_)) :-
+  send(S, draw_fill, X*Ratio-4, Y*Ratio+15+3, 9, 9).
 initWindow :-
+  ratio(Ratio),
   new(@w, dialog(game)),
-  send(@w, size, size(430,430)),
+  send(@w, size, size(300*Ratio,400*Ratio)),
+  send(@w,display,new(@view,canvas(300*Ratio,400*Ratio))),
   send(@w,display,new(@text,text('game'))),
-  send(@w, open).
+  send(@w, open),
+  send(@w,move,point(0,0)).
 initShip :-
+  ratio(Ratio),
   send(@w, display, new(@area, box(10000,10000))),
-  send(@w, display, new(@ship, box(20,20))),
+  send(@w, display, new(@ship, box(10,10))),
   send(@area, recogniser,move_gesture(left)),
-  send(@area, center, point(200,350)),
-  send(@ship, fill_pattern, colour(blue)).
+  send(@area, center, point(150*Ratio,350*Ratio)),
+  send(@ship, fill_pattern, colour(blue)),
+  send(@ship, pen, 0).
 moveShip :- 
+  ratio(Ratio),
   get(@area,center,point(PX,PY)),
-  X is max(15,min(415,PX)),Y is max(15,min(415,PY)),
+  X is max(15,min(300*Ratio-15,PX)),Y is max(15,min(400*Ratio-15,PY)),
   send(@area,center,point(X,Y)),send(@ship,center,point(X,Y)).
-getShip(ship{x:X,y:Y}) :- get(@area,center,point(X,Y)).
+getShip(ship{x:X_,y:Y_}) :- ratio(Ratio),get(@area,center,point(X,Y)),X_ is X/Ratio,Y_ is Y/Ratio.
 
 :- op(800,xfx,evalto).
 
@@ -58,7 +93,7 @@ refmap(G,P,N,N1) :- N1 is N+1,P_ evalto P,member(N:P_,G),!.
 refmap(_,P,N,N1) :- N1 is N+1,writeln(waring:parameter($N:P)).
 actionRef(K,Ps) :- actionV(K,G,As),foldl(refmap(G),Ps,1,_),!,action(As).
 action(As) :- maplist(call,As).
-cont(B,_) :- (B.x < 0; B.y < 0; B.x > 430; B.y > 430),asserta(bullet(B)),shift(1). % 画面外で消える
+cont(B,_) :- (B.x < 0; B.y < 0; B.x > 300; B.y > 400),asserta(bullet(B)),shift(1). % 画面外で消える
 cont(B,N) :- asserta(bullet(B)),shift(0),N1 evalto N - 1, wait(N1).
 wait(N) :- N1 evalto N, N1 =< 0, !.
 wait(N) :-
@@ -67,12 +102,15 @@ wait(N) :-
   D_ is D/180*3.14159,
   X is B.x + sin(D_)*S,Y is B.y - cos(D_)*S,
   cont(B2.put([x:X,y:Y,pdir:D,pspd:S]),N).
-fireRef(K,Ps):- fireV(K,G,D,S,As),foldl(refmap(G),Ps,1,_),fire(D,S,As).
-fire(D,S,bulletRef(K,Ps)) :- bulletV(K,G,D_,S_,As),foldl(refmap(G),Ps,1,_),fire(D,S,bullet(D_,S_,As)).
-fire(D,S,bullet(_,_,As)) :-
+fireRef(K,Ps):-
+  fireV(K,G,D,S,As),foldl(refmap(G),Ps,1,_),fire(D,S,As).
+fire(D,S,bulletRef(K,Ps)) :-
+  bulletV(K,G,D_,S_,As),foldl(refmap(G),Ps,1,_),fire1(D,S,bullet(D_,S_,As),K).
+fire(D,S,B) :- fire1(D,S,B,normal).
+fire1(D,S,bullet(_,_,As),K) :-
   bullet(B),getShip(Ship),
   spd(B,S,Ship,S_),!,
-  dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2),
+  dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2,K),
   retract(bullet(B1)),asserta(bullet(B1.put([fdir:D_,fspd:S_]))),
   assert(bullet(B2.put([dir:dirAbs(D_),spd:spdAbs(S_),pdir:D_,pspd:S_,cont:action(As)]))).
 getPDir(B,PDir) :- PDir=B.get(pdir).
@@ -102,22 +140,19 @@ runBullet(B,Bs1,Bs1_) :-
 move([]).
 move(Bs) :-
   moveShip,foldl(runBullet,Bs,[],Bs1),!,
+  reverse(Bs1,Bs1_),
   findall(B,retract(bullet(B)),Bs2),
-  append(Bs1,Bs2,Bs3),
+  append(Bs1_,Bs2,Bs3),
   get_time(Time),retract(time1(OTime)),assertz(time1(Time)),
   W is 0.0125-(Time-OTime),sleep(W),
+  findall(R,obj(R),Rs),assertz(objs(Rs)),retractall(obj(_)),!,
   send(@w,flush),!,
+  retract(objs(_)),!,
   move(Bs3).
 
-dispBullet(B) :- send(B.shape,move,point(B.x,B.y)).
-
-freeBullet(Shape) :- assert(freeBullets(Shape)),send(Shape,move,point(-100,-100)). %send(Shape,destroy),!.
-newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :- retract(freeBullets(Shape)).
-newBullet(X,Y,bullet{shape:Shape,x:X,y:Y}) :-
-  send(@w, display, new(Shape, box(5,5)), point(X,Y)),
-  send(Shape, pen, 0),
-  send(Shape, fill_pattern, colour(red)).
-
+dispBullet(B) :- assert(obj((B.x,B.y,B.shape))).
+freeBullet(_).
+newBullet(X,Y,bullet{shape:C,x:X,y:Y},K) :- color(K,C).
 replaceParams(G,$I,T,G) :- member(I:T,G),!.
 replaceParams(G,$I,T,[I:T|G]) :- integer(I),!.
 replaceParams(G,E,E_,G_) :-
@@ -129,7 +164,7 @@ replaceParams(G,E,E_,G_) :-
 replaceParam(A,A_,G) :- replaceParams([],A,A_,G).
 setDef(N:action(As)) :- replaceParam(As,As_,G),asserta(actionV(N,G,As_)).
 setDef(N:action(I,As)) :- replaceParam([repeat(I,As)],As_,G),asserta(actionV(N,G,As_)).
-setDef(N:bullet(D,S,As)) :- replaceParam(bullet(D,S,As),bullet(D_,S_,As_),G),asserta(bulletV(N,G,D_,S_,As_)).
+setDef(N:bullet(D,S,As)) :- setColor(N),replaceParam(bullet(D,S,As),bullet(D_,S_,As_),G),asserta(bulletV(N,G,D_,S_,As_)).
 setDef(N:fire(D,S,B)) :- replaceParam(fire(D,S,B),fire(D_,S_,B_),G),asserta(fireV(N,G,D_,S_,B_)).
 setDefs(Ds) :-
   retractall(actionV(_,_)),retractall(bulletV(_,_,_,_)),retractall(fireV(_,_,_,_)),
@@ -138,14 +173,19 @@ setRank(N) :- V evalto N, retractall(rank(_)),asserta(rank(V)).
 rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
 :- initWindow,initShip.
 :- use_module(syntax,[]).
+setColor(K) :- retract(color(C)),asserta(color(K,C)).
+setColor(K) :- asserta(color(K,red)).
+:- maplist(assert,[color(green), color(blue), color(red), color(yellow), color(black)]).
+:- asserta(color(normal,white)),asserta(color(top,red)).
 run(bulletML(Mode,Ds)) :-
   (syntax:t(bulletML(Mode,Ds)),!; writeln(syntax:error),halt),!,
   writeln(syntax:ok),
   setRank(1),
   get_time(Time),assertz(time1(Time)),
-  member(top:Action,Ds),
   setDefs(Ds),
-  newBullet(200,100,B),move([B.put([dir:dirAbs(0),spd:spdAbs(0),cont:Action])]).
+  newBullet(150,100,B,top),
+  member(A:action(As),Ds),re_match('^top',A),writeln(A),!,
+  move([B.put([dir:dirAbs(0),spd:spdAbs(0),cont:action(As)])]).
 runfile(F) :-
   text(read:F),
   read_file_to_terms(F,[BML],[]),

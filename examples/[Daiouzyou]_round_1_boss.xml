@@ -1,43 +1,45 @@
 <?xml version="1.0" ?>
 <!DOCTYPE bulletml SYSTEM "../bulletml.dtd">
 
-<bulletml 
-          xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
-<bullet label="seed3">
-<speed>0.8</speed>
-<action>
- <changeDirection>
-  <direction type="sequence">1.2</direction>
-  <term>9999</term>
- </changeDirection>
- <repeat> <times>100+200*$rank</times>
- <action>
-  <wait>3-$rank*2*$rand</wait>
- </action>
- </repeat>
-</action>
-<action>
- <repeat> <times>6</times>
- <action>
-  <fire>
-   <bullet>
-    <direction>-8</direction>
-   </bullet>
-  </fire>
-  <repeat> <times>4</times>
-  <action>
-   <fire>
-    <bullet>
-     <direction type="sequence">4</direction>
-     <action/>
-    </bullet>
-   </fire>
-  </action>
-  </repeat>
-  <wait>80</wait>
- </action>
- </repeat>
- <vanish/>
-</action>
-</bullet>
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+  <bullet label="seed3">
+    <speed>0.8</speed>
+    <action>
+      <changeDirection>
+        <direction type="sequence">1.2</direction>
+        <term>9999</term>
+      </changeDirection>
+      <repeat>
+        <times>100+200*$rank</times>
+        <action>
+          <wait>3-$rank*2*$rand</wait>
+        </action>
+      </repeat>
+    </action>
+    <action>
+      <repeat>
+        <times>6</times>
+        <action>
+          <fire>
+            <bullet>
+              <direction>-8</direction>
+            </bullet>
+          </fire>
+          <repeat>
+            <times>4</times>
+            <action>
+              <fire>
+                <bullet>
+                  <direction type="sequence">4</direction>
+                  <action/>
+                </bullet>
+              </fire>
+            </action>
+          </repeat>
+          <wait>80</wait>
+        </action>
+      </repeat>
+      <vanish/>
+    </action>
+  </bullet>
 </bulletml>
