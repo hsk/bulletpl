@@ -1,20 +1,20 @@
 bulletML(vertical,[
   top:action([
-    repeat(10+ $rank*10,[action([fire(dirAim($rand*360),spdAbs(1),bulletRef(eye,[])),wait(30)])]),
+    repeat(10+ $rank*10,[action([fire(dirAim($rand*360),none,bulletRef(eye,[])),wait(30)])]),
     wait(120)
   ]),
-  eye:bullet(dirAim(0),spdAbs(0),[
+  eye:bullet(none,spdAbs(0),[
     action([
       changeSpeed(spdAbs(10),400),
       changeDirection(dirSeq($rand*5-2),9999),
-      repeat(9999,[action([fire(dirRel(0),spdAbs(1),bulletRef(shadow,[])),wait(4)])])
+      repeat(9999,[action([fire(dirRel(0),none,bulletRef(shadow,[])),wait(4)])])
     ])
   ]),
-  shadow:bullet(dirAim(0),spdAbs(0.1),[
+  shadow:bullet(none,spdAbs(0.1),[
     action([
       wait(20),
-      fire(dirRel(90),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(- 90),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(90),spdAbs(0.6),bullet(none,none,[])),
+      fire(dirRel(- 90),spdAbs(0.6),bullet(none,none,[])),
       vanish
     ])
   ])

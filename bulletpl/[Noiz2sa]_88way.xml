@@ -1,21 +1,21 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAbs(180),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[actionRef(main,[])])),
+    fire(dirAbs(180),spdAbs(0.7),bullet(none,none,[actionRef(main,[])])),
     wait(200)
   ]),
   main:action([
     repeat(6+ $rank*10,[
       action([
-        fire(dirSeq(360/(6+ $rank*10)),spdAbs(1),bulletRef('16way',[])),
+        fire(dirSeq(360/(6+ $rank*10)),none,bulletRef('16way',[])),
         wait(100/(6+ $rank*10))
       ])
     ]),
     vanish
   ]),
-  '16way':bullet(dirAim(0),spdAbs($rand+1),[
+  '16way':bullet(none,spdAbs($rand+1),[
     action([
       wait(20+ $rand*40),
-      repeat(16,[action([fire(dirSeq(22.5),spdAbs(1),bullet(dirAim(0),spdAbs(1.7),[]))])]),
+      repeat(16,[action([fire(dirSeq(22.5),none,bullet(none,spdAbs(1.7),[]))])]),
       vanish
     ])
   ])

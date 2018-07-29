@@ -1,18 +1,14 @@
 bulletML(vertical,[
   top:action([repeat(5+ $rank*10,[action([fireRef(backFire,[])])]),wait(300)]),
-  backFire:fire(dirAim(50- $rand*100),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[
+  backFire:fire(dirAim(50- $rand*100),spdAbs(1.2),bullet(none,none,[
     action([
       repeat(10,[
         action([
           changeDirection(dirAim(150- $rand*300),30),
-          repeat(5,[
-            action([wait(6),fire(dirRel(180),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[]))])
-          ])
+          repeat(5,[action([wait(6),fire(dirRel(180),spdAbs(1.2),bullet(none,none,[]))])])
         ])
       ]),
-      repeat(999,[
-        action([wait(6),fire(dirRel(180),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[]))])
-      ])
+      repeat(999,[action([wait(6),fire(dirRel(180),spdAbs(1.2),bullet(none,none,[]))])])
     ])
   ]))
 ]).

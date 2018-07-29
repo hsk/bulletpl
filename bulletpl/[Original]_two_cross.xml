@@ -1,16 +1,10 @@
 bulletML(none,[
-  add3:action([
-    repeat(3,[action([fire(dirSeq(90),spdAbs(1),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
-  slow:fire(dirAim((50- $rank*20)* $1),spdAbs(2),bullet(dirAim(0),spdAbs(1),[
+  add3:action([repeat(3,[action([fire(dirSeq(90),none,bullet(none,none,[]))])])]),
+  slow:fire(dirAim((50- $rank*20)* $1),spdAbs(2),bullet(none,none,[
     action([
       wait(5),
       repeat(100,[
-        action([
-          fire(dirSeq(4* $1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
-          actionRef(add3,[]),
-          wait(4)
-        ])
+        action([fire(dirSeq(4* $1),none,bullet(none,none,[])),actionRef(add3,[]),wait(4)])
       ])
     ])
   ])),

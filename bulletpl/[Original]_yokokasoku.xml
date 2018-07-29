@@ -1,9 +1,9 @@
 bulletML(none,[
-  accelShot:fire(dirAbs(90),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([accel(spdAbs(3* $1),spdRel(0),80)])])),
+  accelShot:fire(dirAbs(90),spdAbs(0),bullet(none,none,[action([accel(spdAbs(3* $1),none,80)])])),
   top:action([
     repeat(20,[
       action([
-        fire(dirAim($rand*90-45),spdAbs(1),bullet(dirAim(0),spdAbs(1),[
+        fire(dirAim($rand*90-45),spdAbs(1),bullet(none,none,[
           action([
             repeat(9999,[
               action([

@@ -1,19 +1,17 @@
 bulletML(vertical,[
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'Dummy':bullet(none,none,[action([vanish])]),
   'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
-  'XWayFan':action([
-    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  'XWayFan':action([repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(none,none,[]))])])]),
   '3way':action([
     repeat(2,[
       action([
         wait(30),
-        fire(dirAim(- 3),spdAbs(1.4),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAim(- 3),spdAbs(1.4),bullet(none,none,[])),
         actionRef('XWay',[3,2])
       ])
     ])
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
       repeat(3,[
         action([

@@ -1,6 +1,6 @@
 bulletML(none,[
   top:action([
-    fire(dirAbs(175),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAbs(175),spdAbs(1+ $rank*4),bullet(none,none,[])),
     repeat(30,[
       action([
         fireRef(allway,[]),
@@ -20,12 +20,12 @@ bulletML(none,[
         actionRef(rights,[]),
         actionRef(rights,[]),
         wait(15- $rank*10),
-        fire(dirSeq(4),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[]))
+        fire(dirSeq(4),spdAbs(1+ $rank*4),bullet(none,none,[]))
       ])
     ])
   ]),
   tops:action([
-    fire(dirAbs(185),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAbs(185),spdAbs(1+ $rank*4),bullet(none,none,[])),
     repeat(30,[
       action([
         fireRef(allway,[]),
@@ -45,12 +45,12 @@ bulletML(none,[
         actionRef(lefts,[]),
         actionRef(lefts,[]),
         wait(15- $rank*10),
-        fire(dirSeq(- 4),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[]))
+        fire(dirSeq(- 4),spdAbs(1+ $rank*4),bullet(none,none,[]))
       ])
     ])
   ]),
   lefts:action([
-    fire(dirSeq(- 0.7),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirSeq(- 0.7),spdAbs(1+ $rank*4),bullet(none,none,[])),
     fireRef(allway,[]),
     fireRef(allway,[]),
     fireRef(allway,[]),
@@ -61,7 +61,7 @@ bulletML(none,[
     wait(1)
   ]),
   rights:action([
-    fire(dirSeq(0.7),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirSeq(0.7),spdAbs(1+ $rank*4),bullet(none,none,[])),
     fireRef(allway,[]),
     fireRef(allway,[]),
     fireRef(allway,[]),
@@ -71,5 +71,5 @@ bulletML(none,[
     fireRef(allway,[]),
     wait(1)
   ]),
-  allway:fire(dirSeq(45),spdAbs(1+ $rank*4),bullet(dirAim(0),spdAbs(1),[]))
+  allway:fire(dirSeq(45),spdAbs(1+ $rank*4),bullet(none,none,[]))
 ]).

@@ -1,42 +1,42 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(round_seed,[])),
-    fire(dirAim(0),spdAbs(1),bulletRef(sht,[0.8])),
+    fire(none,none,bulletRef(round_seed,[])),
+    fire(none,none,bulletRef(sht,[0.8])),
     wait(20),
-    fire(dirAim(0),spdAbs(1),bulletRef(round_seed,[])),
+    fire(none,none,bulletRef(round_seed,[])),
     wait(100),
-    fire(dirAim(0),spdAbs(1),bulletRef(round_seed,[])),
-    fire(dirAim(0),spdAbs(1),bulletRef(sht,[1])),
+    fire(none,none,bulletRef(round_seed,[])),
+    fire(none,none,bulletRef(sht,[1])),
     wait(20),
-    fire(dirAim(0),spdAbs(1),bulletRef(round_seed,[])),
+    fire(none,none,bulletRef(round_seed,[])),
     wait(100),
-    fire(dirAim(0),spdAbs(1),bulletRef(round_seed,[])),
-    fire(dirAim(0),spdAbs(1),bulletRef(sht,[1.2])),
+    fire(none,none,bulletRef(round_seed,[])),
+    fire(none,none,bulletRef(sht,[1.2])),
     wait(20),
-    fire(dirAim(0),spdAbs(1),bulletRef(round_seed,[])),
+    fire(none,none,bulletRef(round_seed,[])),
     wait(25)
   ]),
-  sht:bullet(dirAim(0),spdAbs(1),[
+  sht:bullet(none,none,[
     action([
       repeat(16,[
         action([
-          fire(dirAim($rand*16-8),spdAbs(($1+ $rand* $1)*(1+ $rank* $rank)),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirAim($rand*16-8),spdAbs(($1+ $rand* $1)*(1+ $rank* $rank)),bullet(none,none,[]))
         ])
       ]),
       vanish
     ])
   ]),
-  round_seed:bullet(dirAim(0),spdAbs(0),[
+  round_seed:bullet(none,spdAbs(0),[
     action([
-      fire(dirAim(0),spdAbs(1),bulletRef(two,[])),
-      repeat(15,[action([fire(dirSeq(22.5),spdAbs(1),bulletRef(two,[]))])]),
+      fire(dirAim(0),none,bulletRef(two,[])),
+      repeat(15,[action([fire(dirSeq(22.5),none,bulletRef(two,[]))])]),
       vanish
     ])
   ]),
-  two:bullet(dirAim(0),spdAbs(1),[
+  two:bullet(none,none,[
     action([
-      fire(dirRel(- 4),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(4),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(- 4),spdAbs(1+ $rank),bullet(none,none,[])),
+      fire(dirRel(4),spdAbs(1+ $rank),bullet(none,none,[])),
       vanish
     ])
   ])

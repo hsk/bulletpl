@@ -29,7 +29,7 @@ bulletML(none,[
     changeSpeed(spdAbs(0),1),
     wait(5)
   ]),
-  curve:bullet(dirAim(0),spdAbs(1),[
+  curve:bullet(none,none,[
     action([
       wait(30- $rank*15),
       changeDirection(dirRel(150* $1),25),

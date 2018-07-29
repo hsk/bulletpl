@@ -8,14 +8,12 @@ bulletML(vertical,[
     fire(dirAbs(225),spdAbs(2),bulletRef(roll,[- 1])),
     wait(400)
   ]),
-  roll:bullet(dirAim(0),spdAbs(1),[
+  roll:bullet(none,none,[
     action([
       wait(12),
       changeSpeed(spdAbs(0),1),
-      fire(dirAbs(180+90* $1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
-      repeat(200,[
-        action([fire(dirSeq(9),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),wait(2)])
-      ]),
+      fire(dirAbs(180+90* $1),none,bullet(none,none,[action([vanish])])),
+      repeat(200,[action([fire(dirSeq(9),spdAbs(1+ $rank),bullet(none,none,[])),wait(2)])]),
       vanish
     ])
   ])

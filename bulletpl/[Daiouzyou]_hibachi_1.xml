@@ -2,7 +2,7 @@ bulletML(none,[
   top:action([
     repeat(10+ $rank*70,[
       action([
-        fire(dirAim($rand*30-74+ $rank*2),spdAbs(0.5+ $rank*2),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAim($rand*30-74+ $rank*2),spdAbs(0.5+ $rank*2),bullet(none,none,[])),
         fireRef(n,[]),
         fireRef(n,[]),
         fireRef(n,[]),
@@ -23,5 +23,5 @@ bulletML(none,[
       ])
     ])
   ]),
-  n:fire(dirSeq($rand*2+7- $rank*2),spdAbs(0.5+ $rank*2),bullet(dirAim(0),spdAbs(1),[]))
+  n:fire(dirSeq($rand*2+7- $rank*2),spdAbs(0.5+ $rank*2),bullet(none,none,[]))
 ]).

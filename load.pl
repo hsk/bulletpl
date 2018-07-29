@@ -21,24 +21,24 @@ expr(A,R) :- atom(A),
 speedType(absolute,E,spdAbs(E)).
 speedType(relative,E,spdRel(E)).
 speedType(sequence,E,spdSeq(E)).
-speedType(none,E,spdSeq(E)).
+speedType(none,E,none).
 speed([element(speed,[type=Type],[E])|A],(R,A)) :- !,speedType(Type,E_,R),expr(E,E_).
 speed([element(speed,[],[E])|A],(R,A)) :- expr(E,E_),speedType(none,E_,R).
-speed(A,(spdAbs(1),A)).
+speed(A,(none,A)).
 
 direction([element(direction,[type=absolute],[E])|A],(dirAbs(E_),A)) :- expr(E,E_).
 direction([element(direction,[type=sequence],[E])|A],(dirSeq(E_),A)) :- expr(E,E_).
 direction([element(direction,[type=aim],[E])|A],(dirAim(E_),A)) :- expr(E,E_).
 direction([element(direction,[type=relative],[E])|A],(dirRel(E_),A)) :- expr(E,E_).
-direction(A,(dirAim(0),A)).
+direction(A,(none,A)).
 
 horizontal([element(horizontal,[type=T],[E])|A],R,A) :- expr(E,E_),speedType(T,E_,R).
 horizontal([element(horizontal,_,[E])|A],R,A) :- expr(E,E_),speedType(none,E_,R).
-horizontal(A,spdRel(0),A).
+horizontal(A,none,A).
 
 vertical([element(vertical,[type=T],[E])|A],R,A) :- expr(E,E_),speedType(T,E_,R).
 vertical([element(vertical,_,[E])|A],R,A) :- expr(E,E_),speedType(none,E_,R).
-vertical(A,spdRel(0),A).
+vertical(A,none,A).
 
 action1(element(repeat,[],[element(times,[],[E])|A]),repeat(E_,R)) :-
   expr(E,E_), maplist(action1,A,R).

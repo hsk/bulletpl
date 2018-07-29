@@ -1,25 +1,25 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAbs(120),spdAbs(1),bulletRef(bit,[90,1.0])),
+    fire(dirAbs(120),none,bulletRef(bit,[90,1.0])),
     wait(10),
-    fire(dirAbs(150),spdAbs(1),bulletRef(bit,[70,1.2])),
+    fire(dirAbs(150),none,bulletRef(bit,[70,1.2])),
     wait(10),
-    fire(dirAbs(180),spdAbs(1),bulletRef(bit,[50,1.4])),
+    fire(dirAbs(180),none,bulletRef(bit,[50,1.4])),
     wait(10),
-    fire(dirAbs(210),spdAbs(1),bulletRef(bit,[30,1.6])),
+    fire(dirAbs(210),none,bulletRef(bit,[30,1.6])),
     wait(10),
-    fire(dirAbs(240),spdAbs(1),bulletRef(bit,[10,1.8])),
+    fire(dirAbs(240),none,bulletRef(bit,[10,1.8])),
     wait(300-100* $rank)
   ]),
-  bit:bullet(dirAim(0),spdAbs(2.5),[
+  bit:bullet(none,spdAbs(2.5),[
     action([
       wait(30),
       changeSpeed(spdAbs(0),1),
       wait($1),
-      fire(dirAim(0),spdAbs($2*(0.5+0.5* $rank)),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(0),spdAbs($2*(0.5+0.5* $rank)),bullet(none,none,[])),
       repeat(19+100* $rank,[
         action([
-          fire(dirSeq(360/(19+100* $rank)),spdAbs($2*(0.5+0.5* $rank)),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirSeq(360/(19+100* $rank)),spdAbs($2*(0.5+0.5* $rank)),bullet(none,none,[]))
         ])
       ]),
       vanish

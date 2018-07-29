@@ -2,14 +2,14 @@ bulletML(horizontal,[
   top:action([
     repeat(1000,[
       action([
-        fire(dirSeq(180),spdAbs(1),bulletRef(changeStraight,[])),
-        fire(dirSeq(159),spdAbs(1),bulletRef(changeStraight,[])),
+        fire(dirSeq(180),none,bulletRef(changeStraight,[])),
+        fire(dirSeq(159),none,bulletRef(changeStraight,[])),
         wait(1+(1- $rank)*3* $rand)
       ])
     ]),
     wait(180)
   ]),
-  changeStraight:bullet(dirAim(0),spdAbs(0.8),[
+  changeStraight:bullet(none,spdAbs(0.8),[
     action([
       wait(20+ $rand*100),
       changeDirection(dirAbs(270),60),

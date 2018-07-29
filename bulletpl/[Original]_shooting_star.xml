@@ -9,7 +9,7 @@ bulletML(vertical,[
     fire(dirAbs(- (75+10* $rand)),spdAbs(1.5),bulletRef(star,[- (215+10* $rand)])),
     wait(650-150* $rank)
   ]),
-  star:bullet(dirAim(0),spdAbs(1),[
+  star:bullet(none,none,[
     action([
       wait(45),
       changeSpeed(spdAbs(0),1),
@@ -19,11 +19,11 @@ bulletML(vertical,[
       wait(1),
       repeat(180,[
         action([
-          fire(dirRel(150+60* $rand),spdAbs(1),bulletRef(tail,[1.5*(0.25+0.75* $rank)])),
+          fire(dirRel(150+60* $rand),none,bulletRef(tail,[1.5*(0.25+0.75* $rank)])),
           wait(1)
         ])
       ]),
-      fire(dirAim(0),spdAbs(1),bulletRef(head,[])),
+      fire(none,none,bulletRef(head,[])),
       vanish
     ])
   ]),
@@ -31,33 +31,33 @@ bulletML(vertical,[
     action([
       repeat(20*(0.25+0.75* $rank),[
         action([
-          fire(dirAbs(360* $rand),spdAbs((0.3+0.3* $rand)*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirAbs(360* $rand),spdAbs((0.3+0.3* $rand)*(0.25+0.75* $rank)),bullet(none,none,[]))
         ])
       ]),
       repeat(30*(0.25+0.75* $rank),[
         action([
-          fire(dirAbs(360* $rand),spdAbs((0.5+0.5* $rand)*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirAbs(360* $rand),spdAbs((0.5+0.5* $rand)*(0.25+0.75* $rank)),bullet(none,none,[]))
         ])
       ]),
       repeat(50*(0.25+0.75* $rank),[
         action([
-          fire(dirAbs(360* $rand),spdAbs((0.8+0.8* $rand)*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirAbs(360* $rand),spdAbs((0.8+0.8* $rand)*(0.25+0.75* $rank)),bullet(none,none,[]))
         ])
       ]),
-      fire(dirAbs(360* $rand),spdAbs(1.6*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs(360* $rand),spdAbs(1.6*(0.25+0.75* $rank)),bullet(none,none,[])),
       repeat(12+24* $rank,[
         action([
-          fire(dirSeq(360/(12+24* $rank)),spdAbs(1.6*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirSeq(360/(12+24* $rank)),spdAbs(1.6*(0.25+0.75* $rank)),bullet(none,none,[]))
         ])
       ]),
       vanish
     ])
   ]),
-  tail:bullet(dirAim(0),spdAbs(0.001),[
+  tail:bullet(none,spdAbs(0.001),[
     action([
       repeat(1+3* $rank* $rank,[
         action([
-          fire(dirRel(- 3+6* $rand),spdAbs($1*(1.0+(0.1+0.2* $rank)* $rand)),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(- 3+6* $rand),spdAbs($1*(1.0+(0.1+0.2* $rank)* $rand)),bullet(none,none,[])),
           wait(1)
         ])
       ]),

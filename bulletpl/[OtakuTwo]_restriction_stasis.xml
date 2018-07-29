@@ -6,10 +6,10 @@ bulletML(vertical,[
     wait(950),
     actionRef(move,[180,0.9])
   ]),
-  lr:fire(dirAbs(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
+  lr:fire(dirAbs(0),spdAbs(0),bullet(none,none,[
     action([actionRef(move,[$1,$2]),fireRef(tb,[0,0.9]),fireRef(tb,[180,3.0]),vanish])
   ])),
-  tb:fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
+  tb:fire(none,spdAbs(0),bullet(none,none,[
     action([
       actionRef(move,[$1,$2]),
       wait(20),
@@ -18,7 +18,7 @@ bulletML(vertical,[
       wait(200),
       repeat(7+ $rank*8,[
         action([
-          fire(dirAim(15- $rand*30),spdAbs(1+ $rand*0.5),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAim(15- $rand*30),spdAbs(1+ $rand*0.5),bullet(none,none,[])),
           wait(40- $rank*20)
         ])
       ]),
@@ -37,7 +37,7 @@ bulletML(vertical,[
     fire(dirAim($1),spdAbs(0.35),bulletRef(stop,[])),
     repeat(110,[action([fire(dirAim($1),spdSeq(0.4),bulletRef(stop,[]))])])
   ]),
-  stop:bullet(dirAim(0),spdAbs(1),[
+  stop:bullet(none,none,[
     action([
       wait(5),
       changeSpeed(spdAbs(0),1),

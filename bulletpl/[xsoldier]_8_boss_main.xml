@@ -8,7 +8,7 @@ bulletML(vertical,[
     fire(dirAbs(0),spdAbs(0),bulletRef(allway,[2.5,1.8])),
     wait(20)
   ]),
-  dummy:bullet(dirAim(0),spdAbs(1),[
+  dummy:bullet(none,none,[
     action([
       fire(dirAbs($1),spdAbs(0),bulletRef(bit,[])),
       fire(dirAbs($1),spdAbs(0.5),bulletRef(bit,[])),
@@ -17,23 +17,23 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  allway:bullet(dirAim(0),spdAbs(1),[
+  allway:bullet(none,none,[
     action([
-      fire(dirAbs($1),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      repeat(71,[action([fire(dirSeq(5),spdAbs($2),bullet(dirAim(0),spdAbs(1),[]))])]),
+      fire(dirAbs($1),spdAbs($2),bullet(none,none,[])),
+      repeat(71,[action([fire(dirSeq(5),spdAbs($2),bullet(none,none,[]))])]),
       vanish
     ])
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
       wait(20),
       changeSpeed(spdAbs(0),1),
       wait(105- $rank*90),
       repeat(20,[
         action([
-          fire(dirAbs(180),spdAbs(3),bullet(dirAim(0),spdAbs(1),[])),
-          fire(dirAbs(180),spdAbs(3.5),bullet(dirAim(0),spdAbs(1),[])),
-          fire(dirAbs(180),spdAbs(4),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAbs(180),spdAbs(3),bullet(none,none,[])),
+          fire(dirAbs(180),spdAbs(3.5),bullet(none,none,[])),
+          fire(dirAbs(180),spdAbs(4),bullet(none,none,[])),
           wait(1)
         ])
       ]),

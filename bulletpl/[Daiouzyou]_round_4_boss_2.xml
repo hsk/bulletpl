@@ -1,7 +1,7 @@
 bulletML(vertical,[
   'Stop':action([changeSpeed(spdAbs(0),1)]),
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
-  blue:bullet(dirAim(0),spdAbs(3),[
+  'Dummy':bullet(none,none,[action([vanish])]),
+  blue:bullet(none,spdAbs(3),[
     action([
       wait(10),
       actionRef('Stop',[]),
@@ -10,8 +10,8 @@ bulletML(vertical,[
           wait(10- $rank*4+ $rand),
           repeat(3,[
             action([
-              fire(dirSeq(95),spdAbs(1.4),bullet(dirAim(0),spdAbs(1),[])),
-              repeat(3,[action([fire(dirSeq(10),spdAbs(1.4),bullet(dirAim(0),spdAbs(1),[]))])])
+              fire(dirSeq(95),spdAbs(1.4),bullet(none,none,[])),
+              repeat(3,[action([fire(dirSeq(10),spdAbs(1.4),bullet(none,none,[]))])])
             ])
           ])
         ])
@@ -20,19 +20,17 @@ bulletML(vertical,[
     ])
   ]),
   xway:action([
-    fire(dirAim(- 7* $1-7),spdAbs(1),bulletRef('Dummy',[])),
+    fire(dirAim(- 7* $1-7),none,bulletRef('Dummy',[])),
     repeat($1,[
       action([
-        fire(dirSeq(15),spdAbs(1.3),bullet(dirAim(0),spdAbs(1),[action([])])),
+        fire(dirSeq(15),spdAbs(1.3),bullet(none,none,[action([])])),
         repeat(4,[
-          action([
-            fire(dirSeq(0),spdSeq(0.08+ $rank*0.08),bullet(dirAim(0),spdAbs(1),[action([])]))
-          ])
+          action([fire(dirSeq(0),spdSeq(0.08+ $rank*0.08),bullet(none,none,[action([])]))])
         ])
       ])
     ])
   ]),
-  red:bullet(dirAim(0),spdAbs(3),[
+  red:bullet(none,spdAbs(3),[
     action([
       wait(10),
       actionRef('Stop',[]),
@@ -41,11 +39,11 @@ bulletML(vertical,[
     ])
   ]),
   top:action([
-    fire(dirAbs(120),spdAbs(1),bulletRef(blue,[])),
-    fire(dirAbs(- 120),spdAbs(1),bulletRef(red,[])),
+    fire(dirAbs(120),none,bulletRef(blue,[])),
+    fire(dirAbs(- 120),none,bulletRef(red,[])),
     wait(200),
-    fire(dirAbs(- 120),spdAbs(1),bulletRef(blue,[])),
-    fire(dirAbs(120),spdAbs(1),bulletRef(red,[])),
+    fire(dirAbs(- 120),none,bulletRef(blue,[])),
+    fire(dirAbs(120),none,bulletRef(red,[])),
     wait(200)
   ])
 ]).

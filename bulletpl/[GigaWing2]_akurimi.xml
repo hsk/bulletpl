@@ -1,22 +1,20 @@
 bulletML(vertical,[
-  add2:action([
-    repeat(2,[action([fire(dirSeq(9),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  add2:action([repeat(2,[action([fire(dirSeq(9),spdSeq(0),bullet(none,none,[]))])])]),
   top1:action([
-    fire(dirAbs(9),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+    fire(dirAbs(9),none,bullet(none,none,[action([vanish])])),
     repeat(150,[
       action([
-        fire(dirSeq(7-18),spdAbs(1.8),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(7-18),spdAbs(1.8),bullet(none,none,[])),
         actionRef(add2,[]),
         wait(4- $rank*2+ $rand)
       ])
     ])
   ]),
   top2:action([
-    fire(dirAbs(9),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+    fire(dirAbs(9),none,bullet(none,none,[action([vanish])])),
     repeat(150,[
       action([
-        fire(dirSeq(- 7-18),spdAbs(1.8),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- 7-18),spdAbs(1.8),bullet(none,none,[])),
         actionRef(add2,[]),
         wait(4- $rank*2+ $rand)
       ])

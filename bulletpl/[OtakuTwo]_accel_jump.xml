@@ -21,9 +21,9 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  bound:bullet(dirAim(0),spdAbs(1),[
+  bound:bullet(none,none,[
     action([
-      accel(spdRel(0),spdAbs(10),200),
+      accel(none,spdAbs(10),200),
       wait(60+ $rand*40),
       repeat(1+ $rank* $rank* $rank,[action([fire(dirAbs(- 15+ $rand*30),spdAbs(1.6),bulletRef(bound,[]))])]),
       vanish

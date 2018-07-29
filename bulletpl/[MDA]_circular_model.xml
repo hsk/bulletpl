@@ -1,10 +1,8 @@
 bulletML(vertical,[
   top:action([fireRef(seed,[90,2,355]),fireRef(seed,[270,358,5]),wait(380- $rank*200)]),
   seed:fire(dirAbs($1),spdAbs(2.8),bulletRef(roll,[$2,$3])),
-  roll:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirSeq($1),9999),actionRef(shoot,[$2]),vanish])]),
+  roll:bullet(none,none,[action([changeDirection(dirSeq($1),9999),actionRef(shoot,[$2]),vanish])]),
   shoot:action([
-    repeat(22*8,[
-      action([fire(dirSeq($1),spdAbs(0.4+ $rank),bullet(dirAim(0),spdAbs(1),[])),wait(1)])
-    ])
+    repeat(22*8,[action([fire(dirSeq($1),spdAbs(0.4+ $rank),bullet(none,none,[])),wait(1)])])
   ])
 ]).

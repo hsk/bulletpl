@@ -1,10 +1,10 @@
 bulletML(none,[
-  accel:bullet(dirAim(0),spdAbs(1),[action([changeSpeed(spdSeq(0.03),9999),wait(9999)])]),
+  accel:bullet(none,none,[action([changeSpeed(spdSeq(0.03),9999),wait(9999)])]),
   top:action([
-    fire(dirAbs(80),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([wait(20),vanish])])),
+    fire(dirAbs(80),none,bullet(none,none,[action([wait(20),vanish])])),
     repeat(4,[
       action([
-        fire(dirSeq(40),spdAbs(5),bullet(dirAim(0),spdAbs(1),[
+        fire(dirSeq(40),spdAbs(5),bullet(none,none,[
           action([
             repeat(9999,[
               action([

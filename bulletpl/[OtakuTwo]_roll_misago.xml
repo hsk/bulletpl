@@ -18,7 +18,7 @@ bulletML(vertical,[
     wait(25),
     changeSpeed(spdAbs(0),1)
   ]),
-  white:bullet(dirAim(0),spdAbs(1),[
+  white:bullet(none,none,[
     action([
       wait(80),
       changeDirection(dirRel(- 90),4),
@@ -27,16 +27,13 @@ bulletML(vertical,[
         action([
           changeDirection(dirRel(- 135),195),
           repeat(30+ $rank*15,[
-            action([
-              fire(dirRel(90),spdAbs(0.5),bullet(dirAim(0),spdAbs(1),[])),
-              wait(6- $rank*2)
-            ])
+            action([fire(dirRel(90),spdAbs(0.5),bullet(none,none,[])),wait(6- $rank*2)])
           ])
         ])
       ])
     ])
   ]),
-  black:bullet(dirAim(0),spdAbs(1),[
+  black:bullet(none,none,[
     action([
       fire(dirRel(- 90),spdAbs(0.8),bulletRef(direction,[])),
       wait(80),
@@ -47,7 +44,7 @@ bulletML(vertical,[
           changeDirection(dirRel(- 135),195),
           repeat(30+ $rank*30,[
             action([
-              fire(dirSeq(3.923076923076923*(2- $rank)),spdAbs(0.5),bullet(dirAim(0),spdAbs(1),[])),
+              fire(dirSeq(3.923076923076923*(2- $rank)),spdAbs(0.5),bullet(none,none,[])),
               wait(6- $rank*3)
             ])
           ])
@@ -55,7 +52,7 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  normal:bullet(dirAim(0),spdAbs(1),[
+  normal:bullet(none,none,[
     action([
       wait(80),
       changeDirection(dirRel(- 90),4),
@@ -63,5 +60,5 @@ bulletML(vertical,[
       repeat(8,[action([changeDirection(dirRel(- 135),195),wait(180)])])
     ])
   ]),
-  direction:bullet(dirAim(0),spdAbs(1),[action([vanish])])
+  direction:bullet(none,none,[action([vanish])])
 ]).

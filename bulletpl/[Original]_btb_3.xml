@@ -1,53 +1,44 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(half,[1])),
-    fire(dirAim(0),spdAbs(1),bulletRef(half,[- 1])),
+    fire(none,none,bulletRef(half,[1])),
+    fire(none,none,bulletRef(half,[- 1])),
     wait(90+100/(5-4* $rank))
   ]),
   half:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAbs(4*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[0.8])),
+      fire(dirAbs(4*(5-4* $rank)* $1),none,bulletRef(laser,[0.8])),
       wait(1),
       repeat(30/(5-4* $rank),[
         action([
-          repeat(2,[
-            action([fire(dirSeq(6*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[0.8]))])
-          ]),
+          repeat(2,[action([fire(dirSeq(6*(5-4* $rank)* $1),none,bulletRef(laser,[0.8]))])]),
           wait(1)
         ])
       ]),
-      fire(dirAim(0),spdAbs(1),bulletRef(laser,[0.9])),
+      fire(dirAim(0),none,bulletRef(laser,[0.9])),
       wait(1),
       repeat(30/(5-4* $rank),[
         action([
-          repeat(2,[
-            action([fire(dirSeq(6*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[0.9]))])
-          ]),
+          repeat(2,[action([fire(dirSeq(6*(5-4* $rank)* $1),none,bulletRef(laser,[0.9]))])]),
           wait(1)
         ])
       ]),
-      fire(dirAbs(11* $1),spdAbs(1),bulletRef(laser,[1.2])),
+      fire(dirAbs(11* $1),none,bulletRef(laser,[1.2])),
       wait(1),
       repeat(30/(5-4* $rank),[
         action([
-          repeat(2,[
-            action([fire(dirSeq(6*(5-4* $rank)* $1),spdAbs(1),bulletRef(laser,[1.2]))])
-          ]),
+          repeat(2,[action([fire(dirSeq(6*(5-4* $rank)* $1),none,bulletRef(laser,[1.2]))])]),
           wait(1)
         ])
       ]),
       vanish
     ])
   ]),
-  laser:bullet(dirAim(0),spdAbs(0.01),[
+  laser:bullet(none,spdAbs(0.01),[
     action([
-      fire(dirRel(0),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(0),spdAbs($1),bullet(none,none,[])),
       wait(3),
       repeat(4,[
-        action([
-          fire(dirSeq(2.5-2.0* $rank),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
-          wait(3)
-        ])
+        action([fire(dirSeq(2.5-2.0* $rank),spdAbs($1),bullet(none,none,[])),wait(3)])
       ]),
       vanish
     ])

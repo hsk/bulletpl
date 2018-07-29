@@ -1,6 +1,6 @@
 bulletML(vertical,[
   top:action([fire(dirAbs(180),spdAbs(0),bulletRef(dummy,[0.5])),wait(1500)]),
-  dummy:bullet(dirAim(0),spdAbs(1),[
+  dummy:bullet(none,none,[
     action([
       fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[0,7,3])),
       fire(dirAbs(180),spdAbs($1),bulletRef(triangle,[60,- 11,- 5])),
@@ -11,7 +11,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  triangle:bullet(dirAim(0),spdAbs(1),[
+  triangle:bullet(none,none,[
     action([
       wait(60),
       changeSpeed(spdAbs(0),1),
@@ -30,7 +30,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  rotate:bullet(dirAim(0),spdAbs(1),[
+  rotate:bullet(none,none,[
     action([
       repeat(300-100* $rank+5* $rand,[action([changeDirection(dirRel(1.5),3),wait(1)])]),
       changeSpeed(spdAbs(2),120)

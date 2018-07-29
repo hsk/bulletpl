@@ -2,23 +2,23 @@ bulletML(horizontal,[
   top:action([
     repeat(25,[
       action([
-        fire(dirAbs(190+ $rand*30),spdAbs(1),bulletRef(seed,[1])),
+        fire(dirAbs(190+ $rand*30),none,bulletRef(seed,[1])),
         wait(15- $rank*5),
-        fire(dirAbs(350- $rand*30),spdAbs(1),bulletRef(seed,[- 1])),
+        fire(dirAbs(350- $rand*30),none,bulletRef(seed,[- 1])),
         wait(15- $rank*5)
       ])
     ]),
     wait(60)
   ]),
-  seed:bullet(dirAim(0),spdAbs(1),[
+  seed:bullet(none,spdAbs(1),[
     action([
       changeSpeed(spdAbs(0),60),
       wait(60),
-      fire(dirAim(0),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(270+30* $1+ $rand*50* $1),spdAbs(1),bulletRef(downAccel,[$1])),
+      fire(none,none,bullet(none,none,[])),
+      fire(dirAbs(270+30* $1+ $rand*50* $1),none,bulletRef(downAccel,[$1])),
       repeat(3,[action([fire(dirSeq(0),spdSeq(- 0.4),bulletRef(downAccel,[$1]))])]),
       vanish
     ])
   ]),
-  downAccel:bullet(dirAim(0),spdAbs(2.5),[action([accel(spdRel(0),spdAbs(4* $1),120)])])
+  downAccel:bullet(none,spdAbs(2.5),[action([accel(none,spdAbs(4* $1),120)])])
 ]).

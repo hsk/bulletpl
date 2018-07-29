@@ -2,20 +2,20 @@ bulletML(horizontal,[
   top:action([
     repeat(10,[
       action([
-        fire(dirAbs(310),spdAbs(1),bulletRef(wave,[- 3])),
+        fire(dirAbs(310),none,bulletRef(wave,[- 3])),
         wait(30),
-        fire(dirAbs(230),spdAbs(1),bulletRef(wave,[3])),
+        fire(dirAbs(230),none,bulletRef(wave,[3])),
         wait(30)
       ])
     ]),
     wait(60)
   ]),
-  wave:bullet(dirAim(0),spdAbs(1.5),[
+  wave:bullet(none,spdAbs(1.5),[
     action([
-      fire(dirAim(0),spdAbs(1),bulletRef(nrm,[])),
-      repeat(12+ $rank*12,[action([fire(dirSeq($1),spdAbs(1),bulletRef(nrm,[])),wait(3)])]),
+      fire(dirAim(0),none,bulletRef(nrm,[])),
+      repeat(12+ $rank*12,[action([fire(dirSeq($1),none,bulletRef(nrm,[])),wait(3)])]),
       vanish
     ])
   ]),
-  nrm:bullet(dirAim(0),spdAbs(1),[])
+  nrm:bullet(none,spdAbs(1),[])
 ]).

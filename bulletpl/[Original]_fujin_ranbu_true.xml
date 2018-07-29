@@ -1,6 +1,6 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(dummy,[0.6+0.6* $rank,48-41* $rank,8* $rank])),
+    fire(none,none,bulletRef(dummy,[0.6+0.6* $rank,48-41* $rank,8* $rank])),
     wait(400-100* $rank)
   ]),
   dummy:bullet(dirAbs(0),spdAbs(0),[
@@ -9,18 +9,18 @@ bulletML(vertical,[
       changeSpeed(spdAbs(2),20),
       repeat(3,[
         action([
-          fire(dirAbs(180+60),spdAbs(1),bulletRef(bit,[$1,$2,- $3])),
+          fire(dirAbs(180+60),none,bulletRef(bit,[$1,$2,- $3])),
           wait(10),
-          fire(dirAbs(180-60),spdAbs(1),bulletRef(bit,[$1,$2,$3])),
+          fire(dirAbs(180-60),none,bulletRef(bit,[$1,$2,$3])),
           wait(10)
         ])
       ]),
       changeSpeed(spdAbs(0),20),
       repeat(1,[
         action([
-          fire(dirAbs(180+60),spdAbs(1),bulletRef(bit,[$1,$2,- $3])),
+          fire(dirAbs(180+60),none,bulletRef(bit,[$1,$2,- $3])),
           wait(10),
-          fire(dirAbs(180-60),spdAbs(1),bulletRef(bit,[$1,$2,$3])),
+          fire(dirAbs(180-60),none,bulletRef(bit,[$1,$2,$3])),
           wait(10)
         ])
       ]),
@@ -28,31 +28,31 @@ bulletML(vertical,[
       changeSpeed(spdAbs(2),30),
       repeat(999,[
         action([
-          fire(dirAbs(180+60),spdAbs(1),bulletRef(bit,[$1,$2,- $3])),
+          fire(dirAbs(180+60),none,bulletRef(bit,[$1,$2,- $3])),
           wait(10),
-          fire(dirAbs(180-60),spdAbs(1),bulletRef(bit,[$1,$2,$3])),
+          fire(dirAbs(180-60),none,bulletRef(bit,[$1,$2,$3])),
           wait(10)
         ])
       ]),
       vanish
     ])
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
-      fire(dirAim(0),spdAbs(1),bulletRef(shotgun,[$1])),
+      fire(dirAim(0),none,bulletRef(shotgun,[$1])),
       wait($2),
-      repeat(200,[action([fire(dirSeq($3),spdAbs(1),bulletRef(shotgun,[$1])),wait($2)])]),
+      repeat(200,[action([fire(dirSeq($3),none,bulletRef(shotgun,[$1])),wait($2)])]),
       vanish
     ])
   ]),
-  shotgun:bullet(dirAim(0),spdAbs(0.001),[
+  shotgun:bullet(none,spdAbs(0.001),[
     action([
-      fire(dirRel(0),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(0),spdAbs($1*1.1),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(0),spdAbs($1*1.21),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(0),spdAbs($1*1.331),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(0),spdAbs($1*1.4641),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(0),spdAbs($1*1.61051),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(0),spdAbs($1),bullet(none,none,[])),
+      fire(dirRel(0),spdAbs($1*1.1),bullet(none,none,[])),
+      fire(dirRel(0),spdAbs($1*1.21),bullet(none,none,[])),
+      fire(dirRel(0),spdAbs($1*1.331),bullet(none,none,[])),
+      fire(dirRel(0),spdAbs($1*1.4641),bullet(none,none,[])),
+      fire(dirRel(0),spdAbs($1*1.61051),bullet(none,none,[])),
       vanish
     ])
   ])

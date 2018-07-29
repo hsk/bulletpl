@@ -1,9 +1,9 @@
 bulletML(vertical,[
-  stopAndRun:bullet(dirAim(0),spdAbs(1),[
+  stopAndRun:bullet(none,none,[
     action([
       changeSpeed(spdAbs(0),60),
       wait(180- $rank*120),
-      accel(spdRel(0),spdAbs(3),120),
+      accel(none,spdAbs(3),120),
       wait(120)
     ])
   ]),

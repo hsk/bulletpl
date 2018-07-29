@@ -4,10 +4,6 @@ bulletML(vertical,[
     fire(dirAbs(90),spdAbs(6),bulletRef(rb,[$1])),
     repeat(3,[action([fire(dirSeq(60),spdAbs(6),bulletRef(rb,[$1]))])])
   ]),
-  rb:bullet(dirAim(0),spdAbs(1),[actionRef(red,[$1+ $rand*20-10])]),
-  red:action([
-    wait(1),
-    fire(dirAbs($1),spdAbs(1.2+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-    vanish
-  ])
+  rb:bullet(none,none,[actionRef(red,[$1+ $rand*20-10])]),
+  red:action([wait(1),fire(dirAbs($1),spdAbs(1.2+ $rank),bullet(none,none,[])),vanish])
 ]).

@@ -7,8 +7,8 @@ bulletML(vertical,[
     wait(180)
   ]),
   seed:action([
-    fire(dirAbs(180+ $1),spdAbs($1/4-2),bullet(dirAim(0),spdAbs(1),[actionRef(shoot,[- 1* $2])])),
-    fire(dirAbs(180- $1),spdAbs($1/4-2),bullet(dirAim(0),spdAbs(1),[actionRef(shoot,[$2])]))
+    fire(dirAbs(180+ $1),spdAbs($1/4-2),bullet(none,none,[actionRef(shoot,[- 1* $2])])),
+    fire(dirAbs(180- $1),spdAbs($1/4-2),bullet(none,none,[actionRef(shoot,[$2])]))
   ]),
   shoot:action([
     wait(9),
@@ -23,14 +23,14 @@ bulletML(vertical,[
     ]),
     vanish
   ]),
-  shoot2:fire(dirAim($1+ $2),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
+  shoot2:fire(dirAim($1+ $2),spdAbs(0.6),bullet(none,none,[])),
   center:action([
     wait(10),
     repeat(12+ $rank*20,[action([actionRef(center2,[]),repeat(7-1,[actionRef(center3,[])])])])
   ]),
   center2:action([
-    fire(dirAim(- 60),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
-    repeat(12,[action([fire(dirSeq(10),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[]))])]),
+    fire(dirAim(- 60),spdAbs(0.6),bullet(none,none,[])),
+    repeat(12,[action([fire(dirSeq(10),spdAbs(0.6),bullet(none,none,[]))])]),
     wait(4)
   ]),
   center3:action([
@@ -40,8 +40,8 @@ bulletML(vertical,[
     actionRef(wind,[15])
   ]),
   wind:action([
-    fire(dirAbs(180+ $1),spdAbs(2.7),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirAbs(180- $1),spdAbs(2.7),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAbs(180+ $1),spdAbs(2.7),bullet(none,none,[])),
+    fire(dirAbs(180- $1),spdAbs(2.7),bullet(none,none,[])),
     wait(1)
   ])
 ]).

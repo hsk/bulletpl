@@ -1,22 +1,20 @@
 bulletML(none,[
   top:action([repeat(4,[action([actionRef('impl:259',[]),wait(50)])]),wait(60)]),
   'impl:259':action([
-    fire(dirAim(15+30* $rand),spdAbs(1.8- $rank+ $rand),bullet(dirAim(0),spdAbs(1),[action([actionRef('impl:30',[])])]))
+    fire(dirAim(15+30* $rand),spdAbs(1.8- $rank+ $rand),bullet(none,none,[action([actionRef('impl:30',[])])]))
   ]),
   'impl:30':action([
-    fire(dirAbs($2),spdAbs($1),bullet(dirAim(0),spdAbs(1),[action([actionRef('impl:156',[]),vanish])])),
+    fire(dirAbs($2),spdAbs($1),bullet(none,none,[action([actionRef('impl:156',[]),vanish])])),
     repeat(10+ $rank*10,[action([actionRef('impl:12',[])])]),
     vanish
   ]),
   'impl:156':action([
     wait(1),
-    fire(dirSeq(0),spdAbs(1),bulletRef('bulletmls/[G_DARIUS]_homing_laser.xml:_:hmgLsr',[]))
+    fire(dirSeq(0),none,bulletRef('bulletmls/[G_DARIUS]_homing_laser.xml:_:hmgLsr',[]))
   ]),
-  'bulletmls/[G_DARIUS]_homing_laser.xml:_:hmgLsr':bullet(dirAim(0),spdAbs(2),[
+  'bulletmls/[G_DARIUS]_homing_laser.xml:_:hmgLsr':bullet(none,spdAbs(2),[
     action([changeSpeed(spdAbs(0.3),30),wait(100),changeSpeed(spdAbs(5),100)]),
     action([repeat(12,[action([changeDirection(dirAim(0),45- $rank*30),wait(5)])])])
   ]),
-  'impl:12':action([
-    repeat(9999,[action([wait(2),fire(dirSeq(15),spdAbs(1),bullet(dirAim(0),spdAbs(1),[]))])])
-  ])
+  'impl:12':action([repeat(9999,[action([wait(2),fire(dirSeq(15),none,bullet(none,none,[]))])])])
 ]).

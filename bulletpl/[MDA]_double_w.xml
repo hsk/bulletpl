@@ -10,6 +10,6 @@ bulletML(vertical,[
     ]),
     wait(60)
   ]),
-  shoot1:fire(dirSeq(41),spdAbs(1.0- $1),bullet(dirAim(0),spdAbs(1),[])),
-  shoot2:fire(dirSeq(- 19),spdSeq(0.1),bullet(dirAim(0),spdAbs(1),[]))
+  shoot1:fire(dirSeq(41),spdAbs(1.0- $1),bullet(none,none,[])),
+  shoot2:fire(dirSeq(- 19),spdSeq(0.1),bullet(none,none,[]))
 ]).

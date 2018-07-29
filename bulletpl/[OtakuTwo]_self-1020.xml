@@ -2,20 +2,14 @@ bulletML(vertical,[
   top:action([
     repeat(50,[
       action([
-        fire(dirSeq(30+1.1*5),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[])),
-        repeat(11,[
-          action([
-            fire(dirSeq(30),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[]))
-          ])
-        ]),
+        fire(dirSeq(30+1.1*5),spdAbs(2+ $rank* $rank*2),bullet(none,none,[])),
+        repeat(11,[action([fire(dirSeq(30),spdAbs(2+ $rank* $rank*2),bullet(none,none,[]))])]),
         repeat(4+ $rank*10,[
           action([
             wait(1),
-            fire(dirSeq(31.1),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[])),
+            fire(dirSeq(31.1),spdAbs(2+ $rank* $rank*2),bullet(none,none,[])),
             repeat(11,[
-              action([
-                fire(dirSeq(30),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[]))
-              ])
+              action([fire(dirSeq(30),spdAbs(2+ $rank* $rank*2),bullet(none,none,[]))])
             ])
           ])
         ]),
@@ -26,20 +20,16 @@ bulletML(vertical,[
   top2:action([
     repeat(50,[
       action([
-        fire(dirSeq(- 30-0.7*5),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- 30-0.7*5),spdAbs(2+ $rank* $rank*2),bullet(none,none,[])),
         repeat(11,[
-          action([
-            fire(dirSeq(- 30),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[]))
-          ])
+          action([fire(dirSeq(- 30),spdAbs(2+ $rank* $rank*2),bullet(none,none,[]))])
         ]),
         repeat(4+ $rank*10,[
           action([
             wait(1),
-            fire(dirSeq(- 30.7),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[])),
+            fire(dirSeq(- 30.7),spdAbs(2+ $rank* $rank*2),bullet(none,none,[])),
             repeat(11,[
-              action([
-                fire(dirSeq(- 30),spdAbs(2+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[]))
-              ])
+              action([fire(dirSeq(- 30),spdAbs(2+ $rank* $rank*2),bullet(none,none,[]))])
             ])
           ])
         ]),

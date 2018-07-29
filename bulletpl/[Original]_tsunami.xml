@@ -2,9 +2,9 @@ bulletML(vertical,[
   top:action([
     repeat(80+ $rank*120,[
       action([
-        fire(dirAbs(360* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(dirAim(0),spdAbs(1),[])),
-        fire(dirAbs(60+240* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(dirAim(0),spdAbs(1),[])),
-        fire(dirAbs(120+120* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAbs(360* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(none,none,[])),
+        fire(dirAbs(60+240* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(none,none,[])),
+        fire(dirAbs(120+120* $rand),spdAbs(0.6-0.5* $rank+0.15* $rand),bullet(none,none,[])),
         wait(2)
       ])
     ]),
@@ -13,7 +13,7 @@ bulletML(vertical,[
     fire(dirSeq(180),spdAbs(0.6-0.3* $rank),bulletRef(layer1,[])),
     wait(600)
   ]),
-  layer1:bullet(dirAim(0),spdAbs(1),[
+  layer1:bullet(none,none,[
     action([
       wait(15),
       repeat(100,[
@@ -25,7 +25,7 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  layer2:bullet(dirAim(0),spdAbs(1),[
+  layer2:bullet(none,none,[
     action([
       wait(15),
       repeat(100,[
@@ -37,13 +37,13 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  layer3:bullet(dirAim(0),spdAbs(1),[
+  layer3:bullet(none,none,[
     action([
       wait(15),
       repeat(100,[
         action([
-          fire(dirRel(30),spdAbs(0.2+0.3* $rank* $rand),bullet(dirAim(0),spdAbs(1),[])),
-          fire(dirRel(- 30),spdAbs(0.2+0.3* $rank* $rand),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(30),spdAbs(0.2+0.3* $rank* $rand),bullet(none,none,[])),
+          fire(dirRel(- 30),spdAbs(0.2+0.3* $rank* $rand),bullet(none,none,[])),
           wait(60)
         ])
       ])

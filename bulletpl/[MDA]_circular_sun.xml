@@ -16,5 +16,5 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  curve:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirSeq(1.25-1.6* $rand),360),wait(360),vanish])])
+  curve:bullet(none,none,[action([changeDirection(dirSeq(1.25-1.6* $rand),360),wait(360),vanish])])
 ]).

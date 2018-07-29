@@ -1,8 +1,8 @@
 bulletML(none,[
-  pan:bullet(dirAim(0),spdAbs(1),[
+  pan:bullet(none,none,[
     action([
       wait(10),
-      fire(dirRel(95* $1),spdAbs(1.8+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(95* $1),spdAbs(1.8+ $rank),bullet(none,none,[])),
       vanish
     ])
   ]),

@@ -1,7 +1,5 @@
 bulletML(none,[
   top:action([
-    repeat(1000,[
-      action([fire(dirAim(0),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),wait(100)])
-    ])
+    repeat(1000,[action([fire(none,none,bullet(dirAim(0),spdAbs(1),[])),wait(100)])])
   ])
 ]).

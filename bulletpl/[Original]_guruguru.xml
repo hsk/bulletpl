@@ -1,17 +1,15 @@
 bulletML(none,[
   issyuu:action([
-    repeat(360/(20- $rank*10)+1,[
-      action([fire(dirSeq(18- $rank*6),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])
-    ])
+    repeat(360/(20- $rank*10)+1,[action([fire(dirSeq(18- $rank*6),spdSeq(0),bullet(none,none,[]))])])
   ]),
-  guruguru:fire(dirAim(0),spdAbs(0.3),bullet(dirAim(0),spdAbs(1),[
+  guruguru:fire(none,spdAbs(0.3),bullet(none,none,[
     action([
-      fire(dirAim(0),spdAbs(0.7),bullet(dirAim(0),spdAbs(1),[])),
+      fire(none,spdAbs(0.7),bullet(none,none,[])),
       actionRef(issyuu,[]),
       repeat(30,[
         action([
           wait(12),
-          fire(dirSeq(- 356),spdSeq(0),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq(- 356),spdSeq(0),bullet(none,none,[])),
           actionRef(issyuu,[])
         ])
       ]),

@@ -1,10 +1,8 @@
 bulletML(vertical,[
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'Dummy':bullet(none,none,[action([vanish])]),
   'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
-  'XWayFan':action([
-    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
-  curve:bullet(dirAim(0),spdAbs(1),[
+  'XWayFan':action([repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(none,none,[]))])])]),
+  curve:bullet(none,none,[
     action([
       repeat(9999,[action([changeDirection(dirRel(- $1*(4+ $rank* $rank*4)),10),wait(10)])])
     ])
@@ -30,8 +28,8 @@ bulletML(vertical,[
       action([
         repeat(3+ $rank*4,[
           action([
-            fire(dirAim(3),spdAbs(1.8),bullet(dirAim(0),spdAbs(1),[])),
-            fire(dirAim(- 3),spdAbs(1.8),bullet(dirAim(0),spdAbs(1),[])),
+            fire(dirAim(3),spdAbs(1.8),bullet(none,none,[])),
+            fire(dirAim(- 3),spdAbs(1.8),bullet(none,none,[])),
             wait(5)
           ])
         ]),

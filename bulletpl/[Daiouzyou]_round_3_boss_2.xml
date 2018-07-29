@@ -1,48 +1,46 @@
 bulletML(vertical,[
-  'Red':bullet(dirAim(0),spdAbs(1),[action([])]),
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'Red':bullet(none,none,[action([])]),
+  'Dummy':bullet(none,none,[action([vanish])]),
   'Stop':action([changeSpeed(spdAbs(0),1)]),
   'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
-  'XWayFan':action([
-    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  'XWayFan':action([repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(none,none,[]))])])]),
   top1:action([
-    fire(dirAbs(90),spdAbs(1),bulletRef(aim2,[])),
-    fire(dirAbs(- 90),spdAbs(1),bulletRef(aim2,[])),
-    fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[actionRef(fanRoll,[7])])),
-    fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[actionRef(fanRoll,[- 7])]))
+    fire(dirAbs(90),none,bulletRef(aim2,[])),
+    fire(dirAbs(- 90),none,bulletRef(aim2,[])),
+    fire(none,spdAbs(0),bullet(none,none,[actionRef(fanRoll,[7])])),
+    fire(none,spdAbs(0),bullet(none,none,[actionRef(fanRoll,[- 7])]))
   ]),
   top2:action([actionRef('3wayRoll',[13])]),
   top3:action([actionRef('3wayRoll',[- 13])]),
   '3wayRoll':action([
-    fire(dirAbs(180),spdAbs(1),bulletRef('Dummy',[])),
+    fire(dirAbs(180),none,bulletRef('Dummy',[])),
     repeat(14,[
       action([
-        fire(dirSeq(- 1.3* $1),spdAbs(1.4+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- 1.3* $1),spdAbs(1.4+ $rank*0.8),bullet(none,none,[])),
         actionRef('XWay',[3,$1]),
         wait(10)
       ])
     ]),
     repeat(20,[
       action([
-        fire(dirSeq(1.3* $1),spdAbs(1.4+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(1.3* $1),spdAbs(1.4+ $rank*0.8),bullet(none,none,[])),
         actionRef('XWay',[3,- $1]),
         wait(10)
       ])
     ])
   ]),
   fanRoll:action([
-    fire(dirAbs($1*8),spdAbs(1),bulletRef('Dummy',[])),
+    fire(dirAbs($1*8),none,bulletRef('Dummy',[])),
     repeat(32,[
       action([
-        fire(dirSeq(- $1*2.1),spdAbs(1.2+ $rank*0.4),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- $1*2.1),spdAbs(1.2+ $rank*0.4),bullet(none,none,[])),
         actionRef('XWayFan',[4,$1,0.3]),
         wait(10)
       ])
     ]),
     vanish
   ]),
-  aim2:bullet(dirAim(0),spdAbs(1),[
+  aim2:bullet(none,spdAbs(1),[
     action([
       wait(8),
       actionRef('Stop',[]),

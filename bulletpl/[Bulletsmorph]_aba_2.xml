@@ -15,19 +15,17 @@ bulletML(vertical,[
     wait(150)
   ]),
   center:action([
-    fire(dirAbs(360* $rand),spdAbs(1),bulletRef(circle,[$1,$2])),
-    repeat(4+8* $rank-1,[
-      action([fire(dirSeq(360/(4+8* $rank)),spdAbs(1),bulletRef(circle,[$1,$2]))])
-    ])
+    fire(dirAbs(360* $rand),none,bulletRef(circle,[$1,$2])),
+    repeat(4+8* $rank-1,[action([fire(dirSeq(360/(4+8* $rank)),none,bulletRef(circle,[$1,$2]))])])
   ]),
-  circle:bullet(dirAim(0),spdAbs(1.3),[
+  circle:bullet(none,spdAbs(1.3),[
     action([
       wait(20),
       changeDirection(dirAbs(180+ $1* $2),1),
       wait(125- $1),
-      fire(dirAim(0),spdAbs(1),bulletRef(red,[])),
+      fire(dirAim(0),none,bulletRef(red,[])),
       vanish
     ])
   ]),
-  red:bullet(dirAim(0),spdAbs(0.1),[action([changeSpeed(spdAbs(4.0),300)])])
+  red:bullet(none,spdAbs(0.1),[action([changeSpeed(spdAbs(4.0),300)])])
 ]).

@@ -11,7 +11,7 @@ bulletML(vertical,[
     fire(dirAbs(90),spdAbs(1.2),bulletRef(dummy,[])),
     wait(800-350* $rank)
   ]),
-  dummy:bullet(dirAim(0),spdAbs(1),[
+  dummy:bullet(none,none,[
     action([
       wait(50),
       changeSpeed(spdAbs(0),1),
@@ -40,7 +40,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  noiz:bullet(dirAim(0),spdAbs(1),[
+  noiz:bullet(none,none,[
     action([
       repeat(999,[
         action([

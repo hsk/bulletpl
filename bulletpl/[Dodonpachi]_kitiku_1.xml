@@ -1,16 +1,16 @@
 bulletML(none,[
-  fast:bullet(dirAim(0),spdAbs(10),[
+  fast:bullet(none,spdAbs(10),[
     action([
       wait(6),
       changeSpeed(spdAbs(0),1),
       wait(20),
       repeat(10+ $rank*18,[
         action([
-          fire(dirSeq(- 11- $rand*2),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq(- 11- $rand*2),spdAbs(1.5),bullet(none,none,[])),
           actionRef(add3,[]),
           repeat(4,[
             action([
-              fire(dirSeq(0),spdSeq(0.1+ $rank*0.2),bullet(dirAim(0),spdAbs(1),[])),
+              fire(dirSeq(0),spdSeq(0.1+ $rank*0.2),bullet(none,none,[])),
               actionRef(add3,[])
             ])
           ]),
@@ -20,16 +20,14 @@ bulletML(none,[
       vanish
     ])
   ]),
-  add3:action([
-    repeat(3,[action([fire(dirSeq(90),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
-  slowColorChange:fire(dirAbs(180+45* $1),spdAbs(7),bullet(dirAim(0),spdAbs(1),[
+  add3:action([repeat(3,[action([fire(dirSeq(90),spdSeq(0),bullet(none,none,[]))])])]),
+  slowColorChange:fire(dirAbs(180+45* $1),spdAbs(7),bullet(none,none,[
     action([
       wait(6),
       changeSpeed(spdAbs(0),1),
       repeat(50+ $rank*50,[
         action([
-          fire(dirSeq((8- $rank*4)* $1),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq((8- $rank*4)* $1),spdAbs(1.2),bullet(none,none,[])),
           actionRef(add3,[]),
           wait(8- $rank*4+ $rand)
         ])
@@ -37,11 +35,11 @@ bulletML(none,[
       vanish
     ])
   ])),
-  slow:fire(dirAim(0),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([fireRef(slowColorChange,[$1]),vanish])])),
+  slow:fire(none,none,bullet(none,none,[action([fireRef(slowColorChange,[$1]),vanish])])),
   top:action([
-    fire(dirAbs(- 85),spdAbs(1),bulletRef(fast,[])),
+    fire(dirAbs(- 85),none,bulletRef(fast,[])),
     wait(1),
-    fire(dirAbs(85),spdAbs(1),bulletRef(fast,[])),
+    fire(dirAbs(85),none,bulletRef(fast,[])),
     wait(1),
     fireRef(slow,[1]),
     wait(1),

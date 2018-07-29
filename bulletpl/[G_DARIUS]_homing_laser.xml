@@ -2,14 +2,14 @@ bulletML(horizontal,[
   top:action([
     repeat(20,[
       action([
-        fire(dirAim(- 60+ $rand*120),spdAbs(1),bulletRef(hmgLsr,[])),
-        repeat(8,[action([wait(1),fire(dirSeq(0),spdAbs(1),bulletRef(hmgLsr,[]))])]),
+        fire(dirAim(- 60+ $rand*120),none,bulletRef(hmgLsr,[])),
+        repeat(8,[action([wait(1),fire(dirSeq(0),none,bulletRef(hmgLsr,[]))])]),
         wait(10)
       ])
     ]),
     wait(60)
   ]),
-  hmgLsr:bullet(dirAim(0),spdAbs(2),[
+  hmgLsr:bullet(none,spdAbs(2),[
     action([changeSpeed(spdAbs(0.3),30),wait(100),changeSpeed(spdAbs(5),100)]),
     action([repeat(12,[action([changeDirection(dirAim(0),45- $rank*30),wait(5)])])])
   ])

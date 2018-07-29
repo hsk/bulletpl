@@ -1,12 +1,12 @@
 bulletML(none,[
-  fire:action([fire(dirRel(0),spdRel(- 0.5),bullet(dirAim(0),spdAbs(1),[]))]),
-  src:fire(dirAim((30+ $rank*20)* $1),spdAbs(2),bullet(dirAim(0),spdAbs(1),[
+  fire:action([fire(dirRel(0),spdRel(- 0.5),bullet(none,none,[]))]),
+  src:fire(dirAim((30+ $rank*20)* $1),spdAbs(2),bullet(none,none,[
     action([
       repeat(10,[
         action([
-          accel(spdRel($1*4),spdRel(0),20),
+          accel(spdRel($1*4),none,20),
           repeat(10,[action([actionRef(fire,[$1]),wait(2)])]),
-          accel(spdRel(- $1*4),spdRel(0),20),
+          accel(spdRel(- $1*4),none,20),
           repeat(10,[action([actionRef(fire,[$1]),wait(2)])])
         ])
       ])

@@ -2,7 +2,7 @@ bulletML(vertical,[
   top:action([
     repeat(600,[
       action([
-        fire(dirAim(- 45+ $rand*90),spdAbs((0.3+ $rand*0.5)*($rank+1)),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAim(- 45+ $rand*90),spdAbs((0.3+ $rand*0.5)*($rank+1)),bullet(none,none,[])),
         wait(1)
       ])
     ]),

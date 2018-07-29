@@ -2,30 +2,30 @@ bulletML(vertical,[
   top:action([
     repeat(2,[
       action([
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,0])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,0])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(3/4)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(3/4)])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/2)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/2)])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(3/4)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(3/4)])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/4)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/4)])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/2)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/2)])),
         wait(20),
-        fire(dirAim(0),spdAbs(1),bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/4)])),
+        fire(none,none,bulletRef(nway,[8+28* $rank* $rank,0.4,360/(8+28* $rank* $rank)*(1/4)])),
         wait(20)
       ])
     ]),
     wait(80),
     repeat(10,[
       action([
-        fire(dirAim(0),spdAbs(1),bulletRef(nwayaim,[8+28* $rank* $rank,0.8+0.6* $rank,360/(8+28* $rank* $rank)/2])),
-        fire(dirAim(0),spdAbs(1),bulletRef(nwayaim,[8+28* $rank* $rank,1.0+0.6* $rank,360/(8+28* $rank* $rank)/4])),
-        fire(dirAim(0),spdAbs(1),bulletRef(nwayaim,[8+28* $rank* $rank,1.2+0.6* $rank,0])),
+        fire(none,none,bulletRef(nwayaim,[8+28* $rank* $rank,0.8+0.6* $rank,360/(8+28* $rank* $rank)/2])),
+        fire(none,none,bulletRef(nwayaim,[8+28* $rank* $rank,1.0+0.6* $rank,360/(8+28* $rank* $rank)/4])),
+        fire(none,none,bulletRef(nwayaim,[8+28* $rank* $rank,1.2+0.6* $rank,0])),
         wait(30)
       ])
     ]),
@@ -33,15 +33,15 @@ bulletML(vertical,[
   ]),
   nway:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAbs($3),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      repeat($1,[action([fire(dirSeq(360/ $1),spdAbs($2),bullet(dirAim(0),spdAbs(1),[]))])]),
+      fire(dirAbs($3),spdAbs($2),bullet(none,none,[])),
+      repeat($1,[action([fire(dirSeq(360/ $1),spdAbs($2),bullet(none,none,[]))])]),
       vanish
     ])
   ]),
   nwayaim:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAim($3),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      repeat($1,[action([fire(dirSeq(360/ $1),spdAbs($2),bullet(dirAim(0),spdAbs(1),[]))])]),
+      fire(dirAim($3),spdAbs($2),bullet(none,none,[])),
+      repeat($1,[action([fire(dirSeq(360/ $1),spdAbs($2),bullet(none,none,[]))])]),
       vanish
     ])
   ])

@@ -1,14 +1,12 @@
 bulletML(none,[
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(src,[5,91])),
-    fire(dirAim(0),spdAbs(1),bulletRef(src,[4,- 91])),
+    fire(none,none,bulletRef(src,[5,91])),
+    fire(none,none,bulletRef(src,[4,- 91])),
     wait(600)
   ]),
   'Xway':action([
-    fire(dirAim(- (5+ $rank*5)*($1-1)-4+ $rand*8),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
-    repeat($1-1,[
-      action([fire(dirSeq(5+ $rank*5),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[]))])
-    ])
+    fire(dirAim(- (5+ $rank*5)*($1-1)-4+ $rand*8),spdAbs(1.6),bullet(none,none,[])),
+    repeat($1-1,[action([fire(dirSeq(5+ $rank*5),spdAbs(1.6),bullet(none,none,[]))])])
   ]),
   fire:action([actionRef('Xway',[3]),wait(15),actionRef('Xway',[5]),wait(15)]),
   src:bullet(dirAbs($2),spdAbs($1),[

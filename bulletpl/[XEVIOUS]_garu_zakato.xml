@@ -5,16 +5,16 @@ bulletML(vertical,[
     ]),
     wait(60)
   ]),
-  gzc:bullet(dirAim(0),spdAbs(1),[
+  gzc:bullet(none,none,[
     action([
       wait(10+ $rand*10),
-      repeat(16,[action([fire(dirSeq(360/16),spdAbs(1),bulletRef(spr,[]))])]),
-      repeat(4,[action([fire(dirSeq(90),spdAbs(1),bulletRef(hrmSpr,[]))])]),
+      repeat(16,[action([fire(dirSeq(360/16),none,bulletRef(spr,[]))])]),
+      repeat(4,[action([fire(dirSeq(90),none,bulletRef(hrmSpr,[]))])]),
       vanish
     ])
   ]),
-  spr:bullet(dirAim(0),spdAbs(2),[]),
-  hrmSpr:bullet(dirAim(0),spdAbs(0),[
+  spr:bullet(none,spdAbs(2),[]),
+  hrmSpr:bullet(none,spdAbs(0),[
     action([changeSpeed(spdAbs(2),60)]),
     action([repeat(9999,[action([changeDirection(dirAim(0),40),wait(1)])])])
   ])

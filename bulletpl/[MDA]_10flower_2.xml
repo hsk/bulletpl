@@ -4,19 +4,19 @@ bulletML(vertical,[
     fire(dirAbs(180),spdAbs(5),bulletRef(seed,[- 36.4,3.4+144])),
     wait(164+316* $rank)
   ]),
-  seed:bullet(dirAim(0),spdAbs(1),[
+  seed:bullet(none,none,[
     action([
       changeSpeed(spdAbs(0),4),
       wait(4),
       fire(dirAbs($2),spdAbs(1.1),bulletRef(dummy,[])),
       repeat(21+79* $rank,[
         action([
-          repeat(10,[action([fire(dirSeq($1),spdAbs(1.1),bullet(dirAim(0),spdAbs(1),[]))])]),
+          repeat(10,[action([fire(dirSeq($1),spdAbs(1.1),bullet(none,none,[]))])]),
           wait(4)
         ])
       ]),
       vanish
     ])
   ]),
-  dummy:bullet(dirAim(0),spdAbs(1),[action([vanish])])
+  dummy:bullet(none,none,[action([vanish])])
 ]).

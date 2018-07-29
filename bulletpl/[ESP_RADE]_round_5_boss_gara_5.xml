@@ -2,26 +2,20 @@ bulletML(none,[
   accel:action([changeDirection(dirAim(360* $rand),1),changeSpeed(spdAbs(0.5+ $rand*0.5),1)]),
   stop:action([changeSpeed(spdAbs(0),1)]),
   stopAndWait:action([actionRef(stop,[]),wait(70- $rank*50)]),
-  ippon:action([
-    repeat(26,[action([fire(dirSeq(0),spdSeq(0.12),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  ippon:action([repeat(26,[action([fire(dirSeq(0),spdSeq(0.12),bullet(none,none,[]))])])]),
   murasaki:action([
-    fire(dirAbs($2),spdAbs(0.8),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAbs($2),spdAbs(0.8),bullet(none,none,[])),
     repeat(3+ $rand*17,[
       action([
         actionRef(ippon,[]),
         wait(6),
-        fire(dirSeq($1),spdAbs(0.8),bullet(dirAim(0),spdAbs(1),[]))
+        fire(dirSeq($1),spdAbs(0.8),bullet(none,none,[]))
       ])
     ])
   ]),
   ao:action([
     repeat(3+ $rand*17,[
-      action([
-        fire(dirAim(0),spdAbs(0.8),bullet(dirAim(0),spdAbs(1),[])),
-        actionRef(ippon,[]),
-        wait(6)
-      ])
+      action([fire(none,spdAbs(0.8),bullet(none,none,[])),actionRef(ippon,[]),wait(6)])
     ])
   ]),
   gara5:action([

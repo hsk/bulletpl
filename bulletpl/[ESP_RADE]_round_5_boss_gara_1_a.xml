@@ -1,19 +1,14 @@
 bulletML(none,[
-  sequenceThree:action([
-    fire(dirSeq(12),spdSeq(0),bullet(dirAim(0),spdAbs(1),[])),
-    actionRef(sequenceTwo,[])
-  ]),
-  sequenceTwo:action([
-    repeat(2,[action([fire(dirSeq(3),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  sequenceThree:action([fire(dirSeq(12),spdSeq(0),bullet(none,none,[])),actionRef(sequenceTwo,[])]),
+  sequenceTwo:action([repeat(2,[action([fire(dirSeq(3),spdSeq(0),bullet(none,none,[]))])])]),
   oogi:action([
-    fire(dirAim(- 90),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAim(- 90),spdAbs(1.5),bullet(none,none,[])),
     actionRef(sequenceTwo,[]),
     repeat(11,[actionRef(sequenceThree,[])]),
     wait(10)
   ]),
   oogiOuHuku:action([
-    fire(dirSeq(- 213),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirSeq(- 213),spdAbs(1.5),bullet(none,none,[])),
     actionRef(sequenceTwo,[]),
     repeat(11,[actionRef(sequenceThree,[])]),
     wait(10)

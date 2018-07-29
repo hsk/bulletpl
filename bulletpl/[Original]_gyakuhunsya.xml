@@ -7,12 +7,10 @@ bulletML(none,[
     wait(20),
     changeDirection(dirAbs(0),1),
     changeSpeed(spdAbs(2),30),
-    fire(dirAim(0),spdAbs(0.6),bullet(dirAim(0),spdAbs(1),[])),
+    fire(none,spdAbs(0.6),bullet(none,none,[])),
     repeat(80,[
       action([
-        repeat(2+ $rank*2,[
-          action([fire(dirAim($rand*120-60),spdSeq(0.005),bullet(dirAim(0),spdAbs(1),[]))])
-        ]),
+        repeat(2+ $rank*2,[action([fire(dirAim($rand*120-60),spdSeq(0.005),bullet(none,none,[]))])]),
         wait(1)
       ])
     ]),

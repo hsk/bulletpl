@@ -24,7 +24,5 @@ bulletML(none,[
     ])
   ]),
   red:fire(dirSeq(30),spdAbs(1.5),bulletRef(blue,[])),
-  blue:bullet(dirAim(0),spdAbs(1),[
-    action([wait(30),fire(dirRel(- 110),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[]))])
-  ])
+  blue:bullet(none,none,[action([wait(30),fire(dirRel(- 110),spdAbs(1.5),bullet(none,none,[]))])])
 ]).

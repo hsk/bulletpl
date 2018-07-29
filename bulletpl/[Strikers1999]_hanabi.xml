@@ -5,25 +5,25 @@ bulletML(vertical,[
     ])
   ]),
   fastFour:action([
-    fire(dirSeq(5),spdAbs(2+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirSeq(- 10),spdAbs(2+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirSeq(15),spdAbs(1.5+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirSeq(- 20),spdAbs(1.5+ $rank),bullet(dirAim(0),spdAbs(1),[]))
+    fire(dirSeq(5),spdAbs(2+ $rank),bullet(none,none,[])),
+    fire(dirSeq(- 10),spdAbs(2+ $rank),bullet(none,none,[])),
+    fire(dirSeq(15),spdAbs(1.5+ $rank),bullet(none,none,[])),
+    fire(dirSeq(- 20),spdAbs(1.5+ $rank),bullet(none,none,[]))
   ]),
   slowFour:action([
-    fire(dirSeq(5),spdAbs(1+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirSeq(- 10),spdAbs(1+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirSeq(15),spdAbs(0.7+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
-    fire(dirSeq(- 20),spdAbs(0.7+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[]))
+    fire(dirSeq(5),spdAbs(1+ $rank*0.8),bullet(none,none,[])),
+    fire(dirSeq(- 10),spdAbs(1+ $rank*0.8),bullet(none,none,[])),
+    fire(dirSeq(15),spdAbs(0.7+ $rank*0.8),bullet(none,none,[])),
+    fire(dirSeq(- 20),spdAbs(0.7+ $rank*0.8),bullet(none,none,[]))
   ]),
-  fastHanabi:bullet(dirAim(0),spdAbs(1),[
+  fastHanabi:bullet(none,none,[
     action([
       wait(15),
-      fire(dirAim(0),spdAbs(2.5+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(0),spdAbs(2.5+ $rank),bullet(none,none,[])),
       actionRef(fastFour,[]),
       repeat(16,[
         action([
-          fire(dirSeq(32.5),spdAbs(2.5+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq(32.5),spdAbs(2.5+ $rank),bullet(none,none,[])),
           actionRef(fastFour,[])
         ])
       ]),
@@ -31,13 +31,13 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  slowHanabi:fire(dirAim(0),spdAbs(1),bullet(dirAim(0),spdAbs(1),[
+  slowHanabi:fire(none,none,bullet(none,none,[
     action([
-      fire(dirAbs(0),spdAbs(1.3+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs(0),spdAbs(1.3+ $rank*0.8),bullet(none,none,[])),
       actionRef(slowFour,[]),
       repeat(16,[
         action([
-          fire(dirSeq(32.5),spdAbs(1.3+ $rank*0.8),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq(32.5),spdAbs(1.3+ $rank*0.8),bullet(none,none,[])),
           actionRef(slowFour,[])
         ])
       ]),

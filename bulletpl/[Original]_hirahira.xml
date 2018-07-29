@@ -1,14 +1,12 @@
 bulletML(none,[
-  '5way':action([
-    repeat(4,[action([fire(dirSeq(20),spdAbs(1),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  '5way':action([repeat(4,[action([fire(dirSeq(20),none,bullet(none,none,[]))])])]),
   hira:action([
-    fire(dirAim(- 40+ $1*60),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAim(- 40+ $1*60),none,bullet(none,none,[])),
     actionRef('5way',[]),
     repeat(60,[
       action([
         wait(8- $rank*2),
-        fire(dirSeq(- 80- $1*2+ $rand-0.5),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- 80- $1*2+ $rand-0.5),none,bullet(none,none,[])),
         actionRef('5way',[])
       ])
     ])

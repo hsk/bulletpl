@@ -1,31 +1,31 @@
 bulletML(none,[
   top:action([
-    fire(dirAbs(45),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAbs(45),spdAbs(1+ $rank*0.5),bullet(none,none,[])),
     repeat(113+900/(16- $rank*10),[
       action([
         fireRef(four,[]),
         fireRef(four,[]),
         fireRef(four,[]),
-        fire(dirSeq(86),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(86),spdAbs(1+ $rank*0.5),bullet(none,none,[])),
         wait(16- $rank*10)
       ])
     ])
   ]),
   tops:action([
     wait((16- $rank*10)*22.5),
-    fire(dirAbs(45),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAbs(45),spdAbs(1+ $rank*0.5),bullet(none,none,[])),
     repeat(91+900/(16- $rank*10),[
       action([
         fireRef(four,[]),
         fireRef(four,[]),
         fireRef(four,[]),
-        fire(dirSeq(94),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(94),spdAbs(1+ $rank*0.5),bullet(none,none,[])),
         wait(16- $rank*10)
       ])
     ])
   ]),
-  topt:action([wait((16- $rank*10)*45),fire(dirAim(0),spdAbs(1),bulletRef(gurugurup,[]))]),
-  gurugurup:bullet(dirAim(0),spdAbs(1),[action([changeSpeed(spdAbs(0),1),actionRef(guru2,[]),vanish])]),
+  topt:action([wait((16- $rank*10)*45),fire(none,none,bulletRef(gurugurup,[]))]),
+  gurugurup:bullet(none,none,[action([changeSpeed(spdAbs(0),1),actionRef(guru2,[]),vanish])]),
   guru2:action([
     fire(dirAbs(0),spdAbs(1+ $rank),bulletRef(guruc,[])),
     repeat(450/(16- $rank*10),[
@@ -447,24 +447,24 @@ bulletML(none,[
   guru17:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc17,[])),
   guru18:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc18,[])),
   guru19:fire(dirSeq(22.5),spdAbs(1+ $rank),bulletRef(guruc19,[])),
-  four:fire(dirSeq(90),spdAbs(1+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[])),
-  guruc:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),90)])]),
-  guruc2:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),170)])]),
-  guruc3:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),260)])]),
-  guruc4:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),300)])]),
-  guruc5:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),450)])]),
-  guruc6:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),600)])]),
-  guruc7:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),700)])]),
-  guruc8:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),800)])]),
-  guruc9:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(- 270),900)])]),
-  guruc10:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(0),90)])]),
-  guruc11:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),900)])]),
-  guruc12:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),800)])]),
-  guruc13:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),700)])]),
-  guruc14:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),600)])]),
-  guruc15:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),450)])]),
-  guruc16:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),300)])]),
-  guruc17:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),280)])]),
-  guruc18:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),230)])]),
-  guruc19:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirRel(270),90)])])
+  four:fire(dirSeq(90),spdAbs(1+ $rank*0.5),bullet(none,none,[])),
+  guruc:bullet(none,none,[action([changeDirection(dirRel(- 270),90)])]),
+  guruc2:bullet(none,none,[action([changeDirection(dirRel(- 270),170)])]),
+  guruc3:bullet(none,none,[action([changeDirection(dirRel(- 270),260)])]),
+  guruc4:bullet(none,none,[action([changeDirection(dirRel(- 270),300)])]),
+  guruc5:bullet(none,none,[action([changeDirection(dirRel(- 270),450)])]),
+  guruc6:bullet(none,none,[action([changeDirection(dirRel(- 270),600)])]),
+  guruc7:bullet(none,none,[action([changeDirection(dirRel(- 270),700)])]),
+  guruc8:bullet(none,none,[action([changeDirection(dirRel(- 270),800)])]),
+  guruc9:bullet(none,none,[action([changeDirection(dirRel(- 270),900)])]),
+  guruc10:bullet(none,none,[action([changeDirection(dirRel(0),90)])]),
+  guruc11:bullet(none,none,[action([changeDirection(dirRel(270),900)])]),
+  guruc12:bullet(none,none,[action([changeDirection(dirRel(270),800)])]),
+  guruc13:bullet(none,none,[action([changeDirection(dirRel(270),700)])]),
+  guruc14:bullet(none,none,[action([changeDirection(dirRel(270),600)])]),
+  guruc15:bullet(none,none,[action([changeDirection(dirRel(270),450)])]),
+  guruc16:bullet(none,none,[action([changeDirection(dirRel(270),300)])]),
+  guruc17:bullet(none,none,[action([changeDirection(dirRel(270),280)])]),
+  guruc18:bullet(none,none,[action([changeDirection(dirRel(270),230)])]),
+  guruc19:bullet(none,none,[action([changeDirection(dirRel(270),90)])])
 ]).

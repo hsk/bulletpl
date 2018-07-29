@@ -1,16 +1,16 @@
 bulletML(vertical,[
-  top:action([fire(dirAbs(360* $rand),spdAbs(1),bulletRef(centerbit,[])),wait(800)]),
+  top:action([fire(dirAbs(360* $rand),none,bulletRef(centerbit,[])),wait(800)]),
   centerbit:bullet(dirAbs(180),spdAbs(0.9),[
     action([
       wait(40),
       changeSpeed(spdAbs(0.0),1),
       wait(5),
-      fire(dirAbs(360* $rand),spdAbs(1),bulletRef(pillarbit,[])),
-      repeat(17,[action([fire(dirSeq(5),spdAbs(1),bulletRef(dummybit,[]))])]),
+      fire(dirAbs(360* $rand),none,bulletRef(pillarbit,[])),
+      repeat(17,[action([fire(dirSeq(5),none,bulletRef(dummybit,[]))])]),
       repeat(3,[
         action([
-          fire(dirSeq(5),spdAbs(1),bulletRef(pillarbit,[])),
-          repeat(17,[action([fire(dirSeq(5),spdAbs(1),bulletRef(dummybit,[]))])])
+          fire(dirSeq(5),none,bulletRef(pillarbit,[])),
+          repeat(17,[action([fire(dirSeq(5),none,bulletRef(dummybit,[]))])])
         ])
       ]),
       wait(120),
@@ -27,7 +27,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  pillarbit:bullet(dirAim(0),spdAbs(0.6),[
+  pillarbit:bullet(none,spdAbs(0.6),[
     action([
       wait(120),
       changeSpeed(spdAbs(0.001),1),
@@ -35,26 +35,26 @@ bulletML(vertical,[
       repeat(300/(35-33* $rank),[
         action([
           repeat(10,[action([fire(dirAbs(360* $rand),spdAbs(2.0),bulletRef(weak,[15]))])]),
-          fire(dirRel(- 45+90* $rand),spdAbs((2.5+1.0* $rand)*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(- 45+90* $rand),spdAbs((2.5+1.0* $rand)*(0.25+0.75* $rank)),bullet(none,none,[])),
           wait(35-33* $rank)
         ])
       ]),
       vanish
     ])
   ]),
-  dummybit:bullet(dirAim(0),spdAbs(0.6),[
+  dummybit:bullet(none,spdAbs(0.6),[
     action([
       wait(120),
       changeSpeed(spdAbs(0.001),1),
       wait(120),
       repeat(300/(35-33* $rank),[
         action([
-          fire(dirRel(- 45+90* $rand),spdAbs((2.5+1.0* $rand)*(0.25+0.75* $rank)),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(- 45+90* $rand),spdAbs((2.5+1.0* $rand)*(0.25+0.75* $rank)),bullet(none,none,[])),
           wait(35-33* $rank)
         ])
       ]),
       vanish
     ])
   ]),
-  weak:bullet(dirAim(0),spdAbs(1),[action([wait($1),vanish])])
+  weak:bullet(none,none,[action([wait($1),vanish])])
 ]).

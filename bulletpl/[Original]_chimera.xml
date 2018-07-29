@@ -1,13 +1,13 @@
 bulletML(vertical,[
-  top:action([fire(dirAim(0),spdAbs(1),bulletRef(centerbit,[])),wait(450)]),
+  top:action([fire(dirAim(0),none,bulletRef(centerbit,[])),wait(450)]),
   centerbit:bullet(dirAbs(180),spdAbs(3.0),[
     action([
       wait(40),
       changeSpeed(spdAbs(0.001),1),
       wait(5),
       changeDirection(dirAbs(160+40* $rand),90),
-      fire(dirAbs(60),spdAbs(1),bulletRef(sidebit,[- 40])),
-      fire(dirAbs(- 60),spdAbs(1),bulletRef(sidebit,[40])),
+      fire(dirAbs(60),none,bulletRef(sidebit,[- 40])),
+      fire(dirAbs(- 60),none,bulletRef(sidebit,[40])),
       wait(90),
       repeat(3,[
         action([
@@ -16,23 +16,21 @@ bulletML(vertical,[
           wait(40),
           changeSpeed(spdAbs(0.001),1),
           wait(5),
-          fire(dirAim(60),spdAbs(1),bulletRef(sidebit,[- 40])),
-          fire(dirAim(- 60),spdAbs(1),bulletRef(sidebit,[40])),
+          fire(dirAim(60),none,bulletRef(sidebit,[- 40])),
+          fire(dirAim(- 60),none,bulletRef(sidebit,[40])),
           wait(45)
         ])
       ]),
       vanish
     ])
   ]),
-  sidebit:bullet(dirAim(0),spdAbs(0.5),[
+  sidebit:bullet(none,spdAbs(0.5),[
     action([
       wait(30),
       changeSpeed(spdAbs(0.001),1),
       wait(5),
       repeat(30+220* $rank* $rank,[
-        action([
-          fire(dirRel($1-45+90* $rand),spdAbs(3.5+1.0* $rand),bullet(dirAim(0),spdAbs(1),[]))
-        ])
+        action([fire(dirRel($1-45+90* $rand),spdAbs(3.5+1.0* $rand),bullet(none,none,[]))])
       ]),
       vanish
     ])

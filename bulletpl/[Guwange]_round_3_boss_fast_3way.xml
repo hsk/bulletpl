@@ -7,12 +7,12 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  seed:bullet(dirAim(0),spdAbs(1),[
+  seed:bullet(none,none,[
     action([
       changeSpeed(spdAbs(0),$1),
       wait($1),
-      fire(dirAim(- 20),spdAbs(1),bulletRef('3way',[])),
-      repeat(2,[action([fire(dirSeq(20),spdAbs(1),bulletRef('3way',[]))])]),
+      fire(dirAim(- 20),none,bulletRef('3way',[])),
+      repeat(2,[action([fire(dirSeq(20),none,bulletRef('3way',[]))])]),
       wait(6),
       repeat(2,[
         action([
@@ -27,5 +27,5 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  '3way':bullet(dirAim(0),spdAbs(3),[])
+  '3way':bullet(none,spdAbs(3),[])
 ]).

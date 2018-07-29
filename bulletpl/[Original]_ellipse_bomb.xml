@@ -7,16 +7,16 @@ bulletML(vertical,[
     fire(dirAbs(170+20* $rand),spdAbs(2.0),bulletRef(bit,[0.8,1.4*(0.5+0.5* $rank),30-20* $rank])),
     wait(600-250* $rank)
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
       wait(15),
       changeSpeed(spdAbs(0),1),
       wait(15),
-      fire(dirAbs(360* $rand),spdAbs(1),bulletRef(ellipse,[$1,$2,$3])),
+      fire(dirAbs(360* $rand),none,bulletRef(ellipse,[$1,$2,$3])),
       vanish
     ])
   ]),
-  ellipse:bullet(dirAim(0),spdAbs(0.001),[
+  ellipse:bullet(none,spdAbs(0.001),[
     action([
       fire(dirRel(5),spdAbs($1),bulletRef(red,[$2,$3])),
       repeat(6,[action([fire(dirSeq(10),spdSeq(- ($1*0.04)),bulletRef(red,[$2,$3]))])]),
@@ -33,17 +33,15 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  red:bullet(dirAim(0),spdAbs(1),[
+  red:bullet(none,none,[
     action([
       wait(35),
       changeSpeed(spdAbs(0.001),1),
       wait(5),
       wait($2),
-      fire(dirRel(140),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(140),spdAbs($1),bullet(none,none,[])),
       wait($2),
-      repeat(12,[
-        action([fire(dirSeq(7),spdSeq($1*0.03),bullet(dirAim(0),spdAbs(1),[])),wait($2)])
-      ]),
+      repeat(12,[action([fire(dirSeq(7),spdSeq($1*0.03),bullet(none,none,[])),wait($2)])]),
       vanish
     ])
   ])

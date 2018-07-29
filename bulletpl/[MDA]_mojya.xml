@@ -4,7 +4,7 @@ bulletML(vertical,[
     wait(240)
   ]),
   first:fire(dirSeq($1),spdAbs(0.54),bulletRef(second,[])),
-  second:bullet(dirAim(0),spdAbs(1),[
+  second:bullet(none,none,[
     action([
       wait(60),
       fireRef(third,[21+ $rand*84]),
@@ -17,5 +17,5 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  third:fire(dirAim($1),spdAbs(0.4+ $rand*1.4),bullet(dirAim(0),spdAbs(1),[]))
+  third:fire(dirAim($1),spdAbs(0.4+ $rand*1.4),bullet(none,none,[]))
 ]).

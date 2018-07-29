@@ -6,8 +6,8 @@ bulletML(vertical,[
     changeSpeed(spdAbs(0),1),
     repeat(5,[
       action([
-        fire(dirAbs(90),spdAbs(1),bulletRef(bl_seed,[])),
-        fire(dirAbs(270),spdAbs(1),bulletRef(bl_seed,[])),
+        fire(dirAbs(90),none,bulletRef(bl_seed,[])),
+        fire(dirAbs(270),none,bulletRef(bl_seed,[])),
         wait(80)
       ])
     ]),
@@ -16,21 +16,17 @@ bulletML(vertical,[
     wait(10),
     changeSpeed(spdAbs(0),1)
   ]),
-  bl_seed:bullet(dirAim(0),spdAbs(24),[
-    action([
-      wait(1),
-      fire(dirAim(0),spdAbs(1),bullet(dirAim(0),spdAbs(0),[actionRef(bl,[])])),
-      vanish
-    ])
+  bl_seed:bullet(none,spdAbs(24),[
+    action([wait(1),fire(none,none,bullet(none,spdAbs(0),[actionRef(bl,[])])),vanish])
   ]),
   bl:action([
-    fire(dirAim(- 30),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
-    repeat(4,[action([fire(dirSeq(15),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])]),
+    fire(dirAim(- 30),spdAbs(1),bullet(none,none,[])),
+    repeat(4,[action([fire(dirSeq(15),spdSeq(0),bullet(none,none,[]))])]),
     wait(4),
     repeat(3+ $rank*6,[
       action([
-        fire(dirAim(- 30),spdSeq(0.4),bullet(dirAim(0),spdAbs(1),[])),
-        repeat(4,[action([fire(dirSeq(15),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])]),
+        fire(dirAim(- 30),spdSeq(0.4),bullet(none,none,[])),
+        repeat(4,[action([fire(dirSeq(15),spdSeq(0),bullet(none,none,[]))])]),
         wait(4)
       ])
     ]),

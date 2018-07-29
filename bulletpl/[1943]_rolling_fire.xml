@@ -1,6 +1,6 @@
 bulletML(vertical,[
-  top:action([fire(dirAim(0),spdAbs(1),bulletRef(roll,[]))]),
-  roll:bullet(dirAim(0),spdAbs(1),[
+  top:action([fire(none,none,bulletRef(roll,[]))]),
+  roll:bullet(none,none,[
     action([
       wait(40+ $rand*20),
       changeDirection(dirRel(- 90),4),

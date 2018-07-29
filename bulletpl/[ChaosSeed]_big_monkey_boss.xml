@@ -1,5 +1,5 @@
 bulletML(none,[
-  roll:bullet(dirAim(0),spdAbs(1),[
+  roll:bullet(none,none,[
     action([
       changeDirection(dirSeq(3),10000),
       changeSpeed(spdAbs(2),60),
@@ -12,7 +12,7 @@ bulletML(none,[
       changeSpeed(spdSeq(0.01),100000)
     ])
   ]),
-  explosionBullet:bullet(dirAim(0),spdAbs(1),[
+  explosionBullet:bullet(none,none,[
     action([
       wait(30),
       repeat(12,[action([fire(dirSeq(30),spdAbs(1.2),bulletRef(roll,[]))])]),

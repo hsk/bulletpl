@@ -1,18 +1,18 @@
 bulletML(vertical,[
   top:action([
     fire(dirAbs(0),spdAbs(0),bulletRef(top,[])),
-    fire(dirAbs(0),spdAbs(1),bulletRef(byakko,[])),
+    fire(dirAbs(0),none,bulletRef(byakko,[])),
     actionRef(byakko,[]),
     repeat(120+ $rank* $rank* $rank*120,[
       action([
         wait(8- $rank* $rank* $rank*4),
-        fire(dirSeq(128+ $rand*0.5),spdAbs(1),bulletRef(byakko,[])),
+        fire(dirSeq(128+ $rand*0.5),none,bulletRef(byakko,[])),
         actionRef(byakko,[])
       ])
     ])
   ]),
-  byakko:action([repeat(2,[action([fire(dirSeq(120),spdAbs(1),bulletRef(byakko,[]))])])]),
-  byakko:bullet(dirAim(0),spdAbs(6),[
+  byakko:action([repeat(2,[action([fire(dirSeq(120),none,bulletRef(byakko,[]))])])]),
+  byakko:bullet(none,spdAbs(6),[
     action([
       fireRef(byakkoway,[48.4- $rand*0.8]),
       fireRef(byakkoway,[32.4- $rand*0.8]),
@@ -24,22 +24,22 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  byakkoway:fire(dirRel($1),spdAbs(0.8+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
-  top:bullet(dirAim(0),spdAbs(1),[
+  byakkoway:fire(dirRel($1),spdAbs(0.8+ $rank* $rank*1),bullet(none,none,[])),
+  top:bullet(none,none,[
     action([
-      fire(dirAbs(0),spdAbs(1),bulletRef(backfire,[])),
+      fire(dirAbs(0),none,bulletRef(backfire,[])),
       actionRef(backfire,[]),
       repeat(120+ $rank* $rank* $rank*120,[
         action([
           wait(8- $rank* $rank* $rank*4),
-          fire(dirSeq(112+ $rand*0.5- $rank* $rank* $rank* $rank* $rank*9.5),spdAbs(1),bulletRef(backfire,[])),
+          fire(dirSeq(112+ $rand*0.5- $rank* $rank* $rank* $rank* $rank*9.5),none,bulletRef(backfire,[])),
           actionRef(backfire,[])
         ])
       ])
     ])
   ]),
-  backfire:action([repeat(2,[action([fire(dirSeq(120),spdAbs(1),bulletRef(backfire,[]))])])]),
-  backfire:bullet(dirAim(0),spdAbs(10),[
+  backfire:action([repeat(2,[action([fire(dirSeq(120),none,bulletRef(backfire,[]))])])]),
+  backfire:bullet(none,spdAbs(10),[
     action([
       wait(4),
       fireRef(backfire,[100.5]),
@@ -50,5 +50,5 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  backfire:fire(dirRel($1- $rand),spdAbs(1+ $rank* $rank),bullet(dirAim(0),spdAbs(1),[]))
+  backfire:fire(dirRel($1- $rand),spdAbs(1+ $rank* $rank),bullet(none,none,[]))
 ]).

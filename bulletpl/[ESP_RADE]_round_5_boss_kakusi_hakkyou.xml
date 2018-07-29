@@ -1,33 +1,31 @@
 bulletML(none,[
-  '6shots':bullet(dirAim(0),spdAbs(3),[
+  '6shots':bullet(none,spdAbs(3),[
     action([
       wait(3),
       repeat(2,[
         action([
-          fire(dirAim(- 15+30* $rand),spdAbs(0.8+ $rank+ $rand),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirAim(- 15+30* $rand),spdAbs(0.8+ $rank+ $rand),bullet(none,none,[]))
         ])
       ]),
       repeat(2,[
         action([
-          fire(dirAim(- 45+30* $rand),spdAbs(0.8+ $rank+ $rand),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirAim(- 45+30* $rand),spdAbs(0.8+ $rank+ $rand),bullet(none,none,[]))
         ])
       ]),
       repeat(2,[
-        action([
-          fire(dirAim(15+30* $rand),spdAbs(0.8+ $rank+ $rand),bullet(dirAim(0),spdAbs(1),[]))
-        ])
+        action([fire(dirAim(15+30* $rand),spdAbs(0.8+ $rank+ $rand),bullet(none,none,[]))])
       ]),
       vanish
     ])
   ]),
-  kakusi:bullet(dirAim(0),spdAbs(6),[
+  kakusi:bullet(none,spdAbs(6),[
     action([
       changeSpeed(spdAbs(0),10),
       wait(10),
       repeat(4+ $rank*6,[
         action([
-          fire(dirAim(90),spdAbs(1),bulletRef('6shots',[])),
-          fire(dirAim(- 90),spdAbs(1),bulletRef('6shots',[])),
+          fire(dirAim(90),none,bulletRef('6shots',[])),
+          fire(dirAim(- 90),none,bulletRef('6shots',[])),
           wait(200/(4+ $rank*6))
         ])
       ]),
@@ -35,8 +33,8 @@ bulletML(none,[
     ])
   ]),
   top:action([
-    fire(dirAbs(90),spdAbs(1),bulletRef(kakusi,[])),
-    fire(dirAbs(270),spdAbs(1),bulletRef(kakusi,[])),
+    fire(dirAbs(90),none,bulletRef(kakusi,[])),
+    fire(dirAbs(270),none,bulletRef(kakusi,[])),
     wait(200)
   ])
 ]).

@@ -2,19 +2,16 @@ bulletML(none,[
   top1:action([
     repeat(200+ $rank*200,[
       action([
-        fire(dirAim(- 50+ $rand*100),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAim(- 50+ $rand*100),spdAbs(1.6),bullet(none,none,[])),
         wait(2- $rank+ $rand)
       ])
     ])
   ]),
-  kobati:bullet(dirAim(0),spdAbs(1),[
+  kobati:bullet(none,none,[
     action([
       wait($1),
       repeat(20,[
-        action([
-          fire(dirAim(0),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
-          wait((16- $rank*8)*3)
-        ])
+        action([fire(dirAim(0),spdAbs(1.6),bullet(none,none,[])),wait((16- $rank*8)*3)])
       ]),
       vanish
     ])

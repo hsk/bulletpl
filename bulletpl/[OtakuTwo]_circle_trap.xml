@@ -14,18 +14,16 @@ bulletML(none,[
     changeSpeed(spdAbs(0),1)
   ]),
   round:action([
-    fire(dirAbs($rand*360),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+    fire(dirAbs($rand*360),spdAbs(0),bullet(none,none,[action([vanish])])),
     wait(1),
     repeat(6,[
       action([
-        repeat(30,[
-          action([fire(dirSeq(1),spdAbs(0.8+ $rank*0.4),bullet(dirAim(0),spdAbs(1),[]))])
-        ]),
+        repeat(30,[action([fire(dirSeq(1),spdAbs(0.8+ $rank*0.4),bullet(none,none,[]))])]),
         repeat(30,[action([fire(dirSeq(1),spdAbs(0.6+ $rank*0.3),bulletRef(speed,[]))])])
       ])
     ])
   ]),
-  speed:bullet(dirAim(0),spdAbs(1),[
+  speed:bullet(none,none,[
     action([
       wait(100- $rank*50),
       changeSpeed(spdAbs(1.2+ $rank*0.6),1),

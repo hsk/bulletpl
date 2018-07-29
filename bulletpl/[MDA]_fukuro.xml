@@ -14,7 +14,7 @@ bulletML(vertical,[
     ]),
     wait(3*($rank*18*10))
   ]),
-  seed:fire(dirSeq(360/($2*3)),spdAbs(1.75* $1),bullet(dirAim(0),spdAbs(1),[
+  seed:fire(dirSeq(360/($2*3)),spdAbs(1.75* $1),bullet(none,none,[
     action([
       wait(10),
       changeSpeed(spdAbs(0),10),
@@ -36,5 +36,5 @@ bulletML(vertical,[
     fireRef(curve,[1.04,- 15]),
     fireRef(curve,[1.0,0])
   ]),
-  curve:fire(dirAim($2),spdAbs($1*2.0),bullet(dirAim(0),spdAbs(1),[action([wait(5),changeDirection(dirAim(0),5)])]))
+  curve:fire(dirAim($2),spdAbs($1*2.0),bullet(none,none,[action([wait(5),changeDirection(dirAim(0),5)])]))
 ]).

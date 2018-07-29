@@ -1,11 +1,11 @@
 bulletML(none,[
   top:action([
-    fire(dirAim(- 80),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAim(- 80),none,bullet(none,none,[])),
     repeat(70,[
       action([
         repeat(3*($rank+0.5),[
           action([
-            fire(dirSeq(($rand*20-9)/($rank+0.5)),spdSeq(0.01/($rank+0.5)),bullet(dirAim(0),spdAbs(1),[]))
+            fire(dirSeq(($rand*20-9)/($rank+0.5)),spdSeq(0.01/($rank+0.5)),bullet(none,none,[]))
           ])
         ]),
         wait(1)

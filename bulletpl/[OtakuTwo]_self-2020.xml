@@ -8,7 +8,7 @@ bulletML(vertical,[
     repeat(45,[action([fireRef(seed,[1]),fireRef(seed,[- 1]),wait(30)])]),
     wait(450)
   ]),
-  seed:fire(dirAbs(90* $1),spdAbs(1.5- $rank*0.5),bullet(dirAim(0),spdAbs(1),[
+  seed:fire(dirAbs(90* $1),spdAbs(1.5- $rank*0.5),bullet(none,none,[
     action([
       wait($rand*(30- $rank*15)),
       repeat(9999,[
@@ -16,13 +16,11 @@ bulletML(vertical,[
       ])
     ])
   ])),
-  bomb:bullet(dirAim(0),spdAbs(1),[
+  bomb:bullet(none,none,[
     action([
       wait(225),
-      fire(dirAim(- 20+($rand-0.5)* $rank* $rank* $rank* $rank* $rank* $rank* $rank* $rank*20),spdAbs(1.5+ $rank* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      repeat(2,[
-        action([fire(dirSeq(20),spdAbs(1.5+ $rank* $rank),bullet(dirAim(0),spdAbs(1),[]))])
-      ])
+      fire(dirAim(- 20+($rand-0.5)* $rank* $rank* $rank* $rank* $rank* $rank* $rank* $rank*20),spdAbs(1.5+ $rank* $rank),bullet(none,none,[])),
+      repeat(2,[action([fire(dirSeq(20),spdAbs(1.5+ $rank* $rank),bullet(none,none,[]))])])
     ])
   ])
 ]).

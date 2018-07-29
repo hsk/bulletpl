@@ -11,14 +11,11 @@ bulletML(vertical,[
     repeat(9,[action([fireRef(aimbl,[]),wait(20)])])
   ]),
   seed:fire(dirAbs($1),spdAbs(2.8),bulletRef(roll,[$2,$3])),
-  roll:bullet(dirAim(0),spdAbs(1),[action([changeDirection(dirSeq($1),9999),actionRef(shoot,[$2]),vanish])]),
+  roll:bullet(none,none,[action([changeDirection(dirSeq($1),9999),actionRef(shoot,[$2]),vanish])]),
   shoot:action([
     repeat(22,[
-      action([
-        fire(dirSeq($1),spdAbs(1.4),bullet(dirAim(0),spdAbs(1),[])),
-        wait(4+ $rand*8)
-      ])
+      action([fire(dirSeq($1),spdAbs(1.4),bullet(none,none,[])),wait(4+ $rand*8)])
     ])
   ]),
-  aimbl:fire(dirAim(0),spdAbs(2.8),bullet(dirAim(0),spdAbs(1),[]))
+  aimbl:fire(dirAim(0),spdAbs(2.8),bullet(none,none,[]))
 ]).

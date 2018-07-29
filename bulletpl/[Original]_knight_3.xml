@@ -1,40 +1,36 @@
 bulletML(vertical,[
-  top:action([fire(dirAbs(60),spdAbs(1),bulletRef(bit,[])),wait(300)]),
-  bit:bullet(dirAim(0),spdAbs(3.0),[
+  top:action([fire(dirAbs(60),none,bulletRef(bit,[])),wait(300)]),
+  bit:bullet(none,spdAbs(3.0),[
     action([
       wait(20),
       changeSpeed(spdAbs(0),1),
       wait(2),
-      fire(dirAim(0),spdAbs(1),bulletRef(groundbit,[])),
+      fire(none,none,bulletRef(groundbit,[])),
       wait(30),
-      fire(dirAim(0),spdAbs(1),bulletRef(skybit,[])),
+      fire(none,none,bulletRef(skybit,[])),
       vanish
     ])
   ]),
   skybit:bullet(dirAbs(210),spdAbs(3.0),[
     action([
       wait(30),
-      repeat(4,[
-        action([wait(10),fire(dirAbs(110+20* $rand),spdAbs(1),bulletRef(dummy,[]))])
-      ]),
+      repeat(4,[action([wait(10),fire(dirAbs(110+20* $rand),none,bulletRef(dummy,[]))])]),
       vanish
     ])
   ]),
   groundbit:bullet(dirAbs(180),spdAbs(3.0),[
     action([
       wait(20),
-      repeat(3,[
-        action([wait(10),fire(dirAbs(230+20* $rand),spdAbs(1),bulletRef(dummy,[]))])
-      ]),
+      repeat(3,[action([wait(10),fire(dirAbs(230+20* $rand),none,bulletRef(dummy,[]))])]),
       vanish
     ])
   ]),
-  dummy:bullet(dirAim(0),spdAbs(0.001),[
+  dummy:bullet(none,spdAbs(0.001),[
     action([
       repeat(5+15* $rank,[
         action([
-          fire(dirRel(- 10+20* $rand),spdAbs(1.0+1.4* $rank),bullet(dirAim(0),spdAbs(1),[])),
-          repeat(5,[action([fire(dirSeq(0),spdSeq(0.1),bullet(dirAim(0),spdAbs(1),[]))])]),
+          fire(dirRel(- 10+20* $rand),spdAbs(1.0+1.4* $rank),bullet(none,none,[])),
+          repeat(5,[action([fire(dirSeq(0),spdSeq(0.1),bullet(none,none,[]))])]),
           wait(12-10* $rank)
         ])
       ]),

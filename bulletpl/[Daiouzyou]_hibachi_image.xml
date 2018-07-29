@@ -1,15 +1,13 @@
 bulletML(vertical,[
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'Dummy':bullet(none,none,[action([vanish])]),
   'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
-  'XWayFan':action([
-    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  'XWayFan':action([repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(none,none,[]))])])]),
   spiral:action([
-    fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
+    fire(none,spdAbs(0),bullet(none,none,[
       action([
         repeat(30+ $rank*45,[
           action([
-            fire(dirSeq($1),spdAbs(1+ $rank*2),bullet(dirAim(0),spdAbs(1),[])),
+            fire(dirSeq($1),spdAbs(1+ $rank*2),bullet(none,none,[])),
             actionRef('XWay',[10,36]),
             wait(6- $rank*3)
           ])
@@ -21,10 +19,10 @@ bulletML(vertical,[
   ]),
   top1:action([actionRef(spiral,[7]),actionRef(spiral,[- 7])]),
   fan4:action([
-    fire(dirAbs(- $1),spdAbs(1),bulletRef('Dummy',[])),
+    fire(dirAbs(- $1),none,bulletRef('Dummy',[])),
     repeat(60+ $rank*90,[
       action([
-        fire(dirSeq($1),spdAbs(1+ $rank*2),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq($1),spdAbs(1+ $rank*2),bullet(none,none,[])),
         actionRef('XWay',[4,90]),
         wait(6- $rank*3)
       ])

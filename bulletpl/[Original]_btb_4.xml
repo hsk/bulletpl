@@ -1,41 +1,41 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(dummy,[8+28* $rank,0.6+0.9* $rank])),
+    fire(none,none,bulletRef(dummy,[8+28* $rank,0.6+0.9* $rank])),
     wait(440-90* $rank)
   ]),
   dummy:bullet(dirAbs(0),spdAbs(0),[
     action([
       repeat(12,[
         action([
-          fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1,$2,0])),
+          fire(none,none,bulletRef(nwayabsolute,[$1,$2,0])),
           wait(3),
           repeat(2+3* $rank,[
             action([
-              fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12]))
+              fire(none,none,bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12]))
             ])
           ]),
           wait(3),
-          fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1,$2,360/36*(1/4)])),
+          fire(none,none,bulletRef(nwayabsolute,[$1,$2,360/36*(1/4)])),
           wait(3),
           repeat(2+3* $rank,[
             action([
-              fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12*(3/4)]))
+              fire(none,none,bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12*(3/4)]))
             ])
           ]),
           wait(3),
-          fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1,$2,360/36*(1/2)])),
+          fire(none,none,bulletRef(nwayabsolute,[$1,$2,360/36*(1/2)])),
           wait(3),
           repeat(2+3* $rank,[
             action([
-              fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12*(1/2)]))
+              fire(none,none,bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12*(1/2)]))
             ])
           ]),
           wait(3),
-          fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1,$2,360/36*(3/4)])),
+          fire(none,none,bulletRef(nwayabsolute,[$1,$2,360/36*(3/4)])),
           wait(3),
           repeat(2+3* $rank,[
             action([
-              fire(dirAim(0),spdAbs(1),bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12*(1/4)]))
+              fire(none,none,bulletRef(nwayabsolute,[$1/3,$2*(0.9+0.4* $rand),360/12*(1/4)]))
             ])
           ]),
           wait(3)
@@ -46,10 +46,10 @@ bulletML(vertical,[
   ]),
   nwayabsolute:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAbs($3),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs($3),spdAbs($2),bullet(none,none,[])),
       repeat($1,[
         action([
-          fire(dirSeq(360/ $1+(3+12*(1- $rank)*(1- $rank))*(- 1+2* $rand)),spdAbs($2),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirSeq(360/ $1+(3+12*(1- $rank)*(1- $rank))*(- 1+2* $rand)),spdAbs($2),bullet(none,none,[]))
         ])
       ]),
       vanish

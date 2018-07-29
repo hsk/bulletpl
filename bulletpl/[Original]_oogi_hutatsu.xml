@@ -1,14 +1,12 @@
 bulletML(none,[
-  oogiSeq:action([
-    repeat(20,[action([fire(dirSeq(8),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  oogiSeq:action([repeat(20,[action([fire(dirSeq(8),spdSeq(0),bullet(none,none,[]))])])]),
   oogi:action([
-    fire(dirAim(- 80),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAim(- 80),spdAbs($2),bullet(none,none,[])),
     actionRef(oogiSeq,[]),
     repeat(10+ $rank*10,[
       action([
         wait(2),
-        fire(dirSeq(- $1),spdSeq(- 0.04),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- $1),spdSeq(- 0.04),bullet(none,none,[])),
         actionRef(oogiSeq,[])
       ])
     ])

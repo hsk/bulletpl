@@ -1,5 +1,5 @@
 bulletML(none,[
-  rollOut:fire(dirRel(90),spdAbs(0.0001),bullet(dirAim(0),spdAbs(1),[
+  rollOut:fire(dirRel(90),spdAbs(0.0001),bullet(none,none,[
     action([
       wait(350),
       changeSpeed(spdAbs(1),100),
@@ -7,15 +7,15 @@ bulletML(none,[
       wait(1000)
     ])
   ])),
-  setter:bullet(dirAim(0),spdAbs(3),[action([repeat(999,[action([wait(5),fireRef(rollOut,[])])])])]),
+  setter:bullet(none,spdAbs(3),[action([repeat(999,[action([wait(5),fireRef(rollOut,[])])])])]),
   top1:action([
-    fire(dirAbs($rand*10),spdAbs(1),bulletRef(setter,[])),
-    repeat(45/(2- $rank),[action([fire(dirSeq(16- $rank*8),spdAbs(1),bulletRef(setter,[])),wait(1)])]),
+    fire(dirAbs($rand*10),none,bulletRef(setter,[])),
+    repeat(45/(2- $rank),[action([fire(dirSeq(16- $rank*8),none,bulletRef(setter,[])),wait(1)])]),
     wait(40),
     repeat(125+ $rank*125,[
       action([
         wait(1.5- $rank/2+ $rand),
-        fire(dirAim(45- $rand*90),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[]))
+        fire(dirAim(45- $rand*90),spdAbs(1.2),bullet(none,none,[]))
       ])
     ])
   ]),

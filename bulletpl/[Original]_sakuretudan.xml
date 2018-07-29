@@ -2,7 +2,7 @@ bulletML(none,[
   top:action([
     repeat(10,[
       action([
-        fire(dirAim($rand*360),spdAbs(2),bullet(dirAim(0),spdAbs(1),[
+        fire(dirAim($rand*360),spdAbs(2),bullet(none,none,[
           action([
             changeDirection(dirAim(0),60),
             wait(60),
@@ -10,10 +10,10 @@ bulletML(none,[
               action([
                 repeat(2,[
                   action([
-                    fire(dirAim(360* $rand),spdAbs(5),bullet(dirAim(0),spdAbs(1),[
+                    fire(dirAim(360* $rand),spdAbs(5),bullet(none,none,[
                       action([
                         wait($rand*5),
-                        fire(dirAim(0),spdAbs($rand*4+0.5),bullet(dirAim(0),spdAbs(1),[])),
+                        fire(none,spdAbs($rand*4+0.5),bullet(none,none,[])),
                         vanish
                       ])
                     ]))

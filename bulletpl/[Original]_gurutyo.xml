@@ -1,8 +1,8 @@
 bulletML(none,[
-  gurutyo:fire(dirAbs(90),spdAbs($1*(3+ $rank*4)),bullet(dirAim(0),spdAbs(1),[
+  gurutyo:fire(dirAbs(90),spdAbs($1*(3+ $rank*4)),bullet(none,none,[
     action([
       changeDirection(dirSeq($1*6),1000),
-      repeat(500,[action([fire(dirRel(0),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),wait(1)])]),
+      repeat(500,[action([fire(dirRel(0),none,bullet(none,none,[])),wait(1)])]),
       vanish
     ])
   ])),

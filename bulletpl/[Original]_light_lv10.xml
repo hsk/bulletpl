@@ -10,7 +10,7 @@ bulletML(vertical,[
     ]),
     wait(450)
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
       wait($2),
       changeSpeed(spdAbs(0),1),
@@ -20,14 +20,12 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  nobit:bullet(dirAim(0),spdAbs(1),[
+  nobit:bullet(none,none,[
     action([
-      fire(dirAim(0),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),
-      repeat(4,[
-        action([fire(dirSeq(0),spdAbs($1),bullet(dirAim(0),spdAbs(1),[])),wait(2)])
-      ]),
+      fire(dirAim(0),spdAbs($1),bullet(none,none,[])),
+      repeat(4,[action([fire(dirSeq(0),spdAbs($1),bullet(none,none,[])),wait(2)])]),
       vanish
     ])
   ]),
-  weak:bullet(dirAim(0),spdAbs(1),[action([wait($1),vanish])])
+  weak:bullet(none,none,[action([wait($1),vanish])])
 ]).

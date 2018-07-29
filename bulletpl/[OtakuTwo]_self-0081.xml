@@ -9,14 +9,14 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  seed:fire(dirAbs(90* $1),spdAbs($rand*3),bullet(dirAim(0),spdAbs(1),[
+  seed:fire(dirAbs(90* $1),spdAbs($rand*3),bullet(none,none,[
     action([
       wait(20),
       repeat(40,[action([fire(dirSeq(9),spdAbs(0.5+ $rank),bulletRef(roundbase,[$2,$3]))])]),
       vanish
     ])
   ])),
-  roundbase:bullet(dirAim(0),spdAbs(1),[
+  roundbase:bullet(none,none,[
     action([
       wait(10),
       fire(dirAbs(90),spdAbs($1),bulletRef(round,[])),
@@ -24,5 +24,5 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  round:bullet(dirAim(0),spdAbs(1),[action([accel(spdRel(0),spdAbs(10),250)])])
+  round:bullet(none,none,[action([accel(none,spdAbs(10),250)])])
 ]).

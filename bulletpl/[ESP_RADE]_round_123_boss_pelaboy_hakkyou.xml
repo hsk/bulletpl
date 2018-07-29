@@ -1,45 +1,43 @@
 bulletML(vertical,[
-  'Red':bullet(dirAim(0),spdAbs(1),[action([])]),
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'Red':bullet(none,none,[action([])]),
+  'Dummy':bullet(none,none,[action([vanish])]),
   'Stop':action([changeSpeed(spdAbs(0),1)]),
   'XWay':action([actionRef('XWayFan',[$1,$2,0])]),
-  'XWayFan':action([
-    repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
-  subBatteryFan:bullet(dirAim(0),spdAbs(4),[
+  'XWayFan':action([repeat($1-1,[action([fire(dirSeq($2),spdSeq($3),bullet(none,none,[]))])])]),
+  subBatteryFan:bullet(none,spdAbs(4),[
     action([
       wait(10),
       actionRef('Stop',[]),
       wait(250),
-      fire(dirAim(- 45),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(- 45),spdAbs(1.6),bullet(none,none,[])),
       actionRef('XWay',[10+ $rank*10,90/(10+ $rank*10)]),
       repeat(2,[
         action([
           wait(5),
-          fire(dirSeq(- 90),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq(- 90),spdAbs(1.6),bullet(none,none,[])),
           actionRef('XWay',[11+ $rank*10,90/(10+ $rank*10)])
         ])
       ]),
       vanish
     ])
   ]),
-  aimFan:bullet(dirAim(0),spdAbs(4),[
+  aimFan:bullet(none,spdAbs(4),[
     action([
       wait(5),
-      fire(dirAim(- 4- $rank*8),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(- 4- $rank*8),spdAbs(1.6),bullet(none,none,[])),
       actionRef('XWay',[5+ $rank*8,2]),
       vanish
     ])
   ]),
-  subBatteryAim:bullet(dirAim(0),spdAbs(1),[
+  subBatteryAim:bullet(none,spdAbs(1),[
     action([
       wait(10),
       actionRef('Stop',[]),
       repeat(4,[
         action([
           wait(100+ $rand*50),
-          fire(dirAbs(90),spdAbs(1),bulletRef(aimFan,[])),
-          fire(dirAbs(- 90),spdAbs(1),bulletRef(aimFan,[]))
+          fire(dirAbs(90),none,bulletRef(aimFan,[])),
+          fire(dirAbs(- 90),none,bulletRef(aimFan,[]))
         ])
       ]),
       vanish
@@ -53,38 +51,36 @@ bulletML(vertical,[
       repeat(120+ $rank*200,[
         action([
           wait(440/(120+ $rank*200)+ $rand),
-          fire(dirSeq(17* $1),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirSeq(17* $1),spdSeq(0),bullet(none,none,[]))
         ])
       ])
     ])
   ]),
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(soldier,[1,90])),
-    fire(dirAim(0),spdAbs(1),bulletRef(soldier,[- 1,- 80])),
-    fire(dirAbs(180),spdAbs(1),bulletRef(subBatteryAim,[])),
-    fire(dirAbs(90),spdAbs(1),bulletRef(subBatteryFan,[])),
-    fire(dirAbs(- 90),spdAbs(1),bulletRef(subBatteryFan,[])),
-    fire(dirAbs(180),spdAbs(2),bullet(dirAim(0),spdAbs(1),[
+    fire(none,none,bulletRef(soldier,[1,90])),
+    fire(none,none,bulletRef(soldier,[- 1,- 80])),
+    fire(dirAbs(180),none,bulletRef(subBatteryAim,[])),
+    fire(dirAbs(90),none,bulletRef(subBatteryFan,[])),
+    fire(dirAbs(- 90),none,bulletRef(subBatteryFan,[])),
+    fire(dirAbs(180),spdAbs(2),bullet(none,none,[
       action([
         wait(10),
-        fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([actionRef(mainBattery,[]),vanish])])),
+        fire(none,spdAbs(0),bullet(none,none,[action([actionRef(mainBattery,[]),vanish])])),
         vanish
       ])
     ])),
     wait(500)
   ]),
   mainBattery:action([
-    repeat(15,[
-      action([wait(8),fire(dirAim(0),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[]))])
-    ]),
+    repeat(15,[action([wait(8),fire(dirAim(0),spdAbs(1.6),bullet(none,none,[]))])]),
     wait(195),
     repeat(4,[
       action([
         wait(20),
-        fire(dirAbs(88+ $rand*4),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAbs(88+ $rand*4),spdAbs(1.6),bullet(none,none,[])),
         actionRef('XWay',[12+ $rank*16,180/(12+ $rank*16)]),
         wait(20),
-        fire(dirAbs(93+ $rand*4),spdAbs(1.6),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirAbs(93+ $rand*4),spdAbs(1.6),bullet(none,none,[])),
         actionRef('XWay',[11+ $rank*16,170/(11+ $rank*16)])
       ])
     ]),

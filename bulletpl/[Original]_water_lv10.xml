@@ -10,7 +10,7 @@ bulletML(vertical,[
     ]),
     wait(450)
   ]),
-  longbit:bullet(dirAim(0),spdAbs(1),[
+  longbit:bullet(none,none,[
     action([
       wait($2),
       changeSpeed(spdAbs(0.0001),1),
@@ -20,7 +20,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  shortbit:bullet(dirAim(0),spdAbs(1),[
+  shortbit:bullet(none,none,[
     action([
       wait($2),
       changeSpeed(spdAbs(0.0001),1),
@@ -30,22 +30,22 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  longnobit:bullet(dirAim(0),spdAbs(1),[
+  longnobit:bullet(none,none,[
     action([
-      fire(dirAim(- (60-40* $rank)),spdAbs(3.6-2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAim(0),spdAbs(0.8+0.5* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAim(60-40* $rank),spdAbs(3.6-2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(- (60-40* $rank)),spdAbs(3.6-2.0* $rank),bullet(none,none,[])),
+      fire(dirAim(0),spdAbs(0.8+0.5* $rank),bullet(none,none,[])),
+      fire(dirAim(60-40* $rank),spdAbs(3.6-2.0* $rank),bullet(none,none,[])),
       vanish
     ])
   ]),
-  shortnobit:bullet(dirAim(0),spdAbs(1),[
+  shortnobit:bullet(none,none,[
     action([
-      fire(dirAim(- ((40-30* $rank)*3)),spdAbs(3.6-2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAim(- (40-30* $rank)),spdAbs(3.3-2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAim(40-30* $rank),spdAbs(3.3-2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAim((40-30* $rank)*3),spdAbs(3.6-2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(- ((40-30* $rank)*3)),spdAbs(3.6-2.0* $rank),bullet(none,none,[])),
+      fire(dirAim(- (40-30* $rank)),spdAbs(3.3-2.0* $rank),bullet(none,none,[])),
+      fire(dirAim(40-30* $rank),spdAbs(3.3-2.0* $rank),bullet(none,none,[])),
+      fire(dirAim((40-30* $rank)*3),spdAbs(3.6-2.0* $rank),bullet(none,none,[])),
       vanish
     ])
   ]),
-  weak:bullet(dirAim(0),spdAbs(1),[action([wait($1),vanish])])
+  weak:bullet(none,none,[action([wait($1),vanish])])
 ]).

@@ -1,5 +1,5 @@
 bulletML(none,[
-  seed3:bullet(dirAim(0),spdAbs(0.8),[
+  seed3:bullet(none,spdAbs(0.8),[
     action([
       changeDirection(dirSeq(1.2),9999),
       repeat(100+200* $rank,[action([wait(3- $rank*2* $rand)])])
@@ -7,10 +7,8 @@ bulletML(none,[
     action([
       repeat(6,[
         action([
-          fire(dirAim(0),spdAbs(1),bullet(dirAim(- 8),spdAbs(1),[])),
-          repeat(4,[
-            action([fire(dirAim(0),spdAbs(1),bullet(dirSeq(4),spdAbs(1),[action([])]))])
-          ]),
+          fire(none,none,bullet(dirAim(- 8),none,[])),
+          repeat(4,[action([fire(none,none,bullet(dirSeq(4),none,[action([])]))])]),
           wait(80)
         ])
       ]),

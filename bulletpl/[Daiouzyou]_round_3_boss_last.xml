@@ -1,5 +1,5 @@
 bulletML(vertical,[
-  'Dummy':bullet(dirAim(0),spdAbs(1),[action([vanish])]),
+  'Dummy':bullet(none,none,[action([vanish])]),
   top:action([
     fire(dirAbs(100),spdAbs(3),bulletRef(armSrc,[1])),
     fire(dirAbs(- 100),spdAbs(3),bulletRef(armSrc,[0])),
@@ -7,22 +7,22 @@ bulletML(vertical,[
     wait(500)
   ]),
   center3:action([
-    fire(dirAim(- 10.5* $1),spdAbs(1),bulletRef('Dummy',[])),
+    fire(dirAim(- 10.5* $1),none,bulletRef('Dummy',[])),
     repeat(3,[
       action([
         repeat(6,[
           action([
-            fire(dirSeq($1),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-            repeat(3,[action([fire(dirSeq(90),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])]),
+            fire(dirSeq($1),spdAbs(1+ $rank),bullet(none,none,[])),
+            repeat(3,[action([fire(dirSeq(90),spdSeq(0),bullet(none,none,[]))])]),
             wait(5)
           ])
         ]),
-        fire(dirSeq($1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+        fire(dirSeq($1),none,bullet(none,none,[action([vanish])])),
         wait(5)
       ])
     ])
   ]),
-  center:fire(dirAbs(180),spdAbs(5),bullet(dirAim(0),spdAbs(1),[
+  center:fire(dirAbs(180),spdAbs(5),bullet(none,none,[
     action([
       wait(10),
       changeSpeed(spdAbs(0),1),
@@ -32,7 +32,7 @@ bulletML(vertical,[
       vanish
     ])
   ])),
-  armSrc:bullet(dirAim(0),spdAbs(1),[
+  armSrc:bullet(none,none,[
     action([
       wait(12),
       changeSpeed(spdAbs(0),1),
@@ -47,14 +47,11 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  arm:fire(dirAim(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
+  arm:fire(none,spdAbs(0),bullet(none,none,[
     action([
-      fire(dirAbs($2),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs($2),spdAbs(1.5),bullet(none,none,[])),
       repeat(80+ $rank*80,[
-        action([
-          wait(480/(80+ $rank*80)),
-          fire(dirSeq($1),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))
-        ])
+        action([wait(480/(80+ $rank*80)),fire(dirSeq($1),spdSeq(0),bullet(none,none,[]))])
       ]),
       vanish
     ])

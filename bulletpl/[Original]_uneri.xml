@@ -1,15 +1,15 @@
 bulletML(none,[
   src:action([
-    fire(dirAim($1),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAim($1),spdAbs(1.5),bullet(none,none,[])),
     repeat(450/(4- $rank*2),[
       action([
         wait(4.5- $rank*3+ $rand),
-        fire(dirSeq($rand*10-5),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[]))
+        fire(dirSeq($rand*10-5),spdAbs(1.5),bullet(none,none,[]))
       ])
     ]),
     vanish
   ]),
-  srcFire:fire(dirAbs(90),spdAbs($1),bullet(dirAim(0),spdAbs(1),[action([wait(5),changeSpeed(spdAbs(0),1),actionRef(src,[$2])])])),
+  srcFire:fire(dirAbs(90),spdAbs($1),bullet(none,none,[action([wait(5),changeSpeed(spdAbs(0),1),actionRef(src,[$2])])])),
   top:action([
     fireRef(srcFire,[0,0]),
     fireRef(srcFire,[4,10]),

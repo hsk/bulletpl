@@ -1,17 +1,13 @@
 bulletML(none,[
   '8way2':action([
-    fire(dirAbs(180-75),spdAbs(4),bullet(dirAim(0),spdAbs(1),[])),
-    repeat(7,[action([fire(dirSeq(9),spdSeq(- 0.25),bullet(dirAim(0),spdAbs(1),[]))])]),
-    fire(dirAbs(180+75),spdAbs(4),bullet(dirAim(0),spdAbs(1),[])),
-    repeat(7,[action([fire(dirSeq(- 9),spdSeq(- 0.25),bullet(dirAim(0),spdAbs(1),[]))])])
+    fire(dirAbs(180-75),spdAbs(4),bullet(none,none,[])),
+    repeat(7,[action([fire(dirSeq(9),spdSeq(- 0.25),bullet(none,none,[]))])]),
+    fire(dirAbs(180+75),spdAbs(4),bullet(none,none,[])),
+    repeat(7,[action([fire(dirSeq(- 9),spdSeq(- 0.25),bullet(none,none,[]))])])
   ]),
   downShot:action([
-    fire(dirAim(- 60+ $rand*120),spdAbs(4* $rand),bullet(dirAim(0),spdAbs(1),[
-      action([
-        wait(20),
-        fire(dirAbs(180),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[])),
-        vanish
-      ])
+    fire(dirAim(- 60+ $rand*120),spdAbs(4* $rand),bullet(none,none,[
+      action([wait(20),fire(dirAbs(180),spdAbs(1.2),bullet(none,none,[])),vanish])
     ]))
   ]),
   gara:action([

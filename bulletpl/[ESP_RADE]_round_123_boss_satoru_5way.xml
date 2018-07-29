@@ -1,10 +1,8 @@
 bulletML(none,[
   '1way':action([
-    fire(dirAim($2+ $1* $rand*2- $1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirAim($2+ $1* $rand*2- $1),spdAbs(1),bullet(none,none,[])),
     repeat(20,[
-      action([
-        fire(dirAim($2+ $1* $rand*2- $1),spdSeq(0.1),bullet(dirAim(0),spdAbs(1),[]))
-      ])
+      action([fire(dirAim($2+ $1* $rand*2- $1),spdSeq(0.1),bullet(none,none,[]))])
     ])
   ]),
   '5way':action([

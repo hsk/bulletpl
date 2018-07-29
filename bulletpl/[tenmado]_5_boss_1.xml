@@ -10,7 +10,7 @@ bulletML(vertical,[
     ]),
     wait(20)
   ]),
-  surprise:bullet(dirAim(0),spdAbs(1),[
+  surprise:bullet(none,none,[
     action([
       wait(100),
       changeSpeed(spdAbs(0),1),
@@ -18,8 +18,8 @@ bulletML(vertical,[
         action([
           repeat(30,[
             action([
-              fire(dirAim(3.5),spdAbs(15+ $rand*15),bullet(dirAim(0),spdAbs(1),[action([])])),
-              fire(dirAim(- 3.5),spdAbs(15+ $rand*15),bullet(dirAim(0),spdAbs(1),[action([])]))
+              fire(dirAim(3.5),spdAbs(15+ $rand*15),bullet(none,none,[action([])])),
+              fire(dirAim(- 3.5),spdAbs(15+ $rand*15),bullet(none,none,[action([])]))
             ])
           ]),
           wait(1)
@@ -28,12 +28,12 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  random:bullet(dirAim(0),spdAbs(1),[
+  random:bullet(none,none,[
     action([
       wait(200),
       repeat(6000/(130-100* $rank),[
         action([
-          fire(dirAim(- 22+44* $rand),spdAbs(1.6+1.0* $rand),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAim(- 22+44* $rand),spdAbs(1.6+1.0* $rand),bullet(none,none,[])),
           wait(0.1*(130-100* $rank))
         ])
       ]),

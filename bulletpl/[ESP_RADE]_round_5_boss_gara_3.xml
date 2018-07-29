@@ -1,28 +1,26 @@
 bulletML(none,[
   stop:action([wait(15),changeSpeed(spdAbs(0),1),wait(1)]),
-  featherAllWay:bullet(dirAim(0),spdAbs(1),[
+  featherAllWay:bullet(none,none,[
     action([
-      fire(dirRel($2*(180-(10- $1)*60)),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+      fire(dirRel($2*(180-(10- $1)*60)),spdAbs(0),bullet(none,none,[action([vanish])])),
       actionRef(stop,[]),
       repeat(40,[
         action([
-          fire(dirSeq(- 2*(7- $1)* $2),spdAbs(0.9+0.2*(6- $1)),bullet(dirAim(0),spdAbs(1),[])),
-          repeat($1-1,[action([fire(dirSeq(- 2* $2),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])]),
+          fire(dirSeq(- 2*(7- $1)* $2),spdAbs(0.9+0.2*(6- $1)),bullet(none,none,[])),
+          repeat($1-1,[action([fire(dirSeq(- 2* $2),spdSeq(0),bullet(none,none,[]))])]),
           wait(15)
         ])
       ]),
       vanish
     ])
   ]),
-  featherAim:bullet(dirAim(0),spdAbs(1),[
+  featherAim:bullet(none,none,[
     action([
       actionRef(stop,[]),
       repeat(10+ $rank*20,[
         action([
-          fire(dirAim(- 3),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[action([])])),
-          repeat(2,[
-            action([fire(dirSeq(3),spdSeq(0),bullet(dirAim(0),spdAbs(1),[action([])]))])
-          ]),
+          fire(dirAim(- 3),spdAbs(1.2),bullet(none,none,[action([])])),
+          repeat(2,[action([fire(dirSeq(3),spdSeq(0),bullet(none,none,[action([])]))])]),
           wait(40- $rank*20)
         ])
       ]),

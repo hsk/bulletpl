@@ -107,7 +107,11 @@ fireRef(K,Ps):-
 fire(D,S,bulletRef(K,Ps)) :-
   bulletV(K,G,D_,S_,As),foldl(refmap(G),Ps,1,_),fire1(D,S,bullet(D_,S_,As),K).
 fire(D,S,B) :- fire1(D,S,B,normal).
-fire1(D,S,bullet(_,_,As),K) :-
+selectParam(none,none,Default,Default).
+selectParam(none,BulletP,_,BulletP).
+selectParam(FireP,_,_,FireP).
+fire1(FD,FS,bullet(BD,BS,As),K) :-
+  selectParam(FD,BD,dirAim(0),D),selectParam(FS,BS,spdAbs(1),S),
   bullet(B),getShip(Ship),
   spd(B,S,Ship,S_),!,
   dir(B,D,Ship,D_),!,newBullet(B.x,B.y,B2,K),
@@ -175,9 +179,11 @@ rankUp :- retract(rank(N)),N1 is N+1,asserta(rank(N1)).
 :- use_module(syntax,[]).
 setColor(K) :- retract(color(C)),asserta(color(K,C)).
 setColor(K) :- asserta(color(K,red)).
-:- maplist(assert,[color(green), color(blue), color(red), color(yellow), color(black)]).
-:- asserta(color(normal,white)),asserta(color(top,red)).
 run(bulletML(Mode,Ds)) :-
+  assert(color(a)),assert(color(a,a)),
+  retractall(color(_)),retractall(color(_,_)),
+  maplist(assert,[color(green), color(blue), color(red), color(yellow), color(black)]),
+  asserta(color(normal,white)),asserta(color(top,red)),
   (syntax:t(bulletML(Mode,Ds)),!; writeln(syntax:error),halt),!,
   writeln(syntax:ok),
   setRank(1),

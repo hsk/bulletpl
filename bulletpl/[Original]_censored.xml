@@ -1,6 +1,6 @@
 bulletML(vertical,[
   top:action([fire(dirAbs(180),spdAbs(3.0),bulletRef(center,[0])),wait(800-50* $rank)]),
-  center:bullet(dirAim(0),spdAbs(1),[
+  center:bullet(none,none,[
     action([
       wait(15),
       fire(dirAbs(- 10+ $1),spdAbs(2.0),bulletRef(arm,[])),
@@ -10,41 +10,37 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  arm:bullet(dirAim(0),spdAbs(1),[
+  arm:bullet(none,none,[
     action([
       wait(25),
       changeSpeed(spdAbs(0),1),
       wait(5),
-      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[330,- 8])),
-      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[270,- 5])),
-      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[210,- 2])),
-      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[150,2])),
-      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[90,5])),
-      fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[30,8])),
+      fire(none,none,bulletRef(halfwinder,[330,- 8])),
+      fire(none,none,bulletRef(halfwinder,[270,- 5])),
+      fire(none,none,bulletRef(halfwinder,[210,- 2])),
+      fire(none,none,bulletRef(halfwinder,[150,2])),
+      fire(none,none,bulletRef(halfwinder,[90,5])),
+      fire(none,none,bulletRef(halfwinder,[30,8])),
       vanish
     ])
   ]),
   halfwinder:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAim(0),spdAbs(1),bulletRef(bit,[$1,$2])),
-      fire(dirAim(0),spdAbs(1),bulletRef(changecolor,[$1,- $2])),
+      fire(none,none,bulletRef(bit,[$1,$2])),
+      fire(none,none,bulletRef(changecolor,[$1,- $2])),
       vanish
     ])
   ]),
   changecolor:bullet(dirAbs(0),spdAbs(0),[
-    action([
-      wait((62-50* $rank)/3),
-      fire(dirAim(0),spdAbs(1),bulletRef(bit,[$1,$2])),
-      vanish
-    ])
+    action([wait((62-50* $rank)/3),fire(none,none,bulletRef(bit,[$1,$2])),vanish])
   ]),
   bit:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAbs($1),spdAbs(0.7+1.1* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs($1),spdAbs(0.7+1.1* $rank),bullet(none,none,[])),
       wait(62-50* $rank),
       repeat(600/(62-50* $rank),[
         action([
-          fire(dirSeq($2),spdAbs(0.7+1.1* $rank),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq($2),spdAbs(0.7+1.1* $rank),bullet(none,none,[])),
           wait(62-50* $rank)
         ])
       ]),

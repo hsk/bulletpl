@@ -10,23 +10,23 @@ bulletML(vertical,[
     actionRef(main,[$rand,1,- 1,1,- 1])
   ]),
   main:action([
-    fire(dirAbs(45),spdAbs(1),bulletRef(cross,[$1,$2])),
-    fire(dirSeq(90),spdAbs(1),bulletRef(cross,[$1,$3])),
-    fire(dirSeq(90),spdAbs(1),bulletRef(cross,[$1,$4])),
-    fire(dirSeq(90),spdAbs(1),bulletRef(cross,[$1,$5])),
+    fire(dirAbs(45),none,bulletRef(cross,[$1,$2])),
+    fire(dirSeq(90),none,bulletRef(cross,[$1,$3])),
+    fire(dirSeq(90),none,bulletRef(cross,[$1,$4])),
+    fire(dirSeq(90),none,bulletRef(cross,[$1,$5])),
     wait(200- $rank*100)
   ]),
-  cross:bullet(dirAim(0),spdAbs(1),[
+  cross:bullet(none,spdAbs(1),[
     action([
       wait(15),
       changeSpeed(spdAbs(0),1),
-      fire(dirAbs(360* $1* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirSeq(180* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs(360* $1* $2),spdAbs(1+ $rank* $rank*1),bullet(none,none,[])),
+      fire(dirSeq(180* $2),spdAbs(1+ $rank* $rank*1),bullet(none,none,[])),
       repeat(49,[
         action([
           wait(4- $rank*2),
-          fire(dirSeq(187.7* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[])),
-          fire(dirSeq(180* $2),spdAbs(1+ $rank* $rank*1),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirSeq(187.7* $2),spdAbs(1+ $rank* $rank*1),bullet(none,none,[])),
+          fire(dirSeq(180* $2),spdAbs(1+ $rank* $rank*1),bullet(none,none,[]))
         ])
       ]),
       vanish

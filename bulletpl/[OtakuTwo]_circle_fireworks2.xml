@@ -6,15 +6,11 @@ bulletML(none,[
     changeSpeed(spdAbs(0),1),
     repeat(20+ $rank*40,[
       action([
-        fire(dirAim(0),spdAbs(1.2+ $rank*1.8),bullet(dirAim(0),spdAbs(1),[])),
-        repeat(59,[
-          action([fire(dirSeq(6),spdAbs(1.2+ $rank*1.8),bullet(dirAim(0),spdAbs(1),[]))])
-        ]),
+        fire(dirAim(0),spdAbs(1.2+ $rank*1.8),bullet(none,none,[])),
+        repeat(59,[action([fire(dirSeq(6),spdAbs(1.2+ $rank*1.8),bullet(none,none,[]))])]),
         wait(30- $rank*20),
-        fire(dirSeq(9),spdAbs(0.4+ $rank*0.6),bullet(dirAim(0),spdAbs(1),[])),
-        repeat(59,[
-          action([fire(dirSeq(6),spdAbs(0.4+ $rank*0.6),bullet(dirAim(0),spdAbs(1),[]))])
-        ]),
+        fire(dirSeq(9),spdAbs(0.4+ $rank*0.6),bullet(none,none,[])),
+        repeat(59,[action([fire(dirSeq(6),spdAbs(0.4+ $rank*0.6),bullet(none,none,[]))])]),
         wait(30- $rank*20)
       ])
     ]),

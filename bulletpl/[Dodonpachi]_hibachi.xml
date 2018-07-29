@@ -1,9 +1,7 @@
 bulletML(none,[
   allWay:action([
-    fire(dirAim(- 50+ $rand*20),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-    repeat(15+16* $rank* $rank,[
-      action([fire(dirSeq(24- $rank*12),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])
-    ])
+    fire(dirAim(- 50+ $rand*20),spdAbs(1+ $rank),bullet(none,none,[])),
+    repeat(15+16* $rank* $rank,[action([fire(dirSeq(24- $rank*12),spdSeq(0),bullet(none,none,[]))])])
   ]),
   right:action([
     changeDirection(dirAbs(90),1),

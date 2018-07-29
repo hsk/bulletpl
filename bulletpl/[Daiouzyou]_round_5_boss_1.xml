@@ -1,19 +1,17 @@
 bulletML(vertical,[
   'Stop':action([changeSpeed(spdAbs(0),1)]),
-  'XWay':action([
-    repeat($1-1,[action([fire(dirSeq($2),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
-  aim3:bullet(dirAim(0),spdAbs(1),[action([wait(10),fire(dirAim(0),spdAbs(0),bulletRef(aim3Impl,[])),vanish])]),
-  aim3Impl:bullet(dirAim(0),spdAbs(1),[
+  'XWay':action([repeat($1-1,[action([fire(dirSeq($2),spdSeq(0),bullet(none,none,[]))])])]),
+  aim3:bullet(none,none,[action([wait(10),fire(none,spdAbs(0),bulletRef(aim3Impl,[])),vanish])]),
+  aim3Impl:bullet(none,none,[
     action([
       repeat(7,[
         action([
-          fire(dirAim(- 33+ $rand*6),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAim(- 33+ $rand*6),spdAbs(1.5),bullet(none,none,[])),
           actionRef('XWay',[3,30]),
           repeat(2+ $rank*3,[
             action([
               wait(3),
-              fire(dirSeq(- 60),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
+              fire(dirSeq(- 60),spdAbs(1.5),bullet(none,none,[])),
               actionRef('XWay',[3,30])
             ])
           ]),
@@ -23,28 +21,26 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  aim:bullet(dirAim(0),spdAbs(1),[action([wait(10),fire(dirAim(0),spdAbs(0),bulletRef(aimImpl,[])),vanish])]),
-  aimImpl:bullet(dirAim(0),spdAbs(1),[
+  aim:bullet(none,none,[action([wait(10),fire(none,spdAbs(0),bulletRef(aimImpl,[])),vanish])]),
+  aimImpl:bullet(none,none,[
     action([
       repeat(7,[
         action([
-          fire(dirAim(- 3+ $rand*6),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[])),
-          repeat(2+ $rank*3,[
-            action([wait(3),fire(dirSeq(0),spdAbs(1.5),bullet(dirAim(0),spdAbs(1),[]))])
-          ]),
+          fire(dirAim(- 3+ $rand*6),spdAbs(1.5),bullet(none,none,[])),
+          repeat(2+ $rank*3,[action([wait(3),fire(dirSeq(0),spdAbs(1.5),bullet(none,none,[]))])]),
           wait(54- $rank*9)
         ])
       ]),
       vanish
     ])
   ]),
-  fan:bullet(dirAim(0),spdAbs(1),[
+  fan:bullet(none,none,[
     action([
       wait(10),
       actionRef('Stop',[]),
       repeat(3+ $rank*4,[
         action([
-          fire(dirAbs($1- $2*3),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAbs($1- $2*3),spdAbs($3),bullet(none,none,[])),
           actionRef('XWay',[7,10]),
           wait(420/(3+ $rank*4))
         ])

@@ -1,16 +1,14 @@
 bulletML(vertical,[
-  add11:action([
-    repeat(11,[action([fire(dirSeq(30),spdSeq(0),bullet(dirAim(0),spdAbs(1),[]))])])
-  ]),
+  add11:action([repeat(11,[action([fire(dirSeq(30),spdSeq(0),bullet(none,none,[]))])])]),
   top:action([
     repeat(30,[
       action([
-        fire(dirSeq(- 11),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(- 11),spdAbs(1+ $rank),bullet(none,none,[])),
         actionRef(add11,[]),
         repeat(3,[
           action([
             wait(4- $rank*2+ $rand),
-            fire(dirSeq(- 5+30),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+            fire(dirSeq(- 5+30),spdAbs(1+ $rank),bullet(none,none,[])),
             actionRef(add11,[])
           ])
         ]),

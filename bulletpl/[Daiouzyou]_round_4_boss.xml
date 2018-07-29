@@ -4,7 +4,7 @@ bulletML(vertical,[
     fire(dirAbs(- 110),spdAbs(3),bulletRef(armSrc,[0])),
     wait(400)
   ]),
-  armSrc:bullet(dirAim(0),spdAbs(1),[
+  armSrc:bullet(none,none,[
     action([
       wait(12),
       fire(dirAbs(180),spdAbs(1),bulletRef(arm,[$1,1])),
@@ -16,15 +16,15 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  arm:bullet(dirAim(0),spdAbs(1),[
+  arm:bullet(none,none,[
     action([
       wait(12),
-      fire(dirRel(180* $1),spdAbs(1),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+      fire(dirRel(180* $1),none,bullet(none,none,[action([vanish])])),
       changeSpeed(spdAbs(0),1),
       repeat(400/(6- $rank*2),[
         action([
           wait(6- $rank*2+ $rand),
-          fire(dirSeq(11* $2),spdAbs(1.5+ $rank*0.5),bullet(dirAim(0),spdAbs(1),[]))
+          fire(dirSeq(11* $2),spdAbs(1.5+ $rank*0.5),bullet(none,none,[]))
         ])
       ]),
       vanish

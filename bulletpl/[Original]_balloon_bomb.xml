@@ -8,7 +8,7 @@ bulletML(vertical,[
     ]),
     wait(200-100* $rank)
   ]),
-  balloon:bullet(dirAim(0),spdAbs(1),[
+  balloon:bullet(none,none,[
     action([
       wait(20),
       changeSpeed(spdAbs(0),1),
@@ -28,7 +28,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  balloonbit:bullet(dirAim(0),spdAbs(1),[
+  balloonbit:bullet(none,none,[
     action([
       wait(4),
       fire(dirRel(- 60),spdAbs($1),bulletRef(curvebit,[5,- 50,$1])),
@@ -36,7 +36,5 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  curvebit:bullet(dirAim(0),spdAbs(1),[
-    action([wait($1),fire(dirRel($2),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),vanish])
-  ])
+  curvebit:bullet(none,none,[action([wait($1),fire(dirRel($2),spdAbs($3),bullet(none,none,[])),vanish])])
 ]).

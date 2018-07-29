@@ -1,51 +1,43 @@
 bulletML(vertical,[
   top:action([
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,360,- 7])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,330,- 6])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,300,- 5])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,270,- 4])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,240,- 3])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,210,- 2])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,180,- 1])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,180,1])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,150,2])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,120,3])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,90,4])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,60,5])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,30,6])),
-    fire(dirAim(0),spdAbs(1),bulletRef(halfwinder,[1.8,2,0,7])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,360,- 7])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,330,- 6])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,300,- 5])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,270,- 4])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,240,- 3])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,210,- 2])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,180,- 1])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,180,1])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,150,2])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,120,3])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,90,4])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,60,5])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,30,6])),
+    fire(none,none,bulletRef(halfwinder,[1.8,2,0,7])),
     wait(700)
   ]),
   halfwinder:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAim(0),spdAbs(1),bulletRef(bit,[$1,$2,$3,$4])),
-      fire(dirAim(0),spdAbs(1),bulletRef(changecolor,[$1,$2,$3,- $4])),
+      fire(none,none,bulletRef(bit,[$1,$2,$3,$4])),
+      fire(none,none,bulletRef(changecolor,[$1,$2,$3,- $4])),
       vanish
     ])
   ]),
-  changecolor:bullet(dirAbs(0),spdAbs(0),[
-    action([wait($2*2),fire(dirAim(0),spdAbs(1),bulletRef(bit,[$1,$2,$3,$4])),vanish])
-  ]),
+  changecolor:bullet(dirAbs(0),spdAbs(0),[action([wait($2*2),fire(none,none,bulletRef(bit,[$1,$2,$3,$4])),vanish])]),
   bit:bullet(dirAbs(0),spdAbs(0),[
     action([
-      fire(dirAbs($3),spdAbs(1),bulletRef(laser,[$1,$2])),
+      fire(dirAbs($3),none,bulletRef(laser,[$1,$2])),
       wait($2*(15-9* $rank)),
       repeat(300/(15-9* $rank),[
-        action([
-          fire(dirSeq($4),spdAbs(1),bulletRef(laser,[$1,$2])),
-          wait($2*(15-9* $rank))
-        ])
+        action([fire(dirSeq($4),none,bulletRef(laser,[$1,$2])),wait($2*(15-9* $rank))])
       ]),
       vanish
     ])
   ]),
-  laser:bullet(dirAim(0),spdAbs(0.01),[
+  laser:bullet(none,spdAbs(0.01),[
     action([
       repeat(1+3* $rank,[
-        action([
-          fire(dirRel(0),spdAbs($1*(0.5+0.5* $rank)),bullet(dirAim(0),spdAbs(1),[])),
-          wait($2)
-        ])
+        action([fire(dirRel(0),spdAbs($1*(0.5+0.5* $rank)),bullet(none,none,[])),wait($2)])
       ]),
       vanish
     ])

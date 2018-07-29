@@ -1,10 +1,6 @@
 bulletML(vertical,[
-  circle:fire(dirSeq($1),spdAbs(6),bullet(dirAim(0),spdAbs(1),[
-    action([
-      wait(3),
-      fire(dirAbs($2),spdAbs(1.5+ $rank),bullet(dirAim(0),spdAbs(1),[])),
-      vanish
-    ])
+  circle:fire(dirSeq($1),spdAbs(6),bullet(none,none,[
+    action([wait(3),fire(dirAbs($2),spdAbs(1.5+ $rank),bullet(none,none,[])),vanish])
   ])),
   fireCircle:action([repeat(18,[action([fireRef(circle,[20,$1])])])]),
   top:action([

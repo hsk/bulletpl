@@ -27,14 +27,12 @@ bulletML(vertical,[
     ]),
     wait(150)
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
       wait($2),
       changeSpeed(spdAbs(0),1),
       fire(dirRel($3),spdAbs($1*1.05),bulletRef(bit,[$1*1.05,$2,- $3])),
-      repeat(10,[
-        action([fire(dirSeq(0),spdAbs($1*1.05),bullet(dirAim(0),spdAbs(1),[])),wait(2)])
-      ]),
+      repeat(10,[action([fire(dirSeq(0),spdAbs($1*1.05),bullet(none,none,[])),wait(2)])]),
       vanish
     ])
   ])

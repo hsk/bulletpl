@@ -14,7 +14,7 @@ bulletML(vertical,[
     ]),
     wait(100)
   ]),
-  reflect:bullet(dirAim(0),spdAbs(1),[
+  reflect:bullet(none,none,[
     action([
       wait((30+20* $rand)*(1.0-0.5* $rank)),
       repeat(3,[
@@ -26,20 +26,17 @@ bulletML(vertical,[
       changeDirection(dirAim(0),1)
     ])
   ]),
-  seal:bullet(dirAim(0),spdAbs(1),[
+  seal:bullet(none,none,[
     action([
       wait(10+10* $rand),
       changeSpeed(spdAbs(0),1),
       wait(5),
-      fire(dirAim(0),spdAbs(3.0+2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(0),spdAbs(3.0+2.0* $rank),bullet(none,none,[])),
       wait(5),
       repeat(7,[
-        action([
-          fire(dirSeq(45),spdAbs(3.0+2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
-          wait(5)
-        ])
+        action([fire(dirSeq(45),spdAbs(3.0+2.0* $rank),bullet(none,none,[])),wait(5)])
       ]),
-      fire(dirAim(0),spdAbs(3.0+2.0* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAim(0),spdAbs(3.0+2.0* $rank),bullet(none,none,[])),
       vanish
     ])
   ])

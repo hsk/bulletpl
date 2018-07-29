@@ -59,11 +59,7 @@ bulletML(vertical,[
     ])
   ]),
   allrange:action([
-    fire(dirRel($1),spdAbs(0.8+ $rank*1.6),bullet(dirAim(0),spdAbs(1),[])),
-    repeat($2-1,[
-      action([
-        fire(dirSeq(360/ $2),spdAbs(0.8+ $rank*1.6),bullet(dirAim(0),spdAbs(1),[]))
-      ])
-    ])
+    fire(dirRel($1),spdAbs(0.8+ $rank*1.6),bullet(none,none,[])),
+    repeat($2-1,[action([fire(dirSeq(360/ $2),spdAbs(0.8+ $rank*1.6),bullet(none,none,[]))])])
   ])
 ]).

@@ -22,18 +22,16 @@ bulletML(vertical,[
     wait(55)
   ]),
   wall:action([
-    fire(dirRel($1),spdAbs(1+ $rank*1.2),bullet(dirAim(0),spdAbs(1),[])),
+    fire(dirRel($1),spdAbs(1+ $rank*1.2),bullet(none,none,[])),
     actionRef(wallbody,[]),
     repeat(11,[
       action([
-        fire(dirSeq(15),spdAbs(1+ $rank*1.2),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(15),spdAbs(1+ $rank*1.2),bullet(none,none,[])),
         actionRef(wallbody,[])
       ])
     ])
   ]),
   wallbody:action([
-    repeat(15,[
-      action([fire(dirSeq(1),spdAbs(1+ $rank*1.2),bullet(dirAim(0),spdAbs(1),[]))])
-    ])
+    repeat(15,[action([fire(dirSeq(1),spdAbs(1+ $rank*1.2),bullet(none,none,[]))])])
   ])
 ]).

@@ -18,15 +18,15 @@ bulletML(vertical,[
     fireRef(direction,[$rand*360]),
     repeat(12,[
       action([
-        fire(dirSeq(7.5),spdAbs(1),bulletRef(turn,[1])),
-        repeat(5,[action([fire(dirSeq(1.5),spdAbs(1),bulletRef(turn,[1]))])]),
-        fire(dirSeq(7.5),spdAbs(1),bulletRef(turn,[- 1])),
-        repeat(5,[action([fire(dirSeq(1.5),spdAbs(1),bulletRef(turn,[- 1]))])])
+        fire(dirSeq(7.5),none,bulletRef(turn,[1])),
+        repeat(5,[action([fire(dirSeq(1.5),none,bulletRef(turn,[1]))])]),
+        fire(dirSeq(7.5),none,bulletRef(turn,[- 1])),
+        repeat(5,[action([fire(dirSeq(1.5),none,bulletRef(turn,[- 1]))])])
       ])
     ]),
     wait(50)
   ]),
-  turn:bullet(dirAim(0),spdAbs(0.2+ $rank*0.2),[
+  turn:bullet(none,spdAbs(0.2+ $rank*0.2),[
     action([
       repeat(9999,[
         action([
@@ -37,16 +37,14 @@ bulletML(vertical,[
       ])
     ])
   ]),
-  bee:fire(dirAbs(0),spdAbs(0),bullet(dirAim(0),spdAbs(1),[
+  bee:fire(dirAbs(0),spdAbs(0),bullet(none,none,[
     action([
       fireRef(direction,[- (65.3+ $2)* $1]),
       repeat(150+ $rank*150,[
         action([
-          fire(dirSeq((65.3+ $2)* $1),spdAbs(1+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirSeq((65.3+ $2)* $1),spdAbs(1+ $rank),bullet(none,none,[])),
           repeat(5,[
-            action([
-              fire(dirSeq(60* $1),spdAbs(1+ $rank* $rank*2),bullet(dirAim(0),spdAbs(1),[]))
-            ])
+            action([fire(dirSeq(60* $1),spdAbs(1+ $rank* $rank*2),bullet(none,none,[]))])
           ]),
           wait(10- $rank*5)
         ])
@@ -54,5 +52,5 @@ bulletML(vertical,[
       vanish
     ])
   ])),
-  direction:fire(dirRel($1),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([vanish])]))
+  direction:fire(dirRel($1),spdAbs(0),bullet(none,none,[action([vanish])]))
 ]).

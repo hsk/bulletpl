@@ -5,14 +5,12 @@ bulletML(vertical,[
     wait(2),
     repeat(30+ $rank*80,[action([fire(dirSeq(27),spdAbs(7.5),bulletRef(shoot,[])),wait(2)])])
   ]),
-  shoot:bullet(dirAim(0),spdAbs(1),[
+  shoot:bullet(none,none,[
     action([
       fire(dirRel(0),spdAbs(1.0+0.4* $rank),bulletRef(dummy,[])),
-      repeat(11,[
-        action([fire(dirSeq(30),spdAbs(1.0+0.4* $rank),bullet(dirAim(0),spdAbs(1),[]))])
-      ]),
+      repeat(11,[action([fire(dirSeq(30),spdAbs(1.0+0.4* $rank),bullet(none,none,[]))])]),
       vanish
     ])
   ]),
-  dummy:bullet(dirAim(0),spdAbs(1),[action([])])
+  dummy:bullet(none,none,[action([])])
 ]).

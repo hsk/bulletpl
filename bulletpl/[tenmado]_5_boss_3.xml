@@ -12,7 +12,7 @@ bulletML(vertical,[
     ]),
     wait(60)
   ]),
-  stardust:bullet(dirAim(0),spdAbs(1),[
+  stardust:bullet(none,none,[
     action([
       repeat(5+ $rank*10,[
         action([
@@ -26,23 +26,23 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  stardust2:bullet(dirAim(0),spdAbs(1),[
+  stardust2:bullet(none,none,[
     action([
       wait($1),
-      fire(dirAbs(0),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(30),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(60),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(90),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(120),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(150),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(180),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(210),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(240),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(270),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(300),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirAbs(330),spdAbs($3),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirAbs(0),spdAbs($2),bullet(none,none,[])),
+      fire(dirAbs(30),spdAbs($3),bullet(none,none,[])),
+      fire(dirAbs(60),spdAbs($2),bullet(none,none,[])),
+      fire(dirAbs(90),spdAbs($3),bullet(none,none,[])),
+      fire(dirAbs(120),spdAbs($2),bullet(none,none,[])),
+      fire(dirAbs(150),spdAbs($3),bullet(none,none,[])),
+      fire(dirAbs(180),spdAbs($2),bullet(none,none,[])),
+      fire(dirAbs(210),spdAbs($3),bullet(none,none,[])),
+      fire(dirAbs(240),spdAbs($2),bullet(none,none,[])),
+      fire(dirAbs(270),spdAbs($3),bullet(none,none,[])),
+      fire(dirAbs(300),spdAbs($2),bullet(none,none,[])),
+      fire(dirAbs(330),spdAbs($3),bullet(none,none,[])),
       vanish
     ])
   ]),
-  laser:bullet(dirAim(0),spdAbs(1),[action([changeSpeed(spdAbs($1),1)])])
+  laser:bullet(none,none,[action([changeSpeed(spdAbs($1),1)])])
 ]).

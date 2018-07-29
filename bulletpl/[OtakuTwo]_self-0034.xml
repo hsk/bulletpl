@@ -1,7 +1,7 @@
 bulletML(none,[
   top:action([
     actionRef(move,[180]),
-    fire(dirAbs($rand*360),spdAbs(0),bullet(dirAim(0),spdAbs(1),[action([vanish])])),
+    fire(dirAbs($rand*360),spdAbs(0),bullet(none,none,[action([vanish])])),
     wait(1),
     repeat(5,[
       action([
@@ -53,8 +53,8 @@ bulletML(none,[
       ])
     ])
   ]),
-  speed0:bullet(dirAim(0),spdAbs(1),[action([actionRef(stop,[]),wait(960),vanish])]),
-  speed1:bullet(dirAim(0),spdAbs(1),[
+  speed0:bullet(none,none,[action([actionRef(stop,[]),wait(960),vanish])]),
+  speed1:bullet(none,none,[
     action([
       actionRef(stop,[]),
       repeat(4,[
@@ -63,7 +63,7 @@ bulletML(none,[
       vanish
     ])
   ]),
-  speed2:bullet(dirAim(0),spdAbs(1),[
+  speed2:bullet(none,none,[
     action([
       actionRef(stop,[]),
       repeat(4,[
@@ -77,15 +77,15 @@ bulletML(none,[
     changeDirection(dirRel($1),48* $2),
     repeat((3+ $rank*3)* $2,[
       action([
-        fire(dirRel(- 30+ $rand*30),spdAbs(2+ $rank),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirRel(- 30+ $rand*30),spdAbs(2+ $rank),bullet(none,none,[])),
         wait(20- $rank*10)
       ])
     ])
   ]),
-  curvel:bullet(dirAim(0),spdAbs(1),[
+  curvel:bullet(none,none,[
     action([repeat(9999,[action([changeDirection(dirRel(2+ $rank*6),10),wait(10)])])])
   ]),
-  curver:bullet(dirAim(0),spdAbs(1),[
+  curver:bullet(none,none,[
     action([repeat(9999,[action([changeDirection(dirRel(- 2- $rank*6),10),wait(10)])])])
   ])
 ]).

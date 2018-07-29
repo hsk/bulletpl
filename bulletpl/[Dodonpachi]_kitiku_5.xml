@@ -2,10 +2,10 @@ bulletML(none,[
   top1:action([
     repeat(30+ $rank*30,[
       action([
-        fire(dirSeq(220+ $rand*2),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[])),
-        fire(dirSeq(15),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[])),
-        fire(dirSeq(120),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[])),
-        fire(dirSeq(15),spdAbs(1.2),bullet(dirAim(0),spdAbs(1),[])),
+        fire(dirSeq(220+ $rand*2),spdAbs(1.2),bullet(none,none,[])),
+        fire(dirSeq(15),spdAbs(1.2),bullet(none,none,[])),
+        fire(dirSeq(120),spdAbs(1.2),bullet(none,none,[])),
+        fire(dirSeq(15),spdAbs(1.2),bullet(none,none,[])),
         wait(20- $rank*10)
       ])
     ])
@@ -13,12 +13,12 @@ bulletML(none,[
   top2:action([
     repeat(30+ $rank*30,[
       action([
-        fire(dirAim(- 30+ $rand*60),spdAbs(1.3),bullet(dirAim(0),spdAbs(1),[action([])])),
+        fire(dirAim(- 30+ $rand*60),spdAbs(1.3),bullet(none,none,[action([])])),
         wait(20- $rank*10)
       ])
     ])
   ]),
-  kobati:bullet(dirAim(0),spdAbs(1),[
+  kobati:bullet(none,none,[
     action([
       wait(5),
       changeDirection(dirAbs(180),1),
@@ -27,10 +27,8 @@ bulletML(none,[
       repeat(9999,[
         action([
           wait(30- $rank*10),
-          fire(dirSeq(45),spdAbs(0.4+ $rank*0.2),bullet(dirAim(0),spdAbs(1),[])),
-          repeat(3,[
-            action([fire(dirSeq(90),spdAbs(0.4+ $rank*0.2),bullet(dirAim(0),spdAbs(1),[]))])
-          ])
+          fire(dirSeq(45),spdAbs(0.4+ $rank*0.2),bullet(none,none,[])),
+          repeat(3,[action([fire(dirSeq(90),spdAbs(0.4+ $rank*0.2),bullet(none,none,[]))])])
         ])
       ])
     ])

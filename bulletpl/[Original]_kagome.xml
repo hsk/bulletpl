@@ -9,26 +9,26 @@ bulletML(vertical,[
     ]),
     wait(150)
   ]),
-  matrixbit:bullet(dirAim(0),spdAbs(0.5),[
+  matrixbit:bullet(none,spdAbs(0.5),[
     action([
       wait(30*(2.0-1.0* $rank)),
       repeat(999,[
         action([
           fire(dirRel(90),spdAbs(1.1),bulletRef(finalbit,[])),
           fire(dirRel(- 90),spdAbs(1.1),bulletRef(finalbit,[])),
-          fire(dirAim(- 10+20* $rand),spdAbs(1.1),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirAim(- 10+20* $rand),spdAbs(1.1),bullet(none,none,[])),
           wait(60*(2.0-1.0* $rank))
         ])
       ])
     ])
   ]),
-  finalbit:bullet(dirAim(0),spdAbs(1),[
+  finalbit:bullet(none,none,[
     action([
       wait(30*(2.0-1.0* $rank)),
       repeat(999,[
         action([
-          fire(dirRel(30),spdAbs(1.1*(2/1.7320508)),bullet(dirAim(0),spdAbs(1),[])),
-          fire(dirRel(- 30),spdAbs(1.1*(2/1.7320508)),bullet(dirAim(0),spdAbs(1),[])),
+          fire(dirRel(30),spdAbs(1.1*(2/1.7320508)),bullet(none,none,[])),
+          fire(dirRel(- 30),spdAbs(1.1*(2/1.7320508)),bullet(none,none,[])),
           wait(60*(2.0-1.0* $rank))
         ])
       ])

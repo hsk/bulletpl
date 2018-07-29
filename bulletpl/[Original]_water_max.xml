@@ -3,7 +3,7 @@ bulletML(vertical,[
     fire(dirAbs(180),spdAbs(2),bulletRef(dummyspray,[1.1*(0.75+0.25* $rank),2,20*(3.0-2.0* $rank)])),
     wait(600)
   ]),
-  dummyspray:bullet(dirAim(0),spdAbs(1),[
+  dummyspray:bullet(none,none,[
     action([
       wait(60),
       changeSpeed(spdAbs(0),1),
@@ -14,7 +14,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  spray:bullet(dirAim(0),spdAbs(1),[
+  spray:bullet(none,none,[
     action([
       wait($4),
       changeSpeed(spdAbs(0),1),
@@ -30,20 +30,17 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  spraybit:bullet(dirAim(0),spdAbs(1),[
+  spraybit:bullet(none,none,[
     action([
       repeat(999,[
         action([
           repeat(5,[
-            action([
-              fire(dirRel($3),spdAbs($1*(2/1.7320508)),bullet(dirAim(0),spdAbs(1),[])),
-              wait($2)
-            ])
+            action([fire(dirRel($3),spdAbs($1*(2/1.7320508)),bullet(none,none,[])),wait($2)])
           ]),
           wait($2*10),
           repeat(5,[
             action([
-              fire(dirRel(- $3),spdAbs($1*(2/1.7320508)),bullet(dirAim(0),spdAbs(1),[])),
+              fire(dirRel(- $3),spdAbs($1*(2/1.7320508)),bullet(none,none,[])),
               wait($2)
             ])
           ]),

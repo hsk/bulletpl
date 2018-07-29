@@ -10,7 +10,7 @@ bulletML(vertical,[
     ]),
     wait(250-50* $rank)
   ]),
-  dummy:bullet(dirAim(0),spdAbs(1),[
+  dummy:bullet(none,none,[
     action([
       wait(60),
       fire(dirAim(- 32),spdAbs(1.1),bulletRef(bit,[])),
@@ -18,7 +18,7 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  bit:bullet(dirAim(0),spdAbs(1),[
+  bit:bullet(none,none,[
     action([
       wait(20),
       fire(dirRel(0),spdRel(0.3),bulletRef(slowdown,[])),
@@ -28,5 +28,5 @@ bulletML(vertical,[
       changeSpeed(spdRel(2.0+2.0* $rank),300)
     ])
   ]),
-  slowdown:bullet(dirAim(0),spdAbs(1),[action([wait(20),changeSpeed(spdAbs(0.3),60)])])
+  slowdown:bullet(none,none,[action([wait(20),changeSpeed(spdAbs(0.3),60)])])
 ]).

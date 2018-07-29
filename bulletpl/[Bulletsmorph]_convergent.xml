@@ -13,13 +13,11 @@ bulletML(vertical,[
     ]),
     wait(150)
   ]),
-  nwaybit:bullet(dirAim(0),spdAbs(1),[
+  nwaybit:bullet(none,none,[
     action([
-      fire(dirRel($1),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel($1),spdAbs($2),bullet(none,none,[])),
       wait(4),
-      repeat(2+4* $rank,[
-        action([fire(dirSeq($3),spdAbs($2),bullet(dirAim(0),spdAbs(1),[])),wait(4)])
-      ]),
+      repeat(2+4* $rank,[action([fire(dirSeq($3),spdAbs($2),bullet(none,none,[])),wait(4)])]),
       vanish
     ])
   ])

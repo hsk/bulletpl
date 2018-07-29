@@ -2,23 +2,23 @@ bulletML(vertical,[
   top:action([
     repeat(2,[
       action([
-        fire(dirAbs(180-60),spdAbs(1),bulletRef(wave,[5,42])),
+        fire(dirAbs(180-60),none,bulletRef(wave,[5,42])),
         wait(30-15* $rank),
-        fire(dirAbs(180+60),spdAbs(1),bulletRef(wave,[- 5,- 42])),
+        fire(dirAbs(180+60),none,bulletRef(wave,[- 5,- 42])),
         wait(30-15* $rank),
-        fire(dirAbs(180-62),spdAbs(1),bulletRef(wave,[5,40])),
+        fire(dirAbs(180-62),none,bulletRef(wave,[5,40])),
         wait(30-15* $rank),
-        fire(dirAbs(180+62),spdAbs(1),bulletRef(wave,[- 5,- 40])),
+        fire(dirAbs(180+62),none,bulletRef(wave,[- 5,- 40])),
         wait(30-15* $rank),
-        fire(dirAbs(180-58),spdAbs(1),bulletRef(wave,[5,40])),
+        fire(dirAbs(180-58),none,bulletRef(wave,[5,40])),
         wait(30-15* $rank),
-        fire(dirAbs(180+58),spdAbs(1),bulletRef(wave,[- 5,- 40])),
+        fire(dirAbs(180+58),none,bulletRef(wave,[- 5,- 40])),
         wait(30-15* $rank)
       ])
     ]),
     wait(300-50* $rank)
   ]),
-  wave:bullet(dirAim(0),spdAbs(1.0),[
+  wave:bullet(none,spdAbs(1.0),[
     action([
       fire(dirRel($2),spdAbs(0.3),bulletRef(cross,[])),
       wait(3),
@@ -26,13 +26,13 @@ bulletML(vertical,[
       vanish
     ])
   ]),
-  cross:bullet(dirAim(0),spdAbs(1),[
+  cross:bullet(none,none,[
     action([
       wait(100),
-      fire(dirRel(0),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(90),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(180),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
-      fire(dirRel(270),spdRel(0.6* $rank),bullet(dirAim(0),spdAbs(1),[])),
+      fire(dirRel(0),spdRel(0.6* $rank),bullet(none,none,[])),
+      fire(dirRel(90),spdRel(0.6* $rank),bullet(none,none,[])),
+      fire(dirRel(180),spdRel(0.6* $rank),bullet(none,none,[])),
+      fire(dirRel(270),spdRel(0.6* $rank),bullet(none,none,[])),
       vanish
     ])
   ])
