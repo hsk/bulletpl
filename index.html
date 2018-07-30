@@ -18,7 +18,7 @@ function check(key) {
 
 let ws
 function next(ship,f){
-  ws.binaryType = 'arraybuffer'
+  ws.binaryType = "arraybuffer"
   ws.onmessage=function(event){
     var data = new Uint8Array(event.data)
     var ts=[]
@@ -37,13 +37,13 @@ function onopen() {
   const ship={x:150,y:350}
 
   var lastX,lastY
-  canvas.addEventListener('touchstart', function(event) {
+  canvas.addEventListener("touchstart", function(event) {
     lastX =   event.changedTouches[0].pageX
     lastY =   event.changedTouches[0].pageY
-//    canvas.style.backgroundColor = 'red';
+//    canvas.style.backgroundColor = "red";
   }, false);
   
-  canvas.addEventListener('touchmove', function(event) {
+  canvas.addEventListener("touchmove", function(event) {
     event.preventDefault(); // タッチによる画面スクロールを止める
     ship.x -= lastX - event.changedTouches[0].pageX
     ship.y -= lastY - event.changedTouches[0].pageY
@@ -51,17 +51,17 @@ function onopen() {
     lastY =   event.changedTouches[0].pageY
   }, false);
   
-  canvas.addEventListener('touchend', function(event) {
-//    updateEventname('touchend');
+  canvas.addEventListener("touchend", function(event) {
+//    updateEventname("touchend");
 //    updateXY(event);
-//    canvas.style.backgroundColor = 'blue';
+//    canvas.style.backgroundColor = "blue";
   }, false);
   function move() {
     let speed = 4,x=0,y=0
-    check('ArrowLeft') && (x -= speed)
-    check('ArrowRight') && (x += speed)
-    check('ArrowUp') && (y -= speed)
-    check('ArrowDown') && (y += speed)
+    check("ArrowLeft") && (x -= speed)
+    check("ArrowRight") && (x += speed)
+    check("ArrowUp") && (y -= speed)
+    check("ArrowDown") && (y += speed)
     if(x!=0&&y!=0) {x /= Math.sqrt(2);y /= Math.sqrt(2)}
     ship.x = Math.floor(Math.max(10,Math.min(300-10,ship.x+x)))
     ship.y = Math.floor(Math.max(10,Math.min(400-10,ship.y+y)))
@@ -86,7 +86,7 @@ function onopen() {
   move()
 }
 
-document.addEventListener('DOMContentLoaded', (e) => {
+document.addEventListener("DOMContentLoaded", (e) => {
   ws = new WebSocket("ws://"+location.host+"/sock")
   ws.onerror = (error) => { console.log("WS", error) }
   ws.onopen = onopen
