@@ -6,18 +6,26 @@
 :- http_handler(root(.),http_reply_from_files('.', []), [prefix]).
 :- http_handler(root(sock),http_upgrade_to_websocket(sock, []),[]).
 :- assert(websock(dummy)).
-sock(WebSocket) :- retract(websock(_)),assertz(websock(WebSocket)),catch(main,Err,writeln(Err)).
+sock(WebSocket) :- retract(websock(_)),assertz(websock(WebSocket)),catch(main,Err,writeln(Err)),writeln(end).
 server(Port) :- thread_create(http_server(http_dispatch, [port(Port)]),_).
-:- server(3030).
+:- current_prolog_flag(argv, Fs),assert(fs(Fs)),server(3030).
 :- www_open_url('http://localhost:3030/index.html').
 
+
 :- assertz(ship(ship{x:150,y:350})).
-assert_ship(V) :- assertz(ship(ship{x:V.x,y: V.y})),retract(ship(_)).
-message(V,R) :-
+message(V) :-
   websock(WebSocket),
-  ws_send(WebSocket,binary(V)),
-  ws_receive(WebSocket, R, [format(json)]),
-  (R.data = "" -> throw(close:socket);true).
+  atom_concat(a,V,V_),
+  ws_send(WebSocket,binary(V_)),
+  rcv(WebSocket).
+rcv(WebSocket) :-
+  ws_receive(WebSocket, R, [format(json),format(string)]),!,
+  ( R.data = "" -> !,throw(close:socket)
+  ; R.data = "z" -> !,throw(next)
+  ; R.data = "s" -> !,txt(Txt),re_replace('/bulletpl/bulletpl','/bulletpl/examples',Txt,Txt2),writeln(Txt2),!,
+    process_create(path(wine),['/home/sakurai/デスクトップ/sdmkun/sdmkun.exe',Txt2],[]), rcv(WebSocket)
+  ; !,assertz(ship(R.data)),retract(ship(_))).
+text_message(V) :- websock(WebSocket),atom_concat(t,V,V_),ws_send(WebSocket,binary(V_)).
 
 :- op(800,xfx,evalto).
 
@@ -47,8 +55,7 @@ action(As) :- maplist(call,As).
 wait(N) :- N1 evalto N, N1 =< 0, !.
 wait(N) :- retract(bullet(B)),cd(B,D,B1),cs(B1,S,B2),acc(B2,B3),
   catch(D_ is D/180*3.14159,E,(writeln(E:D),D_ evalto D/180*3.14159)),mx(B3,X1,Y1),
-  X is X1 + sin(D_)*S,
-  Y is Y1 - cos(D_)*S,
+  X is X1 + sin(D_)*S,Y is Y1 - cos(D_)*S,
   cont(B3.put([x:X,y:Y,d:D,s:S]),N).
 wait(_) :- writeln(wait:error).
 cd(B,D,B1) :- (CD,T)=B.get(cd),
@@ -72,8 +79,7 @@ acc(B,B2) :- (H,V,T)=B.get(acc),!,T1 evalto T - 1,Mx_ is B.mx+H,My_ is B.my+V,
 acc(_,_) :- writeln(acc:error).
 cont(B,_) :- (B.x < 0; B.y < 0; B.x > 300; B.y > 400),asserta(bullet(B)),shift(1). % 画面外で消える
 cont(B,N) :- asserta(bullet(B)),shift(0),N1 evalto N - 1, wait(N1).
-fireRef(K,Ps):-
-  fireV(K,G,D,S,As),foldl(refmap(G),Ps,1,_),fire(D,S,As).
+fireRef(K,Ps) :- fireV(K,G,D,S,As),foldl(refmap(G),Ps,1,_),fire(D,S,As).
 fire(D,S,bulletRef(K,Ps)) :-
   bulletV(K,G,D_,S_,As),foldl(refmap(G),Ps,1,_),fire1(D,S,bullet(D_,S_,As),K).
 fire(D,S,B) :- fire1(D,S,B,normal).
@@ -83,8 +89,7 @@ selectParam(FireP,_,_,FireP).
 fire1(FD,FS,bullet(BD,BS,As),K) :-
   selectParam(FD,BD,dirAim(0),D),selectParam(FS,BS,spdAbs(1),S),
   bullet(B),ship(Ship),
-  s(B,S,Ship,S_),!,
-  d(B,D,Ship,D_),!,newBullet(B.x,B.y,B2,K),
+  s(B,S,S_),!,d(B,D,Ship,D_),!,newBullet(B.x,B.y,B2,K),
   retract(bullet(B1)),asserta(bullet(B1.put([fdir:D_,fspd:S_]))),
   assert(bullet(B2.put([d:D_,s:S_,cont:action(As)]))).
 d(_,dirAbs(D),_,D_) :- D_ evalto D.
@@ -94,28 +99,28 @@ d(B,dirSeq(D),Ship,D_) :- d(B,dirAim(D),Ship,D_).
 d(B,dirAim(D),Ship,D_) :- Ship.y =:= B.y,!, (Ship.x > B.x -> D_ is 90+D; D_ = D-90),!.
 d(B,dirAim(D),Ship,D_) :- Ship.y > B.y,!, D_ evalto atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 - 180 + D.
 d(B,dirAim(D),Ship,D_) :-                 D_ evalto atan((B.x - Ship.x) / (Ship.y - B.y))*180/3.141592 + D.
-s(_,spdAbs(S),_,S_) :- S_ evalto S.
-s(B,spdSeq(S),_,S_) :- S_ evalto B.get(fspd) + S.
-s(B,spdRel(S),_,S_) :- S_ evalto B.s + S.
-s(B,spdSeq(D),Ship,D_) :- s(B,spdAbs(D),Ship,D_).
+s(_,spdAbs(S),S_) :- S_ evalto S*1.6.
+s(B,spdSeq(S),S_) :- S_ evalto B.get(fspd) + S+B.s.
+s(B,spdRel(S),S_) :- S_ evalto B.s + S*1.6.
+s(B,spdSeq(S),S_) :-  S_ evalto B.s + 1+ S*1.6.
 changeDirection(dirSeq(D),T) :- retract(bullet(B)),D_ evalto D,asserta(bullet(B.put(cd,(D_,T)))).
 changeDirection(dirAbs(D),T) :- retract(bullet(B)),D_ evalto(D-B.d)/T,asserta(bullet(B.put(cd,(D_,T)))).
 changeDirection(dirRel(D),T) :- retract(bullet(B)),D_ evalto D/T,asserta(bullet(B.put(cd,(D_,T)))).
 changeDirection(dirAim(D),T) :- retract(bullet(B)),ship(Ship),d(B,dirAim(D),Ship,D1),D2 evalto (D1-B.d),T_ evalto T,
                                 D_ is (((floor(D2) + 180)mod 360)-180)/T_,asserta(bullet(B.put(cd,(D_,T)))).
-changeSpeed(spdSeq(S),T) :- retract(bullet(B)),S_ evalto S,asserta(bullet(B.put(cs,(S_,T)))).
-changeSpeed(spdAbs(S),T) :- retract(bullet(B)),S_ evalto(S-B.s)/T,asserta(bullet(B.put(cs,(S_,T)))).
-changeSpeed(spdRel(S),T) :- retract(bullet(B)),S_ evalto S/T, asserta(bullet(B.put([cs:(S_,T),isAim:0]))).
-accelspd(spdSeq(S),_,_,S_) :- S_ evalto S.
-accelspd(spdAbs(S),M,T,S_) :- S_ evalto (S-M)/T.
-accelspd(spdRel(S),_,T,S_) :- S_ evalto S / T.
+changeSpeed(spdSeq(S),T) :- retract(bullet(B)),S_ evalto S*1.6,asserta(bullet(B.put(cs,(S_,T)))).
+changeSpeed(spdAbs(S),T) :- retract(bullet(B)),S_ evalto(S*1.6-B.s)/T,asserta(bullet(B.put(cs,(S_,T)))).
+changeSpeed(spdRel(S),T) :- retract(bullet(B)),S_ evalto S*1.6/T, asserta(bullet(B.put([cs:(S_,T),isAim:0]))).
+accelspd(spdSeq(S),_,_,S_) :- S_ evalto S*1.6.
+accelspd(spdAbs(S),M,T,S_) :- S_ evalto (S*1.6-M)/T.
+accelspd(spdRel(S),_,T,S_) :- S_ evalto S*1.6 / T.
 accelspd(none,_,_,0).
 accel(H,V,T) :- retract(bullet(B)),my(B,X,Y),accelspd(H,X,T,HS),accelspd(V,Y,T,VS),asserta(bullet(B.put([mx:X,my:Y,acc:(HS,VS,T)]))).
 
 vanish :- shift(1).
 repeat(N,_) :- N1 evalto N, N1 =< 0, !.
 repeat(N,As) :- action(As),N1 evalto N - 1,repeat(N1,As).
-text(T) :- T2 evalto T,!, format(atom(T3),'~w',[T2]),writeln(T3).
+text(T) :- T2 evalto T,!, format(atom(T3),'~w',[T2]),writeln(T3),text_message(T3).
 runBullet(B,Bs1,Bs1_) :-
   asserta(bullet(B.del(cont))),
   reset(B.cont,R,Cont),retract(bullet(B1)),
@@ -130,10 +135,9 @@ move(Bs) :-
   foldl(runBullet,Bs,[],Bs1),!,
   reverse(Bs1,Bs1_),
   findall(B,retract(bullet(B)),Bs2),
-  append(Bs1_,Bs2,Bs3),
+  foldl(runBullet,Bs2,Bs1_,Bs3),!,
   findall(R,retract(o(R)),Rs),atomic_list_concat(Rs,Rs_),!,
-%  writeln(Rs),
-  message(Rs_,Msg),assert_ship(Msg.data),!,move(Bs3)).
+  message(Rs_),!,move(Bs3)).
 
 dispBullet(B) :-
   X is floor(B.x),Y is floor(B.y),
@@ -167,22 +171,21 @@ run(bulletML(Mode,Ds)) :-
   assert(color(a,a)),assert(color_cnt(a)),retractall(color(_,_)),retract(color_cnt(_)),retractall(bullet(_)),
   asserta(color(normal,0)),asserta(color(top,1)), asserta(color_cnt(2)),
   (syntax:t(bulletML(Mode,Ds)),!; writeln(syntax:error),halt),!,
-  setRank(1),
+  setRank(0.5),
   get_time(Time),assertz(time1(Time)),
   setDefs(Ds),
   newBullet(150,100,B,top),
   (member(A:action(As),Ds),atom_concat(top,_,A),!,
   move([B.put([d:0,s:0,cont:action(As)])]);true).
-runfile(F) :-
-  read_file_to_terms(F,[BML],[]),
-  text(read:F),!,run(BML).
+runfile(F) :- catch(read_file_to_terms(F,[BML],[]),_,fail),text(F),!,run(BML).
 run_string(S) :- read_term_from_atom(S,T,[]),run(T).
 main :-
-  message('',Msg),assert_ship(Msg.data),
-  directory_files('../bulletpl/',Fs),
-  length(Fs,L),random(0,L,N),
-  nth0(N,Fs,Name),
-  atom_concat('../bulletpl/',Name,Name2),
-  runfile(Name2),!,
-  main.
+  catch((
+    message(''),!,
+    (fs([Name2])
+    ; directory_files('bulletpl/',Fs),length(Fs,L),!,
+      random(0,L,N),nth0(N,Fs,Name),atom_concat('bulletpl/',Name,Name2),exists_file(Name2)),
+    retractall(txt(_)),absolute_file_name(Name2,R,[]),assert(txt(R)),
+    runfile(Name2)
+  ),next,true),!,main.
 :- get0(_),halt.

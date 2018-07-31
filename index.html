@@ -1,61 +1,69 @@
 <html>
 <head>
 <script>
+let ws
 let keys={}
 let press={}
+let tri={}
 document.addEventListener("keydown", (e)=>{
-//  console.log(e)
+  tri[e.key]=(tri[e.key]==false)
   keys[e.key]=true
   press[e.key]=true
 })
-document.addEventListener("keyup", (e)=>{
-  keys[e.key]=false
-})
+document.addEventListener("keyup", (e)=>{keys[e.key]=false;tri[e.key]=false})
 function check(key) {
   if(press[key]){press[key]=false; return true;}
   return (keys[key]==true);
 }
-
-let ws
+function trigger(key) {
+  if(tri[key]){tri[key]=false; return true;}
+  return false;
+}
 function next(ship,f){
   ws.binaryType = "arraybuffer"
   ws.onmessage=function(event){
     var data = new Uint8Array(event.data)
     var ts=[]
-    for(var i = 0; i < data.byteLength; i+=3) {
-      ts.push([data[i]+((data[i+2] & 1)<<8),data[i+1]+(((data[i+2]>>1) & 1)<<8),data[i+2]>>2])
+    switch(data[0]){
+      case 97: // 'a'
+        for(var i = 1; i < data.byteLength; i+=3) {
+          ts.push([data[i]+((data[i+2] & 1)<<8),data[i+1]+(((data[i+2]>>1) & 1)<<8),data[i+2]>>2])
+        }
+        f(ts)
+        break
+      default: // 't'
+        document.getElementById("text").innerText=new TextDecoder("utf-8").decode(data).substr(1)
+        break
     }
-    f(ts)
   }
-  ws.send(JSON.stringify(ship))
+  if(trigger("s")) ws.send(JSON.stringify("s"))
+  if(trigger("z")) ws.send(JSON.stringify("z"))
+  else ws.send(JSON.stringify(ship))
 }
+document.addEventListener("DOMContentLoaded", (e) => {
+  ws = new WebSocket("ws://"+location.host+"/sock")
+  ws.onopen = onopen
+})
 function onopen() {
   const canvas = document.getElementById("canvas")
-
   const ctx = canvas.getContext("2d")
   const colors = ["#000000","#ff0000","#00ff00","#ffff00","#0000ff","#ff00ff","#00ffff","#888888"]
   const ship={x:150,y:350}
 
   var lastX,lastY
   canvas.addEventListener("touchstart", function(event) {
-    lastX =   event.changedTouches[0].pageX
-    lastY =   event.changedTouches[0].pageY
-//    canvas.style.backgroundColor = "red";
+    lastX = event.changedTouches[0].pageX
+    lastY = event.changedTouches[0].pageY
   }, false);
   
   canvas.addEventListener("touchmove", function(event) {
     event.preventDefault(); // タッチによる画面スクロールを止める
     ship.x -= lastX - event.changedTouches[0].pageX
     ship.y -= lastY - event.changedTouches[0].pageY
-    lastX =   event.changedTouches[0].pageX
-    lastY =   event.changedTouches[0].pageY
+    lastX = event.changedTouches[0].pageX
+    lastY = event.changedTouches[0].pageY
   }, false);
-  
-  canvas.addEventListener("touchend", function(event) {
-//    updateEventname("touchend");
-//    updateXY(event);
-//    canvas.style.backgroundColor = "blue";
-  }, false);
+  canvas.addEventListener("touchend", function(event) {}, false);
   function move() {
     let speed = 4,x=0,y=0
     check("ArrowLeft") && (x -= speed)
@@ -68,33 +76,25 @@ function onopen() {
     next(ship,function (ts){
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = "#dddddd"
-      ts.forEach(function(t){
-        ctx.fillRect(t[0]*1.5, t[1]*1.5+10, 10, 10)
-      })
-      ctx.fillRect(ship.x*1.5, ship.y*1.5+10, 10,10)
+      ts.forEach((t)=>ctx.fillRect(t[0]*1.5-5, t[1]*1.5+5, 10, 10))
+      ctx.fillRect(ship.x*1.5-5, ship.y*1.5+5, 10,10)
       ts.forEach(function(t){
         if(t[2]>=colors.length) ctx.fillStyle = "black"
         else ctx.fillStyle = colors[t[2]]
-        ctx.fillRect(t[0]*1.5, t[1]*1.5, 10, 10)
+        ctx.fillRect(t[0]*1.5-5, t[1]*1.5-5, 10, 10)
       })
       ctx.fillStyle = "blue"
-      ctx.fillRect(ship.x*1.5, ship.y*1.5, 10,10)
+      ctx.fillRect(ship.x*1.5-5, ship.y*1.5-5, 10,10)
       window.requestAnimationFrame(move)
       //setTimeout(move,0)
     })
   }
   move()
 }
-
-document.addEventListener("DOMContentLoaded", (e) => {
-  ws = new WebSocket("ws://"+location.host+"/sock")
-  ws.onerror = (error) => { console.log("WS", error) }
-  ws.onopen = onopen
-})
 </script>
 </head>
 <body>
-game<br/>
-<canvas id="canvas" width="450" height="600"></canvas>
+<div id="text">bulletpl</div>
+<canvas id="canvas" width="450" height="600" style="background-color:#f8f8f8;"></canvas>
 </body>
 </html>
