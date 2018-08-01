@@ -85,12 +85,12 @@ d(B,dirRel(D),_,D_) :- D_ is B.d + D.
 d(B,dirSeq(D),Ship,D_) :- d(B,dirAim(D),Ship,D_).
 d(B,dirAim(D),Ship,D_) :- D_ is atan((B.x - Ship.x),(Ship.y - B.y))*180/pi - 180 + D.
 s(_,spdAbs(S),S_) :- S_ is S*1.6.
-s(B,spdSeq(S),S_) :- S_ is B.get(fspd) + S+B.s.
+s(B,spdSeq(S),S_) :- S_ is B.get(fspd) + S*1.6.
 s(B,spdRel(S),S_) :- S_ is B.s + S*1.6.
 s(B,spdSeq(S),S_) :-  S_ is B.s + S*2.
 changeDirection(dirSeq(D),T) :- retract(bullet(B)),D_ is D,asserta(bullet(B.put(cd,(D_,T)))).
 changeDirection(dirAbs(D),T) :- retract(bullet(B)),D_ is(D-B.d)/T,asserta(bullet(B.put(cd,(D_,T)))).
-changeDirection(dirRel(D),T) :- retract(bullet(B)),D_ is D/T,asserta(bullet(B.put(cd,(D_,T)))).
+changeDirection(dirRel(D),T) :- retract(bullet(B)),T_ is floor(T),D_ is D/T_,asserta(bullet(B.put(cd,(D_,T_)))).
 changeDirection(dirAim(D),T) :- retract(bullet(B)),ship(Ship),d(B,dirAim(D),Ship,D1),D2 is (D1-B.d),T_ is T,
                                 D_ is (((floor(D2) + 180)mod 360)-180)/T_,asserta(bullet(B.put(cd,(D_,T)))).
 changeSpeed(spdSeq(S),T) :- retract(bullet(B)),S_ is S*1.6,asserta(bullet(B.put(cs,(S_,T)))).
@@ -156,7 +156,7 @@ run(bulletML(Mode,Ds)) :-
   assert(color(a,a)),assert(color_cnt(a)),retractall(color(_,_)),retract(color_cnt(_)),retractall(bullet(_)),
   asserta(color(normal,0)),asserta(color(top,1)), asserta(color_cnt(2)),
   (syntax:t(bulletML(Mode,Ds)),!; writeln(syntax:error),halt),!,
-  setRank(0.5),
+  setRank(0.35),
   get_time(Time),assertz(time1(Time)),
   repExpr(Ds,Ds_),
   setDefs(Ds_),
