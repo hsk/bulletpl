@@ -160,9 +160,9 @@ run(bulletML(Mode,Ds)) :-
   get_time(Time),assertz(time1(Time)),
   repExpr(Ds,Ds_),
   setDefs(Ds_),
-  newBullet(150,100,B,top),
-  (member(A:action(As),Ds_),atom_concat(top,_,A),!,
-  move([B.put([d:0,s:0,cont:action(As)])]);true).
+  findall(B1,
+    (member(A:action(As),Ds_),atom_concat(top,_,A),newBullet(150,100,B,top),B1=B.put([d:0,s:0,cont:action(As)])),Bs),
+  move(Bs).
 runfile(F) :- catch(read_file_to_terms(F,[BML],[]),_,fail),text(F),!,run(BML).
 run_string(S) :- read_term_from_atom(S,T,[]),run(T).
 repExpr($rank,Rank) :- rank(Rank).
