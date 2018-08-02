@@ -19,37 +19,23 @@ function trigger(key) {
   if(tri[key]){tri[key]=false; return true;}
   return false;
 }
-function next(ship,f){
-  ws.binaryType = "arraybuffer"
-  ws.onmessage=function(event){
-    var data = new Uint8Array(event.data)
-    var ts=[]
-    switch(data[0]){
-      case 97: // 'a'
-        for(var i = 1; i < data.byteLength; i+=3) {
-          ts.push([data[i]+((data[i+2] & 1)<<8),data[i+1]+(((data[i+2]>>1) & 1)<<8),data[i+2]>>2])
-        }
-        f(ts)
-        break
-      default: // 't'
-        document.getElementById("text").innerText=new TextDecoder("utf-8").decode(data).substr(1)
-        break
-    }
-  }
-  if(trigger("s")) ws.send(JSON.stringify("s"))
-  if(trigger("z")) ws.send(JSON.stringify("z"))
-  else ws.send(JSON.stringify(ship))
-}
-document.addEventListener("DOMContentLoaded", (e) => {
+const ship={x:150,y:350}
+function connect(e) {
   ws = new WebSocket("ws://"+location.host+"/sock")
   ws.onopen = onopen
-})
+  ws.onerror = (e) => {
+    console.log("error",e)
+  }
+  ws.binaryType = "arraybuffer"
+  ws.onmessage=onmessage
+}
+document.addEventListener("DOMContentLoaded", connect)
+var cnt = 0
+let canvas,ctx
+const colors = ["#000000","#ff0000","#00ff00","#ffff00","#0000ff","#ff00ff","#00ffff","#888888"]
 function onopen() {
-  const canvas = document.getElementById("canvas")
-  const ctx = canvas.getContext("2d")
-  const colors = ["#000000","#ff0000","#00ff00","#ffff00","#0000ff","#ff00ff","#00ffff","#888888"]
-  const ship={x:150,y:350}
-
+  canvas = document.getElementById("canvas")
+  ctx = canvas.getContext("2d")
   var lastX,lastY
   canvas.addEventListener("touchstart", function(event) {
     lastX = event.changedTouches[0].pageX
@@ -64,32 +50,51 @@ function onopen() {
     lastY = event.changedTouches[0].pageY
   }, false);
   canvas.addEventListener("touchend", function(event) {}, false);
-  function move() {
-    let speed = 4,x=0,y=0
-    check("ArrowLeft") && (x -= speed)
-    check("ArrowRight") && (x += speed)
-    check("ArrowUp") && (y -= speed)
-    check("ArrowDown") && (y += speed)
-    if(x!=0&&y!=0) {x /= Math.sqrt(2);y /= Math.sqrt(2)}
-    ship.x = Math.floor(Math.max(10,Math.min(300-10,ship.x+x)))
-    ship.y = Math.floor(Math.max(10,Math.min(400-10,ship.y+y)))
-    next(ship,function (ts){
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.fillStyle = "#dddddd"
-      ts.forEach((t)=>ctx.fillRect(t[0]*1.5-5, t[1]*1.5+5, 10, 10))
-      ctx.fillRect(ship.x*1.5-5, ship.y*1.5+5, 10,10)
-      ts.forEach(function(t){
-        if(t[2]>=colors.length) ctx.fillStyle = "black"
-        else ctx.fillStyle = colors[t[2]]
-        ctx.fillRect(t[0]*1.5-5, t[1]*1.5-5, 10, 10)
-      })
-      ctx.fillStyle = "blue"
-      ctx.fillRect(ship.x*1.5-5, ship.y*1.5-5, 10,10)
-      window.requestAnimationFrame(move)
-      //setTimeout(move,0)
-    })
+}
+function onmessage(event) {
+  var data = new Uint8Array(event.data)
+  switch(data[0]){
+    case 97: // 'a'
+      var ts=[]
+      for(var i = 1; i < data.byteLength; i+=3) {
+        ts.push([data[i]+((data[i+2] & 1)<<8),data[i+1]+(((data[i+2]>>1) & 1)<<8),data[i+2]>>2])
+      }
+      let speed = 4,x=0,y=0
+      check("ArrowLeft") && (x -= speed)
+      check("ArrowRight") && (x += speed)
+      check("ArrowUp") && (y -= speed)
+      check("ArrowDown") && (y += speed)
+      if(x!=0&&y!=0) {x /= Math.sqrt(2);y /= Math.sqrt(2)}
+      ship.x = Math.floor(Math.max(10,Math.min(300-10,ship.x+x)))
+      ship.y = Math.floor(Math.max(10,Math.min(400-10,ship.y+y)))
+      draw(ts)
+      if(trigger("s")) ws.send(JSON.stringify("s"))
+      else if(trigger("a")) {console.log("a"); ws.send(JSON.stringify("z"))}
+      else if(trigger("z")) {ws.send(JSON.stringify("z"));ws.close();setTimeout(connect,100)}
+      else {
+        ship.t = cnt++
+        console.log(ship.t)
+        ws.send(JSON.stringify(ship))
+      }
+      break
+    default: // 't'
+      document.getElementById("text").innerText=new TextDecoder("utf-8").decode(data).substr(1)
+      break
   }
-  move()
+}
+
+function draw(ts) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.fillStyle = "#dddddd"
+  ts.forEach((t)=>ctx.fillRect(t[0]*1.5-5, t[1]*1.5+5, 10, 10))
+  ctx.fillRect(ship.x*1.5-5, ship.y*1.5+5, 10,10)
+  ts.forEach(function(t){
+    if(t[2]>=colors.length) ctx.fillStyle = "black"
+    else ctx.fillStyle = colors[t[2]]
+    ctx.fillRect(t[0]*1.5-5, t[1]*1.5-5, 10, 10)
+  })
+  ctx.fillStyle = "blue"
+  ctx.fillRect(ship.x*1.5-5, ship.y*1.5-5, 10,10)
 }
 </script>
 </head>
