@@ -1,4 +1,4 @@
-:- module(echo_server,[]).
+:- module(bullet8,[]).
 :- op(800,xfx,is2).
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
@@ -6,25 +6,21 @@
 :- use_module(library(http/websocket)).
 :- http_handler(root(.),http_reply_from_files('.', []), [prefix]).
 :- http_handler(root(sock),http_upgrade_to_websocket(sock, []),[]).
-sock(WebSocket) :- writeln(connect),retractall(websock(_)),assertz(websock(WebSocket)),catch(main,Err,writeln(Err)),ws_close(WebSocket),writeln(end).
-server(Port) :- thread_create(http_server(http_dispatch, [port(Port)]),_).
-:- current_prolog_flag(argv, Fs),writeln(Fs),assert(fs(Fs)),server(3030).
-:- www_open_url('http://localhost:3030/index.html').
+sock(Sock) :- writeln(connect),retractall(websock(_)),assertz(websock(Sock)),catch(main,Err,writeln(Err)),ws_close(Sock),writeln(end).
+:- thread_create(http_server(http_dispatch, [port(3030)]),_).
+%:- www_open_url('http://localhost:3030/index.html').
+:- fork_exec('browser/Browser1').
 :- assertz(ship(ship{x:150,y:350})).
 is2(A,B) :- catch(A is B,E,writeln(E:A is B)).
-message(V) :-
-  websock(WebSocket),
-  atom_concat(a,V,V_),
-  ws_send(WebSocket,binary(V_)),!,
-  rcv(WebSocket),!.
-rcv(WebSocket) :-
-  ws_receive(WebSocket, R, [format(json)]),!,
+message(V) :- websock(Sock),atom_concat(a,V,V_),ws_send(Sock,binary(V_)),!,rcv(Sock),!.
+rcv(Sock) :-
+  ws_receive(Sock, R, [format(json)]),!,
   ( R.data = "" -> !,throw(close:socket)
   ; R.data = "z" -> !,garbage_collect,throw(next)
   ; R.data = "s" -> !,txt(Txt),re_replace('/bulletpl/bulletpl','/bulletpl/examples',Txt,Txt2),writeln(Txt2),!,
-    process_create(path(sdmkun),[Txt2],[]), rcv(WebSocket)
+    process_create(path(sdmkun),[Txt2],[]), rcv(Sock)
   ; !,assertz(ship(R.data)),retract(ship(_))).
-text_message(V) :- websock(WebSocket),atom_concat(t,V,V_),ws_send(WebSocket,binary(V_)).
+text_message(V) :- atom_codes(V,C),utf8_codes(C,R,[]),atom_codes(A,[116|R]),websock(Sock),ws_send(Sock,binary(A)).
 
 user:M.del(K) := M2 :- del_dict(K,M,_,M2);M=M2.
 refmap(G,P,N,N1) :- N1 is2 N+1,P_ is2 P,member(N:P_,G),!.
@@ -36,7 +32,7 @@ move1(B,B4) :-cd(B,D,B1),cs(B1,S,B2),acc(B2,B3),
   D_ is2 D/180*3.14159,mx(B3,X1,Y1),
   X is2 X1 + sin(D_)*S,Y is2 Y1 - cos(D_)*S,
   B4=B3.put([x:X,y:Y,d:D,s:S]).
-wait(N) :- N1 is2 N, N1 =< 0, !.
+wait(N) :- N1 is2 N, N1 < 1, !.
 wait(N) :- retract(bullet(B)),move1(B,B1),asserta(bullet(B1)),
           (cont(B1)->shift(0),N1 is2 N - 1, wait(N1);shift(1)).
 cd(B,D,B1) :- (CD,T)=B.get(cd),
@@ -64,8 +60,8 @@ fire(D,S,bulletRef(K,Ps)) :-
   bulletV(K,G,D_,S_,As),refmap(G,Ps,As),fire1(D,S,bullet(D_,S_,As),K).
 fire(D,S,B) :- fire1(D,S,B,normal).
 selectParam(none,none,Default,Default).
-selectParam(none,BulletP,_,BulletP).
-selectParam(FireP,_,_,FireP).
+selectParam(FireP,none,_,FireP).
+selectParam(_,BulletP,_,BulletP).
 fire1(FD,FS,bullet(BD,BS,As),K) :-
   selectParam(FD,BD,dirAim(0),D),selectParam(FS,BS,spdAbs(1),S),
   bullet(B),ship(Ship),
@@ -97,9 +93,9 @@ accelspd(none,_,_,0).
 accel(H,V,T) :- retract(bullet(B)),my(B,X,Y),accelspd(H,X,T,HS),accelspd(V,Y,T,VS),asserta(bullet(B.put([mx:X,my:Y,acc:(HS,VS,T)]))).
 
 vanish :- shift(1).
-repeat(N,_) :- N1 is2 N, N1 =< 0, !.
+repeat(N,_) :- N1 is2 N, N1 < 1, !.
 repeat(N,As) :- action(As),N1 is2 N - 1,repeat(N1,As).
-text(T) :- format(atom(T3),'~w',[T]),writeln(T3),text_message(T3).
+text(T) :- format(atom(T3),'~w',[T]),format('send:~q\n',[T3]),text_message(T3).
 runBullet(B,Bs1,Bs1_) :-
   asserta(bullet(B.del(cont))),
   reset(B.cont,R,Cont),retract(bullet(B1)),
@@ -165,7 +161,8 @@ repExpr(E,E_) :- E=..[N|Ps],maplist(repExpr,Ps,Ps_),E_=..[N|Ps_].
 main :-
   catch((
     message(''),!,
-    (fs([Name2])
+    (retract(fs([Name2|Fs])),assert(fs(Fs))
+    ; current_prolog_flag(argv, [Name2|Fs]),assert(fs(Fs))
     ; directory_files('bulletpl/',Fs),length(Fs,L),!,
       repeat,random(0,L,N),nth0(N,Fs,Name),atom_concat('bulletpl/',Name,Name2),exists_file(Name2)),
     absolute_file_name(Name2,R,[]),retractall(txt(_)),assert(txt(R)),

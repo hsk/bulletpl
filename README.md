@@ -2,6 +2,13 @@
 
 BulletPL is Prolog version BulletML Library.
 
+## Installation
+
+This package requires Swi-Prolog 7.x.
+
+    ?- pack_install(rtg).
+
+
 ### TODO
 
 - ○ 絶対角度指定 まとめて、上、右、下、左にとぶこと

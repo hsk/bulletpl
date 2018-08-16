@@ -59,7 +59,7 @@
 <action label="wall">
  <fire>
   <direction type="aim">$1</direction>
-  <speed>0.35</speed>
+  <speed type="absolute">0.35</speed>
   <bulletRef label="stop"/>
  </fire>
  <repeat><times>110</times>

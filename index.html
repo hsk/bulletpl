@@ -1,29 +1,31 @@
 <html>
 <head>
 <script>
-let ws
-let keys={}
-let press={}
-let tri={}
-document.addEventListener("keydown", (e)=>{
-  tri[e.key]=(tri[e.key]==false)
-  keys[e.key]=true
-  press[e.key]=true
+var ws
+var keys={}
+var press={}
+var tri={}
+document.addEventListener("keydown", function(e){
+  tri[e.keyCode]=(tri[e.keyCode]==false)
+  keys[e.keyCode]=true
+  press[e.keyCode]=true
 })
-document.addEventListener("keyup", (e)=>{keys[e.key]=false;tri[e.key]=false})
-function check(key) {
-  if(press[key]){press[key]=false; return true;}
-  return (keys[key]==true);
+document.addEventListener("keyup", function(e){keys[e.keyCode]=false;tri[e.keyCode]=false})
+
+function check(keyCode) {
+  if(press[keyCode]){press[keyCode]=false; return true;}
+  return (keys[keyCode]==true);
 }
-function trigger(key) {
-  if(tri[key]){tri[key]=false; return true;}
+function trigger(keyCode) {
+  if(tri[keyCode]){tri[keyCode]=false; return true;}
   return false;
 }
 const ship={x:150,y:350}
 function connect(e) {
+
   ws = new WebSocket("ws://"+location.host+"/sock")
   ws.onopen = onopen
-  ws.onerror = (e) => {
+  ws.onerror = function(e) {
     console.log("error",e)
   }
   ws.binaryType = "arraybuffer"
@@ -31,11 +33,14 @@ function connect(e) {
 }
 document.addEventListener("DOMContentLoaded", connect)
 var cnt = 0
-let canvas,ctx
+var canvas,ctx
 const colors = ["#000000","#ff0000","#00ff00","#ffff00","#0000ff","#ff00ff","#00ffff","#888888"]
 function onopen() {
   canvas = document.getElementById("canvas")
   ctx = canvas.getContext("2d")
+  ctx.font = '400 14px/2 Unknown Font, sans-serif';
+  ctx.lineWidth = 5
+  ctx.strokeStyle = "white"
   var lastX,lastY
   canvas.addEventListener("touchstart", function(event) {
     lastX = event.changedTouches[0].pageX
@@ -51,6 +56,7 @@ function onopen() {
   }, false);
   canvas.addEventListener("touchend", function(event) {}, false);
 }
+var text = "bulletpl"
 function onmessage(event) {
   var data = new Uint8Array(event.data)
   switch(data[0]){
@@ -59,34 +65,42 @@ function onmessage(event) {
       for(var i = 1; i < data.byteLength; i+=3) {
         ts.push([data[i]+((data[i+2] & 1)<<8),data[i+1]+(((data[i+2]>>1) & 1)<<8),data[i+2]>>2])
       }
-      let speed = 4,x=0,y=0
-      check("ArrowLeft") && (x -= speed)
-      check("ArrowRight") && (x += speed)
-      check("ArrowUp") && (y -= speed)
-      check("ArrowDown") && (y += speed)
+      var speed = 4,x=0,y=0
+      check(37) && (x -= speed)
+      check(39) && (x += speed)
+      check(38) && (y -= speed)
+      check(40) && (y += speed)
       if(x!=0&&y!=0) {x /= Math.sqrt(2);y /= Math.sqrt(2)}
       ship.x = Math.floor(Math.max(10,Math.min(300-10,ship.x+x)))
       ship.y = Math.floor(Math.max(10,Math.min(400-10,ship.y+y)))
-      draw(ts)
-      if(trigger("s")) ws.send(JSON.stringify("s"))
-      else if(trigger("a")) {console.log("a"); ws.send(JSON.stringify("z"))}
-      else if(trigger("z")) {ws.send(JSON.stringify("z"));ws.close();setTimeout(connect,100)}
-      else {
-        ship.t = cnt++
-        console.log(ship.t)
-        ws.send(JSON.stringify(ship))
-      }
+      requestAnimationFrame(function(){
+        if(trigger(83)) ws.send(JSON.stringify("s"))
+        else if(trigger(65)) {console.log("a"); ws.send(JSON.stringify("z"))}
+        else if(trigger(90)) {ws.send(JSON.stringify("z"));ws.close();setTimeout(connect,100)}
+        else {
+          ship.t = cnt++
+          console.log(ship.t)
+          ws.send(JSON.stringify(ship))
+        }
+        draw(ts)
+      })
       break
-    default: // 't'
-      document.getElementById("text").innerText=new TextDecoder("utf-8").decode(data).substr(1)
+    case 116: // 't'
+      text = uintToString(data).substr(1)
+      //alert("text"+text)
       break
   }
+}
+function uintToString(uintArray) {
+  var s = String.fromCharCode.apply(null, uintArray)
+  s = escape(s)
+  return decodeURIComponent(s)
 }
 
 function draw(ts) {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.fillStyle = "#dddddd"
-  ts.forEach((t)=>ctx.fillRect(t[0]*1.5-5, t[1]*1.5+5, 10, 10))
+  ts.forEach(function(t){ctx.fillRect(t[0]*1.5-5, t[1]*1.5+5, 10, 10)})
   ctx.fillRect(ship.x*1.5-5, ship.y*1.5+5, 10,10)
   ts.forEach(function(t){
     if(t[2]>=colors.length) ctx.fillStyle = "black"
@@ -95,11 +109,12 @@ function draw(ts) {
   })
   ctx.fillStyle = "blue"
   ctx.fillRect(ship.x*1.5-5, ship.y*1.5-5, 10,10)
+  ctx.strokeText(text,10,20)
+  ctx.fillText(text,10,20)
 }
 </script>
 </head>
-<body>
-<div id="text">bulletpl</div>
+<body style="margin : 0; border : 0; padding : 0;">
 <canvas id="canvas" width="450" height="600" style="background-color:#f8f8f8;"></canvas>
 </body>
 </html>
