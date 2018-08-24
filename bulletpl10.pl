@@ -1,26 +1,4 @@
-:- module(bullet9,[]).
-%:- op(800,xfx,is).
-:- use_module(library(http/thread_httpd)).
-:- use_module(library(http/http_dispatch)).
-:- use_module(library(http/http_files)).
-:- use_module(library(http/websocket)).
-:- http_handler(root(.),http_reply_from_files('.', []), [prefix]).
-:- http_handler(root(sock),http_upgrade_to_websocket(sock, []),[]).
-sock(Sock) :- writeln(connect),retractall(websock(_)),assertz(websock(Sock)),catch(main,Err,writeln(Err)),ws_close(Sock),writeln(end).
-:- thread_create(http_server(http_dispatch, [port(3030)]),_).
-:- www_open_url('http://localhost:3030/index.html').
-%:- fork_exec('browser/Browser1').
-:- nb_linkval(ship,ship{x:150,y:350}).
-%is(A,B) :- catch(A is B,E,writeln(E:A is B)).
-message(V) :- websock(Sock),atom_concat(a,V,V_),ws_send(Sock,binary(V_)),!,rcv(Sock),!.
-rcv(Sock) :-
-  ws_receive(Sock, R, [format(json)]),!,
-  ( R.data = "" -> !,throw(close:socket)
-  ; R.data = "z" -> !,garbage_collect,throw(next)
-  ; R.data = "s" -> !,txt(Txt),re_replace('/bulletpl/bulletpl','/bulletpl/examples',Txt,Txt2),writeln(Txt2),!,
-    process_create(path(sdmkun),[Txt2],[]), rcv(Sock)
-  ; !,nb_linkval(ship,R.data)).
-text_message(V) :- atom_codes(V,C),utf8_codes(C,R,[]),atom_codes(A,[116|R]),websock(Sock),ws_send(Sock,binary(A)).
+:- module(bullet10,[runfile/1]).
 
 user:M.del(K) := M2 :- del_dict(K,M,_,M2);M=M2.
 refmap(G,P,N,N1) :- N1 is N+1,P_ is P,member(N:P_,G),!.
@@ -106,18 +84,11 @@ move([]) :- !.
 move(Bs) :-
   nb_getval(move_cnt,N),N1 is N+1,nb_linkval(move_cnt,N1),!,
   (N1 > 600 -> true;
-  nb_linkval(bullets,''),
   foldl(runBullet,Bs,[],Bs1),!,
   reverse(Bs1,Bs1_),
   findall(B,retract(bullet(B)),Bs2),
   append(Bs1_,Bs2,Bs3),
-  maplist(dispBullet,Bs3,As),atomic_list_concat(As,Rs_),message(Rs_),!,move(Bs3)).
-
-dispBullet(B,A) :-
-  X is floor(B.x),Y is floor(B.y),
-  divmod(X,256,X1,X2),divmod(Y,256,Y1,Y2),
-  Z is X1 + Y1*2 + B.c*4,
-  atom_codes(A,[X2,Y2,Z]).
+  disp_bullet(Bs3),!,move(Bs3)).
 newBullet(X,Y,b{c:C,x:X,y:Y},K) :- color(K,C).
 replaceParams(G,$I,T,G) :- member(I:T,G),!.
 replaceParams(G,$I,T,[I:T|G]) :- integer(I),!.
@@ -155,15 +126,4 @@ run_string(S) :- read_term_from_atom(S,T,[]),run(T).
 repExpr($rank,Rank) :- nb_getval(rank,Rank).
 repExpr($rand,random_float).
 repExpr(E,E_) :- E=..[N|Ps],maplist(repExpr,Ps,Ps_),E_=..[N|Ps_].
-
-main :-
-  catch((
-    message(''),!,
-    (retract(fs([Name2|Fs])),assert(fs(Fs))
-    ; current_prolog_flag(argv, [Name2|Fs]),assert(fs(Fs))
-    ; directory_files('bulletpl/',Fs),length(Fs,L),!,
-      repeat,random(0,L,N),nth0(N,Fs,Name),atom_concat('bulletpl/',Name,Name2),exists_file(Name2)),
-    absolute_file_name(Name2,R,[]),retractall(txt(_)),assert(txt(R)),
-    runfile(Name2)
-  ),next,true),!,main.
-:- get0(_),halt.
+:- nb_linkval(ship,ship{x:150,y:350}).
