@@ -7,16 +7,17 @@ disp_bullet(Bs3) :-
   Time2 is Time+max(-1/60,WTime),nb_setval(time,Time2), 
   maplist(disp,Bs3,Bs),assertz(objs(Bs)),retract(objs(_)),(object(@w);throw(close)),
   in_pce_thread((send(@w,flush))),
+  nb_getval(cnt,Cnt),Cnt1 is Cnt+1,nb_setval(cnt,Cnt1),
+  M is Cnt mod 3, (M > 0;
   send(@img,clear),
   send(@img,draw_in,@view,point(0,0)),
-  nb_getval(cnt,Cnt),Cnt1 is Cnt+1,nb_setval(cnt,Cnt1),
   format(atom(Name),'test_~05d.gif',[Cnt]),
-  send(@img,save,Name,gif),
+  send(@img,save,Name,gif)),
   getShip(Ship),nb_setval(ship,Ship),
   !.
 disp(B,(X,Y,B.c)) :- ratio(Ratio),X is Ratio * B.x,Y is Ratio * B.y.
 :- nb_setval(cnt,0).
-ratio(1.5).
+ratio(1).
 setShip(Ship) :- bulletpl10:nb_setval(ship,Ship).
 :- pce_begin_class(canvas, graphical,canvas).
   initialise(S,W:width=int, H:height=int) :->
@@ -26,10 +27,12 @@ setShip(Ship) :- bulletpl10:nb_setval(ship,Ship).
     objs(R),!,
     getShip(ship{x:X,y:Y}),
     ratio(Ratio),
+%    send(S, graphics_state, 0, none, lightgray),
+%    send(S, draw_fill, 0, 0, S?width, S?height),
     send(S, graphics_state, 0, none, colour(c,200*255,200*255,200*255)),
     maplist(view2(S),[(X*Ratio,Y*Ratio,3)|R]),
-    send(S, graphics_state, 0, none, colour(c2,186*255,186*255,186*255)),
-    maplist(view3(S),[(X*Ratio,Y*Ratio,3)|R]),
+%    send(S, graphics_state, 0, none, colour(c2,186*255,186*255,186*255)),
+%    maplist(view3(S),[(X*Ratio,Y*Ratio,3)|R]),
     maplist(view(S),[(X*Ratio,Y*Ratio,3)|R]),!,
     send(S, restore_graphics_state),
     send(S, send_super, redraw),
@@ -39,9 +42,9 @@ setShip(Ship) :- bulletpl10:nb_setval(ship,Ship).
 view(S,(X,Y,C)) :-
   (nth0(C,[black,red,green,blue,red,yellow,white],Col);Col=white),!,
   send(S, graphics_state, 0, none, Col),!,
-  send(S, draw_fill, X-3, Y-3, 7, 7).
-view2(S,(X,Y,_)) :- send(S, draw_fill, X-7, Y+15, 15, 15).
-view3(S,(X,Y,_)) :- send(S, draw_fill, X-4, Y+18, 9, 9).
+  send(S, draw_fill, X-2, Y-2, 5, 5).
+view2(S,(X,Y,_)) :- send(S, draw_fill, X-2, Y+5, 5, 5).
+view3(S,(X,Y,_)) :- send(S, draw_fill, X-1, Y+6, 3, 3).
 initWindow :-
   ratio(Ratio),
   new(@w, dialog(game)),
@@ -75,6 +78,7 @@ main :-
   ),next,true),!,(current_prolog_flag(argv, []),main;true).
 :- catch((initWindow,initShip,get_time(Time),nb_setval(time,Time),main),close,true).
 :- writeln("create anim.gif").
-:- process_create(path(convert),['-delay','2','-loop','0','test_*.gif','anim.gif'],[]).
-:- process_create(rm,['test_*.gif']).
+:- shell('convert -delay 5 -loop 0 test_*.gif anim.gif').
+:- shell('rm test_*.gif').
+:- www_open_url('anim.gif').
 :- halt.
