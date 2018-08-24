@@ -11,7 +11,6 @@ disp_bullet(Bs3) :-
   send(@img,draw_in,@view,point(0,0)),
   nb_getval(cnt,Cnt),Cnt1 is Cnt+1,nb_setval(cnt,Cnt1),
   format(atom(Name),'test_~05d.gif',[Cnt]),
-
   send(@img,save,Name,gif),
   getShip(Ship),nb_setval(ship,Ship),
   !.
@@ -74,5 +73,8 @@ main :-
     absolute_file_name(Name2,R,[]),retractall(txt(_)),assert(txt(R)),
     runfile(Name2)
   ),next,true),!,(current_prolog_flag(argv, []),main;true).
-:- catch((initWindow,initShip,get_time(Time),nb_setval(time,Time),main),close,halt).
+:- catch((initWindow,initShip,get_time(Time),nb_setval(time,Time),main),close,true).
+:- writeln("create anim.gif").
+:- process_create(path(convert),['-delay','2','-loop','0','test_*.gif','anim.gif'],[]).
+:- process_create(rm,['test_*.gif']).
 :- halt.

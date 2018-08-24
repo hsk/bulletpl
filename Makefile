@@ -1,4 +1,22 @@
 run:
+	git add backup/a.pl
+	git add backup/bulletpl2.pl
+	git add backup/bulletpl3.pl
+	git add backup/bulletpl4.pl
+	git add backup/bulletpl5.pl
+	git add backup/bulletpl6.pl
+	git add backup/bulletpl7.pl
+	git add backup/bulletpl8.pl
+	git add backup/bulletpl9.pl
+	git add backup/main.pl
+	git add backup/main2.pl
+	git add backup/main3.pl
+	git add backup/ob2.pl
+	git add backup/pce/ob1.pl
+	git add backup/pce/ob2.pl
+	git add backup/syntax_test.pl
+	swipl bulletpl10pce.pl
+run1:
 	swipl bulletpl10pce.pl -- 'bulletpl/ex1/rand.pl' \
 	 'bulletpl/ex1/cross1.pl' \
 	 'bulletpl/ex1/cross2.pl' \
