@@ -1,23 +1,7 @@
 run:
-	git add backup/a.pl
-	git add backup/bulletpl2.pl
-	git add backup/bulletpl3.pl
-	git add backup/bulletpl4.pl
-	git add backup/bulletpl5.pl
-	git add backup/bulletpl6.pl
-	git add backup/bulletpl7.pl
-	git add backup/bulletpl8.pl
-	git add backup/bulletpl9.pl
-	git add backup/main.pl
-	git add backup/main2.pl
-	git add backup/main3.pl
-	git add backup/ob2.pl
-	git add backup/pce/ob1.pl
-	git add backup/pce/ob2.pl
-	git add backup/syntax_test.pl
-	swipl bulletpl10pce.pl
+	swipl main.pl
 run1:
-	swipl bulletpl10pce.pl -- 'bulletpl/ex1/rand.pl' \
+	swipl main.pl -- 'bulletpl/ex1/rand.pl' \
 	 'bulletpl/ex1/cross1.pl' \
 	 'bulletpl/ex1/cross2.pl' \
 	 'bulletpl/ex1/dirSeq8.pl' \
@@ -29,100 +13,100 @@ run1:
 	 'bulletpl/ex1/f3.pl' \
 	 'bulletpl/ex1/f2.pl' \
 	 'bulletpl/ex1/bulletRef.pl'
-	swipl bulletpl10pce.pl -- 'bulletpl/[ESP_RADE]_round_5_alice_clone.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_backfire.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_guruguru.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_housya.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_progear_cheap_fake.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_zako_atack.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_aba_4.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_4_boss_1.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_4_boss_2.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_5.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Dodonpachi]_kitiku_2.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_2.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Garegga]_black_heart_mk2_winder.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Progear]_round_5_boss_last_round_wave.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Progear]_round_5_middle_boss_rockets.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Progear]_round_9_boss.xml' #ok1
-	swipl bulletpl10pce.pl -- 'bulletpl/[SilverGun]_4D_boss_PENTA.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[XEVIOUS]_garu_zakato.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/zakato.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_kagome.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_knight_1.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[tenmado]_5_boss_1.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_aba_1.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_aba_3.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_hibachi_1.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_hibachi_2.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_hibachi_4.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_4.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Guwange]_round_4_boss_eye_ball.xml' # ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Ketui_LT]_3boss_kunekune.xml' #ok ayashi
-	swipl bulletpl10pce.pl -- 'bulletpl/[MDA]_acc_n_dec.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[MDA]_double_w.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[MDA]_gnnnyari.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[MDA]_mojya.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Noiz2sa]_bit.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_dokkaan.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_hasami.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_knight_3.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_oogi_hutatsu.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_sakuretudan.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_star_in_the_sky.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_stone6.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_tsunami.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[OtakuTwo]_dis_bee_3.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[OtakuTwo]_self-1020.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Progear]_round_1_boss_grow_bullets.xml' #ok ayashi
-	swipl bulletpl10pce.pl -- 'bulletpl/[Progear]_round_2_boss_struggling.xml' #ok ayashi
-	swipl bulletpl10pce.pl -- 'bulletpl/[Psyvariar]_4-D_boss_MZIQ.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Psyvariar]_X-A_boss_opening.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Psyvariar]_X-B_colony_shape_satellite.xml' #ok
-	swipl bulletpl10pce.pl -- 'bulletpl/[Strikers1999]_hanabi.xml' #ok
+	swipl main.pl -- 'bulletpl/[ESP_RADE]_round_5_alice_clone.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_backfire.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_guruguru.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_housya.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_progear_cheap_fake.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_zako_atack.xml' #ok
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_aba_4.xml' #ok
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_4_boss_1.xml' #ok
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_4_boss_2.xml' #ok
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_5.xml' #ok
+	swipl main.pl -- 'bulletpl/[Dodonpachi]_kitiku_2.xml' #ok
+	swipl main.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_2.xml' #ok
+	swipl main.pl -- 'bulletpl/[Garegga]_black_heart_mk2_winder.xml' #ok
+	swipl main.pl -- 'bulletpl/[Progear]_round_5_boss_last_round_wave.xml' #ok
+	swipl main.pl -- 'bulletpl/[Progear]_round_5_middle_boss_rockets.xml' #ok
+	swipl main.pl -- 'bulletpl/[Progear]_round_9_boss.xml' #ok1
+	swipl main.pl -- 'bulletpl/[SilverGun]_4D_boss_PENTA.xml' #ok
+	swipl main.pl -- 'bulletpl/[XEVIOUS]_garu_zakato.xml' #ok
+	swipl main.pl -- 'bulletpl/zakato.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_kagome.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_knight_1.xml' #ok
+	swipl main.pl -- 'bulletpl/[tenmado]_5_boss_1.xml' #ok
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_aba_1.xml' #ok
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_aba_3.xml' #ok
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_hibachi_1.xml' #ok
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_hibachi_2.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_hibachi_4.xml'
+	swipl main.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_4.xml'
+	swipl main.pl -- 'bulletpl/[Guwange]_round_4_boss_eye_ball.xml' # ok
+	swipl main.pl -- 'bulletpl/[Ketui_LT]_3boss_kunekune.xml' #ok ayashi
+	swipl main.pl -- 'bulletpl/[MDA]_acc_n_dec.xml' #ok
+	swipl main.pl -- 'bulletpl/[MDA]_double_w.xml' #ok
+	swipl main.pl -- 'bulletpl/[MDA]_gnnnyari.xml' #ok
+	swipl main.pl -- 'bulletpl/[MDA]_mojya.xml' #ok
+	swipl main.pl -- 'bulletpl/[Noiz2sa]_bit.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_dokkaan.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_hasami.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_knight_3.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_oogi_hutatsu.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_sakuretudan.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_star_in_the_sky.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_stone6.xml' #ok
+	swipl main.pl -- 'bulletpl/[Original]_tsunami.xml' #ok
+	swipl main.pl -- 'bulletpl/[OtakuTwo]_dis_bee_3.xml' #ok
+	swipl main.pl -- 'bulletpl/[OtakuTwo]_self-1020.xml' #ok
+	swipl main.pl -- 'bulletpl/[Progear]_round_1_boss_grow_bullets.xml' #ok ayashi
+	swipl main.pl -- 'bulletpl/[Progear]_round_2_boss_struggling.xml' #ok ayashi
+	swipl main.pl -- 'bulletpl/[Psyvariar]_4-D_boss_MZIQ.xml' #ok
+	swipl main.pl -- 'bulletpl/[Psyvariar]_X-A_boss_opening.xml' #ok
+	swipl main.pl -- 'bulletpl/[Psyvariar]_X-B_colony_shape_satellite.xml' #ok
+	swipl main.pl -- 'bulletpl/[Strikers1999]_hanabi.xml' #ok
 	make run2
 run2: bulletref_param_ok ayashii_ok fspd_ok pspd_ok pdir_ok param_ok_evalSpdDir param_ok prolog_syntax_ok pdir_kieru_ok top1_action_ok heavy_ok
 bulletref_param_ok:
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_aba_2.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_aba_6.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_convergent.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Bulletsmorph]_double_seduction.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_3_boss.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_4_boss.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_5_boss_2.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_1.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_3.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_4.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_3.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Guwange]_round_3_boss_fast_3way.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_accusation.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_balloon_bomb.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_btb_1.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_btb_2.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_btb_3.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_btb_4.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_btb_5.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_btb_6.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_censored.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_chimera.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_ellipse_bomb.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_fujin_ranbu_fake.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_fujin_ranbu_true.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_hajike.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_knight_2.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_knight_4.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_light_lv10.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_light_lv25.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_light_max.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_pan.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_water_lv10.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Original]_water_max.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[OtakuTwo]_self-2010.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[OtakuTwo]_self-2011.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[Progear]_round_3_boss_wave_bullets.xml'
-	swipl bulletpl10pce.pl -- 'bulletpl/[xsoldier]_8_boss_main.xml'
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_aba_2.xml'
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_aba_6.xml'
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_convergent.xml'
+	swipl main.pl -- 'bulletpl/[Bulletsmorph]_double_seduction.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_3_boss.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_4_boss.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_5_boss_2.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_1.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_3.xml'
+	swipl main.pl -- 'bulletpl/[Daiouzyou]_round_6_boss_4.xml'
+	swipl main.pl -- 'bulletpl/[ESP_RADE]_round_5_boss_gara_3.xml'
+	swipl main.pl -- 'bulletpl/[Guwange]_round_3_boss_fast_3way.xml'
+	swipl main.pl -- 'bulletpl/[Original]_accusation.xml'
+	swipl main.pl -- 'bulletpl/[Original]_balloon_bomb.xml'
+	swipl main.pl -- 'bulletpl/[Original]_btb_1.xml'
+	swipl main.pl -- 'bulletpl/[Original]_btb_2.xml'
+	swipl main.pl -- 'bulletpl/[Original]_btb_3.xml'
+	swipl main.pl -- 'bulletpl/[Original]_btb_4.xml'
+	swipl main.pl -- 'bulletpl/[Original]_btb_5.xml'
+	swipl main.pl -- 'bulletpl/[Original]_btb_6.xml'
+	swipl main.pl -- 'bulletpl/[Original]_censored.xml'
+	swipl main.pl -- 'bulletpl/[Original]_chimera.xml'
+	swipl main.pl -- 'bulletpl/[Original]_ellipse_bomb.xml'
+	swipl main.pl -- 'bulletpl/[Original]_fujin_ranbu_fake.xml'
+	swipl main.pl -- 'bulletpl/[Original]_fujin_ranbu_true.xml'
+	swipl main.pl -- 'bulletpl/[Original]_hajike.xml'
+	swipl main.pl -- 'bulletpl/[Original]_knight_2.xml'
+	swipl main.pl -- 'bulletpl/[Original]_knight_4.xml'
+	swipl main.pl -- 'bulletpl/[Original]_light_lv10.xml'
+	swipl main.pl -- 'bulletpl/[Original]_light_lv25.xml'
+	swipl main.pl -- 'bulletpl/[Original]_light_max.xml'
+	swipl main.pl -- 'bulletpl/[Original]_pan.xml'
+	swipl main.pl -- 'bulletpl/[Original]_water_lv10.xml'
+	swipl main.pl -- 'bulletpl/[Original]_water_max.xml'
+	swipl main.pl -- 'bulletpl/[OtakuTwo]_self-2010.xml'
+	swipl main.pl -- 'bulletpl/[OtakuTwo]_self-2011.xml'
+	swipl main.pl -- 'bulletpl/[Progear]_round_3_boss_wave_bullets.xml'
+	swipl main.pl -- 'bulletpl/[xsoldier]_8_boss_main.xml'
 ayashii_ok:
-	swipl bulletpl10pce.pl -- 'bulletpl/[G_DARIUS]_homing_laser.xml' #ok ayashi
+	swipl main.pl -- 'bulletpl/[G_DARIUS]_homing_laser.xml' #ok ayashi
 	swipl bulletpl10pce.pl -- 'bulletpl/[1943]_rolling_fire.xml' #ok1
 fspd_ok:
 	swipl bulletpl10pce.pl -- 'bulletpl/[ChaosSeed]_big_monkey_boss.xml'
