@@ -7,9 +7,16 @@ disp_bullet(Bs3) :-
   Time2 is Time+max(-1/60,WTime),nb_setval(time,Time2), 
   maplist(disp,Bs3,Bs),assertz(objs(Bs)),retract(objs(_)),(object(@w);throw(close)),
   in_pce_thread((send(@w,flush))),
-  moveShip,getShip(Ship),nb_setval(ship,Ship),
+  send(@img,clear),
+  send(@img,draw_in,@view,point(0,0)),
+  nb_getval(cnt,Cnt),Cnt1 is Cnt+1,nb_setval(cnt,Cnt1),
+  format(atom(Name),'test_~05d.gif',[Cnt]),
+
+  send(@img,save,Name,gif),
+  getShip(Ship),nb_setval(ship,Ship),
   !.
 disp(B,(X,Y,B.c)) :- ratio(Ratio),X is Ratio * B.x,Y is Ratio * B.y.
+:- nb_setval(cnt,0).
 ratio(1.5).
 setShip(Ship) :- bulletpl10:nb_setval(ship,Ship).
 :- pce_begin_class(canvas, graphical,canvas).
@@ -40,6 +47,8 @@ initWindow :-
   ratio(Ratio),
   new(@w, dialog(game)),
   send(@w, size, size(300*Ratio,400*Ratio)),
+  new(@img,image(@nil,300*Ratio,400*Ratio,pixmap)),
+  new(@bmp,bitmap(@img)),
   send(@w,display,new(@view,canvas(300*Ratio,400*Ratio))),
   send(@w,display,new(@text,text(game))),
   send(@w, open),
@@ -47,17 +56,14 @@ initWindow :-
 initShip :-
   ratio(Ratio),
   send(@w, display, new(@area, box(10000,10000))),
-  send(@w, display, new(@ship, box(10,10))),
   send(@area, recogniser,move_gesture(left)),
-  send(@area, center, point(150*Ratio,350*Ratio)),
-  send(@ship, fill_pattern, colour(blue)),
-  send(@ship, pen, 0).
+  send(@area, center, point(150*Ratio,350*Ratio)).
 moveShip :-
   ratio(Ratio),
   get(@area,center,point(PX,PY)),
   X is max(15,min(300*Ratio-15,PX)),Y is max(15,min(400*Ratio-15,PY)),
-  send(@area,center,point(X,Y)),send(@ship,center,point(X,Y)).
-getShip(ship{x:X_,y:Y_}) :- ratio(Ratio),get(@area,center,point(X,Y)),X_ is X/Ratio,Y_ is Y/Ratio.
+  send(@area,center,point(X,Y)).
+getShip(ship{x:X_,y:Y_}) :- moveShip,ratio(Ratio),get(@area,center,point(X,Y)),X_ is X/Ratio,Y_ is Y/Ratio.
 
 main :-
   catch((
